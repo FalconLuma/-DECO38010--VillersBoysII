@@ -13,15 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Fatigue Management App'),
@@ -50,12 +41,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
 
+  // The different pages available from the navigation bar on the home screen
   final List<Widget> _centers = <Widget>[
-    // Settings
+    // Settings screen
     Column(children: const <Widget>[
       Text('Settings')
     ],),
-    // Home
+    // Home screen
     Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -79,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     ),
-    // Account
+    // Account screen
     Column(children: const <Widget>[
       Text('Account')
     ],),
@@ -118,8 +110,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedIconTheme: const IconThemeData(size: 35),
+        unselectedIconTheme: const IconThemeData(size: 35),
       ),
-
     );
   }
 }
