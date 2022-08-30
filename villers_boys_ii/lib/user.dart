@@ -37,4 +37,11 @@ class User {
   double getMemoryBaseline() {
     return _memoryBaseline;
   }
+
+  void reset() {
+    setUserName('Jacob');
+    setAge(32);
+    setReactionBaseline(64);
+    setMemoryBaseline(128);
+  }
 }

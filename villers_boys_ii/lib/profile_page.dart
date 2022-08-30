@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:villers_boys_ii/user.dart';
@@ -104,7 +105,13 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
 
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  // Temporary implementation
+                  widget.user.setReactionBaseline(16.0 + Random().nextInt(256));
+                  widget.user.setMemoryBaseline(16.0 + Random().nextInt(256));
+                });
+              },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
               ),
@@ -120,7 +127,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
 
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  // Temporary implementation
+                  widget.user.reset();
+                });
+              },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
               ),
