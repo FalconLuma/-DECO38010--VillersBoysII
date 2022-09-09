@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/home_page.dart';
+import 'package:villers_boys_ii/user.dart';
 
-void main() => runApp(MaterialApp(
-  home:Home(),
-));
+import 'main_page.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class ReactionTimePage extends StatefulWidget {
+  const ReactionTimePage({Key? key, required this.user}) : super(key: key);
+  final User user;
+
   @override
+  State<ReactionTimePage> createState() => _ReactionTimeState();
+}
+
+class _ReactionTimeState extends State<ReactionTimePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +29,7 @@ class Home extends StatelessWidget {
                         fontSize: 20.0,
                         letterSpacing: 2.0
                     )),
-                ElevatedButton(onPressed: () {Navigator.pushReplacementNamed(context, '/home_page');},
+                ElevatedButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage(user: widget.user) ));},
                   child:Icon(
                     Icons.start_sharp,
                     size: 50,

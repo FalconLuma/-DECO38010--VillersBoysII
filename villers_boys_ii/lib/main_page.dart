@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/reaction_time1.dart';
 
 import 'package:villers_boys_ii/user.dart';
 
@@ -32,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     SettingsPage(user: widget.user),
     HomePage(user: widget.user),
     ProfilePage(user: widget.user),
+    ReactionTimePage(user: widget.user),
   ];
 
   void _onItemTapped(int index) {
@@ -62,9 +64,10 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings', backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account', backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.timer), label: 'ReactionTime', backgroundColor: Colors.blue),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
