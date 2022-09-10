@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class DrivingPage extends StatefulWidget {
-  const DrivingPage({Key? key, required this.title}) : super(key: key);
+  const DrivingPage({Key? key, required this.title, required this.restInterval}) : super(key: key);
 
   final String title;
+  final Duration restInterval;
 
   @override
   State<DrivingPage> createState() => _DrivingPageState();
@@ -12,62 +13,64 @@ class DrivingPage extends StatefulWidget {
 
 class _DrivingPageState extends State<DrivingPage> {
   late Timer _t;
-  late Duration _elapsed;
-  int _timerMode = 0; // 0 = not started, 1 = driving, 2 = paused
+  Duration _totalDuration = const Duration(seconds:0); // The total amount of time the timer has run since the  last reset but before the last pause
+  Duration _elapsed = const Duration(seconds:0); // The amount of time elapsed since hte last pause ended
+  int _timerMode = 0; // 0 = not started, 1 = running, 2 = paused
   final stopwatch = Stopwatch();
   bool _reccStop = false;
 
-  late final _buttonStates = [
-    ElevatedButton(
-      onPressed: () {
-        _startTimer();
-      },
-      style: ElevatedButton.styleFrom(
-        fixedSize: const Size(350, 350),
-        shape: const CircleBorder(),
-      ),
-      child: const Text(
-        'Start Timer',
-        style: TextStyle(fontSize: 75),
-        textAlign: TextAlign.center,
-      ),
-    ),
+  final _buttonTexts = ['Start', 'Pause', 'Resume'];
 
-    ElevatedButton(
-      onPressed: () {
-        _pauseTimer();
+  void _showTimerDialog(BuildContext context) {
+    // Opens a dialog box to choose between pausing or resetting the timer
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text("What would you like to do?", textAlign: TextAlign.center,),
+          children: [
+            MaterialButton(
+              child: Text("Take a Break"),
+              onPressed: () {
+                _pauseTimer();
+                Navigator.of(context).pop();
+              },
+              height: 50,
+            ),
+            MaterialButton(
+              child: Text("End Journey"),
+              onPressed: () {
+                _resetTimer();
+                Navigator.of(context).pop();
+              },
+              height: 50,
+            ),
+          ],
+        );
       },
-      style: ElevatedButton.styleFrom(
-        fixedSize: const Size(350, 350),
-        shape: const CircleBorder(),
-      ),
-      child: const Text(
-        'Pause Timer',
-        style: TextStyle(fontSize: 75),
-        textAlign: TextAlign.center,
-      ),
-    ),
+    );
+  }
 
-    ElevatedButton(
-      onPressed: () {
+  void _timerActions(BuildContext context){
+    // Using hte current timer state decide whether to start the timer or open
+    // the dialog to pause/reset the timer
+    switch(_timerMode){
+      case 0:
         _startTimer();
-      },
-      style: ElevatedButton.styleFrom(
-        fixedSize: const Size(350, 350),
-        shape: const CircleBorder(),
-      ),
-      child: const Text(
-        'Resume',
-        style: TextStyle(fontSize: 75),
-        textAlign: TextAlign.center,
-      ),
-    ),
-  ];
+        break;
+      case 1:
+        _showTimerDialog(context);
+        break;
+      case 2:
+        _startTimer();
+    }
+  }
 
   void _startTimer(){
     setState(() {
       _timerMode = 1;
-      //_reccStop = false;
+      _reccStop = false;
+      _elapsed = const Duration(seconds: 0);
     });
     stopwatch.start();
   }
@@ -75,13 +78,16 @@ class _DrivingPageState extends State<DrivingPage> {
   void _pauseTimer(){
     setState(() {
       _timerMode = 2;
+      _totalDuration += Duration(seconds:_elapsed.inSeconds);
     });
     stopwatch.stop();
+    stopwatch.reset();
   }
 
   void _resetTimer(){
     setState(() {
       _timerMode = 0;
+      _totalDuration = Duration(seconds: 0);
     });
     stopwatch.stop();
     stopwatch.reset();
@@ -95,7 +101,7 @@ class _DrivingPageState extends State<DrivingPage> {
       _elapsed = stopwatch.elapsed;
     });
 
-    if (_elapsed.inSeconds >= 5) {
+    if (_elapsed >= widget.restInterval) {
       setState(() {
         _reccStop = true;
       });
@@ -110,8 +116,8 @@ class _DrivingPageState extends State<DrivingPage> {
   String _timeString(Duration d){
     // Returns a duration in HH:MM:SS Format
     int hours = d.inHours;
-    int mins = d.inMinutes;
-    int secs = d.inSeconds;
+    int mins = d.inMinutes - (hours * 60);
+    int secs = d.inSeconds - (hours * 360) - (mins * 60);
 
     String s = '';
 
@@ -132,11 +138,11 @@ class _DrivingPageState extends State<DrivingPage> {
   
   @override
   void initState() {
-    _t = Timer.periodic(const Duration(milliseconds: 50), (timer) {
+    //Called during initializing the screen
+    // Sets up the timer for refresh()
+    _t = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       _refresh();
     });
-
-    _elapsed = const Duration(seconds:0);
   }
 
   @override
@@ -154,10 +160,21 @@ class _DrivingPageState extends State<DrivingPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _buttonStates[_timerMode],
-              Text(_timeString(_elapsed),
-                style: TextStyle(fontSize: 75),
-                textAlign: TextAlign.center,),
+              ElevatedButton(
+                onPressed: () {
+                  _timerActions(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(350, 350),
+                  shape: const CircleBorder(),
+                ),
+                child:
+                Text(
+                  _buttonTexts[_timerMode] + '\n' + _timeString(_elapsed + _totalDuration),
+                  style: TextStyle(fontSize: 75),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               Visibility(visible: _reccStop,
                 replacement: const Text('No Recommendations',
                     style: TextStyle(fontSize: 30),
@@ -167,14 +184,10 @@ class _DrivingPageState extends State<DrivingPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              ElevatedButton(onPressed: (){
-                _resetTimer();
-              }, child: const Text('Reset')),
             ],
           ),
         ],
       )
-
     );
   }
 }

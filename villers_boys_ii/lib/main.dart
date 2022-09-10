@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'package:villers_boys_ii/main_page.dart';
+import 'package:villers_boys_ii/driving_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(title: 'Fatigue Management App', user: User("Jacob", 32, 64, 128)),
+      home: DrivingPage(title: 'Driving Page', restInterval: Duration(seconds: 5))
+      //home: MainPage(title: 'Fatigue Management App', user: User("Jacob", 32, 64, 128)),
     );
   }
 }
