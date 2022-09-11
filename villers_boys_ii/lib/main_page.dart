@@ -6,9 +6,12 @@ import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/settings_page.dart';
 import 'package:villers_boys_ii/home_page.dart';
 import 'package:villers_boys_ii/profile_page.dart';
+import 'package:villers_boys_ii/questionaire_start.dart';
+import 'package:villers_boys_ii/questionaire_test.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, required this.title, required this.user}) : super(key: key);
+  const MainPage({Key? key, required this.title, required this.user})
+      : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -34,6 +37,8 @@ class _MainPageState extends State<MainPage> {
     HomePage(user: widget.user),
     ProfilePage(user: widget.user),
     ReactionTimePage(user: widget.user),
+    QuestionairePage(user: widget.user),
+    QuestionaireTestPage(user: widget.user),
   ];
 
   void _onItemTapped(int index) {
@@ -60,14 +65,25 @@ class _MainPageState extends State<MainPage> {
           padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
-          child: pages[_selectedIndex]
-      ),
+          child: pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings', backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account', backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.timer), label: 'ReactionTime', backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+              backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+              backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Account',
+              backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.timer),
+              label: 'ReactionTime',
+              backgroundColor: Colors.blue),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

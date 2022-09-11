@@ -41,7 +41,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             TextField(
               decoration: InputDecoration(
                 labelText: "User Name",
@@ -58,7 +57,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
               },
             ),
-
             TextField(
               decoration: InputDecoration(
                 labelText: "Age",
@@ -76,7 +74,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
               },
             ),
-
             const Padding(
               padding: EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
@@ -85,7 +82,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
               child: Text(
@@ -94,16 +90,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 15, right: 16, bottom: 30),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 15, right: 16, bottom: 30),
               child: Text(
                 'Memory: ${widget.user.getMemoryBaseline().toString()}',
                 style: const TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
             ),
-
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -121,11 +116,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             const SizedBox(
               height: 30,
             ),
-
             ElevatedButton(
               onPressed: () {
                 setState(() {

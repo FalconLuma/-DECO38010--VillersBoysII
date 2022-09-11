@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:villers_boys_ii/user.dart';
+import 'package:villers_boys_ii/questionaire_start.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -27,7 +28,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => QuestionairePage(user: widget.user)));
+            },
             style: ElevatedButton.styleFrom(
               fixedSize: const Size(350, 350),
               shape: const CircleBorder(),
