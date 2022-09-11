@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class DrivingPage extends StatefulWidget {
-  const DrivingPage({Key? key, required this.title, required this.restInterval}) : super(key: key);
+  const DrivingPage({Key? key, required this.restInterval}) : super(key: key);
 
-  final String title;
   final Duration restInterval;
 
   @override
@@ -52,7 +51,7 @@ class _DrivingPageState extends State<DrivingPage> {
   }
 
   void _timerActions(BuildContext context){
-    // Using hte current timer state decide whether to start the timer or open
+    // Using the current timer state decide whether to start the timer or open
     // the dialog to pause/reset the timer
     switch(_timerMode){
       case 0:
@@ -151,7 +150,7 @@ class _DrivingPageState extends State<DrivingPage> {
       appBar: AppBar(
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('Driving Page'),
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,

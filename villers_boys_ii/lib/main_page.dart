@@ -8,6 +8,7 @@ import 'package:villers_boys_ii/home_page.dart';
 import 'package:villers_boys_ii/profile_page.dart';
 import 'package:villers_boys_ii/questionaire_start.dart';
 import 'package:villers_boys_ii/questionaire_test.dart';
+import 'package:villers_boys_ii/driving_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key, required this.title, required this.user})
@@ -37,6 +38,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(user: widget.user),
     ProfilePage(user: widget.user),
     ReactionTimePage(user: widget.user),
+    DrivingPage(restInterval: Duration(seconds: 5)),
     QuestionairePage(user: widget.user),
     QuestionaireTestPage(user: widget.user),
   ];
@@ -82,6 +84,10 @@ class _MainPageState extends State<MainPage> {
               backgroundColor: Colors.blue),
           BottomNavigationBarItem(
               icon: Icon(Icons.timer),
+              label: 'ReactionTime',
+              backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.car_crash),
               label: 'ReactionTime',
               backgroundColor: Colors.blue),
         ],

@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DrivingPage(title: 'Driving Page', restInterval: Duration(seconds: 5))
-      //home: MainPage(title: 'Fatigue Management App', user: User("Jacob", 32, 64, 128)),
+      home: MainPage(title: 'Fatigue Management App', user: User("Jacob", 32, 64, 128)),
     );
   }
 }
