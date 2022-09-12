@@ -14,6 +14,12 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   int _counter = 0;
   int _score = 0;
   int _flag = 0;
+
+  Future<void> wait() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return;
+  }
+
   //Create a list of the questions
   //--------------------------------------------------------
   List<int> prevScore = [
@@ -30,16 +36,16 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> qNum = const [
-    'Question 1/10:',
-    'Question 2/10:',
-    'Question 3/10:',
-    'Question 4/10:',
-    'Question 5/10:',
-    'Question 6/10:',
-    'Question 7/10:',
-    'Question 8/10:',
-    'Question 9/10:',
-    'Question 10/10:',
+    'Question 1/10',
+    'Question 2/10',
+    'Question 3/10',
+    'Question 4/10',
+    'Question 5/10',
+    'Question 6/10',
+    'Question 7/10',
+    'Question 8/10',
+    'Question 9/10',
+    'Question 10/10',
   ];
 
   List<String> questions = const [
@@ -204,8 +210,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
       });
     }
     return GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          if (details.delta.dx > 8) {
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity != null &&
+              details.primaryVelocity! <= 0) {
             setState(() {
               if (_counter == 0) {
                 _counter = 0;
@@ -236,120 +243,140 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
               // center the children vertically; the main axis here is the vertical
               // axis because Columns are vertical (the cross axis would be
               // horizontal).
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Score: $_score',
+                // Text(
+                //   'Score: $_score',
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    qNum[_counter],
+                    style: const TextStyle(fontSize: 25),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                Text(
-                  qNum[_counter],
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 40),
+                  child: Text(
+                    questions[_counter],
+                    style: const TextStyle(fontSize: 25),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                Text(
-                  questions[_counter],
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        prevScore[_counter] = _score;
-                        _score = _score + firstAnswerScore[_counter];
-                        _counter++;
-                        if (_counter == 10) {
-                          _counter = 0;
-                          _flag = 1;
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  QuestionaireTestPage(user: widget.user)));
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 50),
-                    ),
-                    child: Text(
-                      firstAnswer[_counter],
-                      style: const TextStyle(fontSize: 23),
-                      textAlign: TextAlign.center,
-                    )),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        prevScore[_counter] = _score;
-                        _score = _score + secondAnswerScore[_counter];
-                        _counter++;
-                        if (_counter == 10) {
-                          _counter = 0;
-                          _flag = 1;
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 50),
-                    ),
-                    child: Text(
-                      secondAnswer[_counter],
-                      style: const TextStyle(fontSize: 23),
-                      textAlign: TextAlign.center,
-                    )),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        prevScore[_counter] = _score;
-                        _score = _score + thirdAnswerScore[_counter];
-                        _counter++;
-                        if (_counter == 10) {
-                          _counter = 0;
-                          _flag = 1;
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 50),
-                    ),
-                    child: Text(
-                      thirdAnswer[_counter],
-                      style: const TextStyle(fontSize: 23),
-                      textAlign: TextAlign.center,
-                    )),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        prevScore[_counter] = _score;
-                        _score = _score + fourthAnswerScore[_counter];
-                        _counter++;
-                        if (_counter == 10) {
-                          _counter = 0;
-                          _flag = 1;
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 50),
-                    ),
-                    child: Text(
-                      FourthAnswer[_counter],
-                      style: const TextStyle(fontSize: 23),
-                      textAlign: TextAlign.center,
-                    )),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        prevScore[_counter] = _score;
-                        _score = _score + fifthAnswerScore[_counter];
-                        _counter++;
-                        if (_counter == 10) {
-                          _counter = 0;
-                          _flag = 1;
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 50),
-                    ),
-                    child: Text(
-                      fifthAnswer[_counter],
-                      style: const TextStyle(fontSize: 23),
-                      textAlign: TextAlign.center,
-                    )),
+                Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            prevScore[_counter] = _score;
+                            _score = _score + firstAnswerScore[_counter];
+                            _counter++;
+                            if (_counter == 10) {
+                              _counter = 0;
+                              _flag = 1;
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      QuestionaireTestPage(user: widget.user)));
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(300, 75),
+                        ),
+                        child: Text(
+                          firstAnswer[_counter],
+                          style: const TextStyle(fontSize: 23),
+                          textAlign: TextAlign.center,
+                        ))),
+                Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            prevScore[_counter] = _score;
+                            _score = _score + secondAnswerScore[_counter];
+                            _counter++;
+                            if (_counter == 10) {
+                              _counter = 0;
+                              _flag = 1;
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(300, 75),
+                        ),
+                        child: Text(
+                          secondAnswer[_counter],
+                          style: const TextStyle(fontSize: 23),
+                          textAlign: TextAlign.center,
+                        ))),
+                Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            prevScore[_counter] = _score;
+                            _score = _score + thirdAnswerScore[_counter];
+                            _counter++;
+                            if (_counter == 10) {
+                              _counter = 0;
+                              _flag = 1;
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(300, 75),
+                        ),
+                        child: Text(
+                          thirdAnswer[_counter],
+                          style: const TextStyle(fontSize: 23),
+                          textAlign: TextAlign.center,
+                        ))),
+                Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            prevScore[_counter] = _score;
+                            _score = _score + fourthAnswerScore[_counter];
+                            _counter++;
+                            if (_counter == 10) {
+                              _counter = 0;
+                              _flag = 1;
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(300, 75),
+                        ),
+                        child: Text(
+                          FourthAnswer[_counter],
+                          style: const TextStyle(fontSize: 23),
+                          textAlign: TextAlign.center,
+                        ))),
+                Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            prevScore[_counter] = _score;
+                            _score = _score + fifthAnswerScore[_counter];
+                            _counter++;
+                            if (_counter == 10) {
+                              _counter = 0;
+                              _flag = 1;
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(300, 75),
+                        ),
+                        child: Text(
+                          fifthAnswer[_counter],
+                          style: const TextStyle(fontSize: 23),
+                          textAlign: TextAlign.center,
+                        ))),
               ],
             ),
           ), // This trailing comma makes auto-formatting nicer for build methods.
