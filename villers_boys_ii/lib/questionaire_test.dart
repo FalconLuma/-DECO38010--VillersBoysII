@@ -225,6 +225,11 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
           }
         },
         child: Scaffold(
+          appBar: AppBar(
+            // Here we take the value from the HomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text('Fatigue Management App'),
+          ),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
@@ -257,7 +262,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 40),
+                  padding: const EdgeInsets.only(top: 10, bottom: 25),
                   child: Text(
                     questions[_counter],
                     style: const TextStyle(fontSize: 25),
@@ -265,7 +270,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -290,7 +295,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -312,7 +317,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -334,7 +339,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -356,7 +361,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(15),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
