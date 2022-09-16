@@ -15,6 +15,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   int _score = 0;
   int _flag = 0;
 
+  double _ebHeight = 0.1;
+  double _ebWidth = 0.7;
+
   Future<void> wait() async {
     await Future.delayed(const Duration(seconds: 1));
     return;
@@ -229,6 +232,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             // Here we take the value from the HomePage object that was created by
             // the App.build method, and use it to set our appbar title.
             title: Text('Fatigue Management App'),
+
           ),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
@@ -254,23 +258,23 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                 //   'Score: $_score',
                 // ),
                 Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
                   child: Text(
                     qNum[_counter],
-                    style: const TextStyle(fontSize: 25),
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 25),
+                  padding: EdgeInsets.only(top: 10, bottom: MediaQuery.of(context).size.height * 0.015),
                   child: Text(
                     questions[_counter],
-                    style: const TextStyle(fontSize: 25),
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -287,15 +291,17 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 75),
+                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                              MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           firstAnswer[_counter],
                           style: const TextStyle(fontSize: 23),
                           textAlign: TextAlign.center,
-                        ))),
+                        ),
+                    )),
                 Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -309,7 +315,8 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 75),
+                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                              MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           secondAnswer[_counter],
@@ -317,7 +324,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -331,7 +338,8 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 75),
+                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                              MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           thirdAnswer[_counter],
@@ -339,7 +347,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -353,7 +361,8 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 75),
+                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                              MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           FourthAnswer[_counter],
@@ -361,7 +370,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -375,7 +384,8 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 75),
+                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                              MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           fifthAnswer[_counter],
