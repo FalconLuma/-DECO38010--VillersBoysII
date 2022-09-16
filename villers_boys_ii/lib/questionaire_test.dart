@@ -211,8 +211,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     }
     return GestureDetector(
         onHorizontalDragEnd: (DragEndDetails details) {
-          if (details.primaryVelocity != null &&
-              details.primaryVelocity! <= 0) {
+          if (details.primaryVelocity! > 0) {
             setState(() {
               if (_counter == 0) {
                 _counter = 0;
