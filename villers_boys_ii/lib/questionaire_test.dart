@@ -296,7 +296,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           firstAnswer[_counter],
-                          style: const TextStyle(fontSize: 23),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                           textAlign: TextAlign.center,
                         ),
                     )),
@@ -320,7 +320,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           secondAnswer[_counter],
-                          style: const TextStyle(fontSize: 23),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
@@ -343,7 +343,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           thirdAnswer[_counter],
-                          style: const TextStyle(fontSize: 23),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
@@ -366,7 +366,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           FourthAnswer[_counter],
-                          style: const TextStyle(fontSize: 23),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
@@ -389,7 +389,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           fifthAnswer[_counter],
-                          style: const TextStyle(fontSize: 23),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
                           textAlign: TextAlign.center,
                         ))),
               ],
