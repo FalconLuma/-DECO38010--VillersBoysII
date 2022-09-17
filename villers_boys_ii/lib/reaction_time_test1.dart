@@ -7,7 +7,6 @@ import 'main_page.dart';
 class ReactionTimeTest extends StatefulWidget {
   const ReactionTimeTest({Key? key, required this.user}) : super(key: key);
   final User user;
-
   @override
   State<ReactionTimeTest> createState() => _ReactionTestState();
 }
@@ -44,9 +43,6 @@ class _ReactionTestState extends State<ReactionTimeTest> {
       ),
       body: Center(
         child: Column(children: [
-          Row(
-            children: [
-
               Align(
                 alignment: Alignment.centerLeft,
                 child:ElevatedButton(
@@ -57,17 +53,23 @@ class _ReactionTestState extends State<ReactionTimeTest> {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                     onPressed: (){}, child: const Text("Top Right")
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child:ElevatedButton(
-                      onPressed: (){}, child: const Text("Bottom Left")
-                  )
+                )
+              ),
+          SizedBox(
+                height: 150,
+                width: 200,
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child:ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder( //to set border radius to button
+                            borderRadius: BorderRadius.circular(30)
+                        ),
+                        fixedSize: const Size(200, 150)
+                      ),
+                      onPressed: (){}, child: Text("Bottom Left",),
+                    )
+                )
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -76,9 +78,6 @@ class _ReactionTestState extends State<ReactionTimeTest> {
                 ),
               )
             ],
-          )
-        ],
-
         )
       )
     );
