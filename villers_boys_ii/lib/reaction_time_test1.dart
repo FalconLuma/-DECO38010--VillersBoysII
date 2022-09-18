@@ -5,10 +5,32 @@ class ReactionTimeTest extends StatefulWidget {
   const ReactionTimeTest({Key? key, required this.user}) : super(key: key);
   final User user;
   @override
-  State<ReactionTimeTest> createState() => _ReactionTestState();
+  State<ReactionTimeTest> createState() => ReactionTimeIntro();
 }
 
-class _ReactionTestState extends State<ReactionTimeTest> {
+class ReactionTimeIntro extends State<ReactionTimeTest> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text(
+            "Tap screen when you are ready to start",
+            style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
+          )
+
+      ),
+      body: Center(
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => ReactionTestState(),
+        ),
+    )
+    );
+  }
+}
+
+class ReactionTestState extends State<ReactionTimeTest> {
   int _tnum = 0; // Test number
 
   // Create a list of reaction times
@@ -24,8 +46,6 @@ class _ReactionTestState extends State<ReactionTimeTest> {
     0,
     0,
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
