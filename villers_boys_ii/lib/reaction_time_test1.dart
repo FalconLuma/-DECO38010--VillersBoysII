@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
-
-import 'main_page.dart';
 
 class ReactionTimeTest extends StatefulWidget {
   const ReactionTimeTest({Key? key, required this.user}) : super(key: key);
@@ -32,6 +29,8 @@ class _ReactionTestState extends State<ReactionTimeTest> {
 
   @override
   Widget build(BuildContext context) {
+    double WIDTH = (MediaQuery. of(context). size. width) / 2;
+    double HEIGHT = (MediaQuery. of(context). size. height) / 6;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -42,42 +41,77 @@ class _ReactionTestState extends State<ReactionTimeTest> {
 
       ),
       body: Center(
-        child: Column(children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child:ElevatedButton(
-                    onPressed: (){}, child: const Text("Top Left")
-                )
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                    onPressed: (){}, child: const Text("Top Right")
-                )
-              ),
-          SizedBox(
-                height: 150,
-                width: 200,
-                child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child:ElevatedButton(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  height: HEIGHT,
+                  width: WIDTH,
+                  child:
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: ElevatedButton(
+                      onPressed: (){}, child: const Text("Top Left"),
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder( //to set border radius to button
-                            borderRadius: BorderRadius.circular(30)
-                        ),
-                        fixedSize: const Size(200, 150)
+                          primary: Colors.lightBlueAccent,
+                          fixedSize: Size(WIDTH, HEIGHT),
                       ),
-                      onPressed: (){}, child: Text("Bottom Left",),
-                    )
-                )
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: HEIGHT,
+                  width: WIDTH,
+                  child:
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: ElevatedButton(
+                      onPressed: (){}, child: const Text("Top Right"),
+                      style: ElevatedButton.styleFrom(
+
+                          fixedSize: Size(WIDTH, HEIGHT)
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          Row(
+            children: [
+              SizedBox(
+                  height: HEIGHT,
+                  width: WIDTH,
+                  child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child:ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            fixedSize: Size(WIDTH, HEIGHT)
+                        ),
+                        onPressed: (){}, child: Text("Bottom Left",),
+                      )
+                  )
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: ElevatedButton(
-                    onPressed: (){}, child: const Text("Bottom Right")
+              SizedBox(
+                height: HEIGHT,
+                width: WIDTH,
+                child:
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                    onPressed: (){}, child: const Text("Bottom Right"),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.lightBlueAccent,
+                        fixedSize: Size(WIDTH, HEIGHT)
+                    ),
+                  ),
                 ),
               )
             ],
+          )
+        ],
         )
       )
     );
