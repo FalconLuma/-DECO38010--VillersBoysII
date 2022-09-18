@@ -44,6 +44,13 @@ class _DrivingPageState extends State<DrivingPage> {
               },
               height: 50,
             ),
+            MaterialButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              height: 50,
+            ),
           ],
         );
       },
