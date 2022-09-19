@@ -4,8 +4,9 @@ import 'package:villers_boys_ii/user.dart';
 class ReactionTimeTest extends StatefulWidget {
   const ReactionTimeTest({Key? key, required this.user}) : super(key: key);
   final User user;
+
   @override
-  State<ReactionTimeTest> createState() => ReactionTimeIntro();
+  State<ReactionTimeTest> createState() => ReactionTestState();
 }
 
 class ReactionTimeIntro extends State<ReactionTimeTest> {
@@ -21,9 +22,14 @@ class ReactionTimeIntro extends State<ReactionTimeTest> {
 
       ),
       body: Center(
-        child: GestureDetector(
+        child:
+          GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => ReactionTestState(),
+          onTap: () => setState(() {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                ReactionTimeTest(user: widget.user)));
+          }),
         ),
     )
     );
@@ -31,6 +37,7 @@ class ReactionTimeIntro extends State<ReactionTimeTest> {
 }
 
 class ReactionTestState extends State<ReactionTimeTest> {
+  bool shownIntro = false;
   int _tnum = 0; // Test number
 
   // Create a list of reaction times
@@ -49,6 +56,12 @@ class ReactionTestState extends State<ReactionTimeTest> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (true) {
+      setState(() {
+        ReactionTimeIntro();
+      });
+    }
     double WIDTH = (MediaQuery. of(context). size. width) / 2;
     double HEIGHT = (MediaQuery. of(context). size. height) / 6;
     return Scaffold(
