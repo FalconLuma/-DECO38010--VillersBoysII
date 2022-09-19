@@ -1,7 +1,7 @@
 /// Global size multipliers
 /// Usage: MediaQuery.of(context).size.<width/height> * CONSTANT
 
-// Text Sizes
+// Text Sizes - Relative to size.height
 const double HEADING_TEXT_SIZE = 0.06;
 const double SUBHEADING_TEXT_SIZE = 0.045;
 const double BODY_TEXT_SIZE = 0.03;

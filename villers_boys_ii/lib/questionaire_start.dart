@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/questionaire_test.dart';
 import 'package:villers_boys_ii/user.dart';
 
@@ -21,12 +22,12 @@ class _QuestionaireState extends State<QuestionairePage> {
       body: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [
-            const Text(
+            Text(
                 'Before you begin driving you will need to complete some quick questionnaires and tests'
                 ' to establish a level of fatigue. The following activity is a 10 questions questionnaire with 5 potential answers. '
                 'Please answer each question honestly and to the best of your ability. If you answer a question incorrectly feel free to swipe'
                 'back to the previous question',
-                style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE, letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
