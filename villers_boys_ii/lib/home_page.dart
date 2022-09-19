@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/constants.dart';
 
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/questionaire_start.dart';
@@ -27,8 +28,11 @@ class _HomePageState extends State<HomePage> {
                 bottom: MediaQuery.of(context).size.height*0.02),
                 child: Text(
                   'Welcome ${widget.user.getUserName()}',
-                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.11),
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * HEADING_TEXT_SIZE
+                  ),
                   textAlign: TextAlign.center,
+                  softWrap: true,
 
                 ),
               ),
@@ -38,12 +42,13 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => QuestionairePage(user: widget.user)));
                 },
                 style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width * 0.85, MediaQuery.of(context).size.width * 0.85),
+                  fixedSize: Size(MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE
+                      , MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
                   shape: const CircleBorder(),
                 ),
                 child: Text(
                   'Start Driving',
-                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.2),
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*MAIN_BUTTON_TEXT_SIZE),
                   textAlign: TextAlign.center,
                 ),
               ),

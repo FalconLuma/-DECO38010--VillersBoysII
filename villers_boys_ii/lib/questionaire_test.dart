@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/reaction_time1.dart';
+import 'package:villers_boys_ii/constants.dart';
 
 class QuestionaireTestPage extends StatefulWidget {
   const QuestionaireTestPage({Key? key, required this.user}) : super(key: key);
@@ -15,8 +16,10 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   int _score = 0;
   int _flag = 0;
 
-  double _ebHeight = 0.1;
-  double _ebWidth = 0.7;
+  // Answer button dimensions
+  final double _ebHeight = 0.1;
+  final double _ebWidth = 0.7;
+  final double _ebPadding = 0.02;
 
   Future<void> wait() async {
     await Future.delayed(const Duration(seconds: 1));
@@ -261,7 +264,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                   padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
                   child: Text(
                     qNum[_counter],
-                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -269,12 +272,12 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                   padding: EdgeInsets.only(top: 10, bottom: MediaQuery.of(context).size.height * 0.015),
                   child: Text(
                     questions[_counter],
-                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -296,12 +299,12 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           firstAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ),
                     )),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -320,11 +323,11 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           secondAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -343,11 +346,11 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           thirdAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -366,11 +369,11 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           FourthAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -389,7 +392,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                         ),
                         child: Text(
                           fifthAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.03),
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
               ],
