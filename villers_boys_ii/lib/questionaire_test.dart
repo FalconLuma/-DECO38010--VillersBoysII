@@ -55,29 +55,29 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> questions = const [
-    'How many hours of sleep have you averaged per night this week?',
-    'On average how interrupted/disturbed has your recent sleep been?',
-    'How many hours of sleep did you manage last night?',
-    'I have been getting tired quickly in the last week?',
-    'I have had the energy for everyday life in the last week?',
-    'I have had problems thinking clearly in the last week?',
+    'Over the last week I have averaged x hours of sleep per night.',
+    'Over the last week how interrupted has your sleep been?',
+    'Last night I averaged x hours of sleep.',
+    'Over the last week I have found myself feeling tired before half my day has passed.',
+    'Over the last week I have completed my daily routine without needing an additional pick-me-up (e.g. coffee/energy drink).',
+    'Over the last week I have had problems concentrating and thinking clearly.',
     'I have been yawning frequently today?',
-    'I have been waking up earlier than normal in the last week?',
-    'I have been going to sleep later than normal in the last week?',
-    'I have been waking up in the morning feeling well rested in the last week?',
+    'Over the last week I have been starting my day earlier than normal.',
+    'Over the last week I have been falling asleep later than normal.',
+    'Over the last week I have been waking up feeling well rested and refreshed.',
   ];
 
   List<String> firstAnswer = const [
     '0-2',
-    'Uninterrupted',
+    'I slept like a log',
     '8+',
-    'Never',
-    'Never',
-    'Never',
+    'Never (0%)',
+    'Never (0%)',
+    'Never (0%)',
     'Strongly Agree',
-    'Never',
-    'Never',
-    'Never',
+    'Never (0%)',
+    'Never (0%)',
+    'Never (0%)',
   ];
 
   List<int> firstAnswerScore = const [
@@ -95,15 +95,15 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   List<String> secondAnswer = const [
     '2-4',
-    'Woke once or twice',
+    'I woke up briefly once or twice',
     '6-8',
-    'Sometimes',
-    'Sometimes',
-    'Sometimes',
+    'Sometimes (25%)',
+    'Sometimes (25%)',
+    'Sometimes (25%)',
     'Agree',
-    'Sometimes',
-    'Sometimes',
-    'Sometimes',
+    'Sometimes (25%)',
+    'Sometimes (25%)',
+    'Sometimes (25%)',
   ];
 
   List<int> secondAnswerScore = const [
@@ -121,15 +121,15 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   List<String> thirdAnswer = const [
     '4-6',
-    'Twice or more in one day',
+    'I woke up long enough to feel awake',
     '4-6',
-    'Regularly',
-    'Regularly',
-    'Regularly',
+    'Often (50%)',
+    'Often (50%)',
+    'Often (50%)',
     'Neutral',
-    'Regularly',
-    'Regularly',
-    'Regularly',
+    'Often (50%)',
+    'Often (50%)',
+    'Often (50%)',
   ];
 
   List<int> thirdAnswerScore = const [
@@ -148,15 +148,15 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   // ignore: non_constant_identifier_names
   List<String> FourthAnswer = const [
     '6-8',
-    'At least once every day for more than 20min',
+    'I feel like I wake up every few hours',
     '2-4',
-    'Often',
-    'Often',
-    'Often',
+    'Usually (75%)',
+    'Usually (75%)',
+    'Usually (75%)',
     'Disagree',
-    'Often',
-    'Often',
-    'Often',
+    'Usually (75%)',
+    'Usually (75%)',
+    'Usually (75%)',
   ];
 
   List<int> fourthAnswerScore = const [
@@ -174,15 +174,15 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   List<String> fifthAnswer = const [
     '8+',
-    'Every Day and for at least an hour',
+    'I spent more time awake trying to sleep',
     '0-2',
-    'Always',
-    'Always',
-    'Always',
+    'Always (100%)',
+    'Always (100%)',
+    'Always (100%)',
     'Strongly Disagree',
-    'Always',
-    'Always',
-    'Always',
+    'Always (100%)',
+    'Always (100%)',
+    'Always (100%)',
   ];
 
   List<int> fifthAnswerScore = const [
@@ -234,7 +234,6 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             // Here we take the value from the HomePage object that was created by
             // the App.build method, and use it to set our appbar title.
             title: Text('Fatigue Management App'),
-
           ),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
@@ -260,50 +259,62 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                 //   'Score: $_score',
                 // ),
                 Padding(
-                  padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.height * 0.015),
                   child: Text(
                     qNum[_counter],
-                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height *
+                            BODY_TEXT_SIZE),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: MediaQuery.of(context).size.height * 0.015),
+                  padding: EdgeInsets.only(
+                      top: 10,
+                      bottom: MediaQuery.of(context).size.height * 0.015),
                   child: Text(
                     questions[_counter],
-                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height *
+                            BODY_TEXT_SIZE),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            prevScore[_counter] = _score;
-                            _score = _score + firstAnswerScore[_counter];
-                            _counter++;
-                            if (_counter == 10) {
-                              _counter = 0;
-                              _flag = 1;
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      QuestionaireTestPage(user: widget.user)));
-                            }
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
-                              MediaQuery.of(context).size.height * _ebHeight),
-                        ),
-                        child: Text(
-                          firstAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
-                          textAlign: TextAlign.center,
-                        ),
+                      onPressed: () {
+                        setState(() {
+                          prevScore[_counter] = _score;
+                          _score = _score + firstAnswerScore[_counter];
+                          _counter++;
+                          if (_counter == 10) {
+                            _counter = 0;
+                            _flag = 1;
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    QuestionaireTestPage(user: widget.user)));
+                          }
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(
+                            MediaQuery.of(context).size.width * _ebWidth,
+                            MediaQuery.of(context).size.height * _ebHeight),
+                      ),
+                      child: Text(
+                        firstAnswer[_counter],
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.height *
+                                MENU_BUTTON_TEXT_SIZE),
+                        textAlign: TextAlign.center,
+                      ),
                     )),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -317,16 +328,20 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * _ebWidth,
                               MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           secondAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height *
+                                  MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -340,16 +355,20 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * _ebWidth,
                               MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           thirdAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height *
+                                  MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -363,16 +382,20 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * _ebWidth,
                               MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           FourthAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height *
+                                  MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
                 Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.height * _ebPadding),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.height * _ebPadding),
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -386,12 +409,15 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: Size(MediaQuery.of(context).size.width * _ebWidth,
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * _ebWidth,
                               MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
                           fifthAnswer[_counter],
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height *
+                                  MENU_BUTTON_TEXT_SIZE),
                           textAlign: TextAlign.center,
                         ))),
               ],

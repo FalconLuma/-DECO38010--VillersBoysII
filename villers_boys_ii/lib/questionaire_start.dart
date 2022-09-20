@@ -23,11 +23,14 @@ class _QuestionaireState extends State<QuestionairePage> {
           margin: const EdgeInsets.all(10),
           child: Column(children: [
             Text(
-                'Before you begin driving you will need to complete some quick questionnaires and tests'
-                ' to establish a level of fatigue. The following activity is a 10 questions questionnaire with 5 potential answers. '
-                'Please answer each question honestly and to the best of your ability. If you answer a question incorrectly feel free to swipe'
-                'back to the previous question',
-                style: TextStyle(fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE, letterSpacing: 2.0)),
+                'Before you begin driving please complete the following questionnaire.'
+                'The questionnaire will consist of 10 multi-choice questions. Please answer all questions honestly '
+                'and if you believe you have made a mistake feel free to swipe back to the previous question and answer again.'
+                ' After completing the questionaire you will be directed to a reaction test automatically. Select the following button to begin the questionnaire:',
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                    letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
