@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:villers_boys_ii/constants.dart';
 
 class DrivingPage extends StatefulWidget {
   const DrivingPage({Key? key, required this.restInterval}) : super(key: key);
@@ -18,6 +22,10 @@ class _DrivingPageState extends State<DrivingPage> {
   final stopwatch = Stopwatch();
   bool _reccStop = false;
 
+  final _ebHeight = 0.07;
+  final _ebSidePad = 0.02;
+  final _ebTopPad = 0.02;
+
   final _buttonTexts = ['Start', 'Pause', 'Resume'];
 
   void _showTimerDialog(BuildContext context) {
@@ -26,23 +34,55 @@ class _DrivingPageState extends State<DrivingPage> {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: Text("What would you like to do?", textAlign: TextAlign.center,),
+          title: Text("What would you like to do?", textAlign: TextAlign.center,
+          style: TextStyle(fontSize: MediaQuery.of(context).size.height*SUBHEADING_TEXT_SIZE),),
           children: [
-            MaterialButton(
-              child: Text("Take a Break"),
-              onPressed: () {
-                _pauseTimer();
-                Navigator.of(context).pop();
-              },
-              height: 50,
+            Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width*_ebSidePad,
+                    right: MediaQuery.of(context).size.width*_ebSidePad,
+                    top: MediaQuery.of(context).size.height*_ebTopPad),
+                child: ElevatedButton(
+                  child: Text("Take a Break",
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.height*MENU_BUTTON_TEXT_SIZE),),
+                  onPressed: () {
+                    _pauseTimer();
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      fixedSize:Size(MediaQuery.of(context).size.width * 0.05, MediaQuery.of(context).size.height*_ebHeight)),
+                ),
             ),
-            MaterialButton(
-              child: Text("End Journey"),
-              onPressed: () {
-                _resetTimer();
-                Navigator.of(context).pop();
-              },
-              height: 50,
+            Padding(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width*_ebSidePad,
+                  right: MediaQuery.of(context).size.width*_ebSidePad,
+                  top: MediaQuery.of(context).size.height*_ebTopPad),
+              child: ElevatedButton(
+                child: Text("End Journey",
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.height*MENU_BUTTON_TEXT_SIZE),),
+                onPressed: () {
+                  _resetTimer();
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                    fixedSize:Size(MediaQuery.of(context).size.width * 0.05, MediaQuery.of(context).size.height*_ebHeight)),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width*_ebSidePad,
+                  right: MediaQuery.of(context).size.width*_ebSidePad,
+                  top: MediaQuery.of(context).size.height*_ebTopPad),
+              child: ElevatedButton(
+                child: Text("Cancel",
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.height*MENU_BUTTON_TEXT_SIZE),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                    fixedSize:Size(MediaQuery.of(context).size.width * 0.05, MediaQuery.of(context).size.height*_ebHeight)),
+              ),
             ),
           ],
         );
@@ -164,22 +204,24 @@ class _DrivingPageState extends State<DrivingPage> {
                   _timerActions(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(350, 350),
+                  fixedSize: Size(MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
+                      MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
                   shape: const CircleBorder(),
                 ),
                 child:
                 Text(
                   _buttonTexts[_timerMode] + '\n' + _timeString(_elapsed + _totalDuration),
-                  style: TextStyle(fontSize: 75),
+                  style: TextStyle(fontSize: min(MediaQuery.of(context).size.width,
+                  MediaQuery.of(context).size.height) * MAIN_BUTTON_TEXT_SIZE),
                   textAlign: TextAlign.center,
                 ),
               ),
               Visibility(visible: _reccStop,
-                replacement: const Text('No Recommendations',
-                    style: TextStyle(fontSize: 30),
+                replacement: Text('No Recommendations',
+                    style: TextStyle(fontSize: MediaQuery.of(context).size.height*SUBHEADING_TEXT_SIZE),
                     textAlign: TextAlign.center),
-                child: const Text('Rest Recommended',
-                  style: TextStyle(fontSize: 30),
+                child: Text('Rest Recommended',
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.height*SUBHEADING_TEXT_SIZE),
                   textAlign: TextAlign.center,
                 ),
               ),

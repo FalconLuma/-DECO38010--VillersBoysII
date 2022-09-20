@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:villers_boys_ii/user.dart';
+import 'package:villers_boys_ii/constants.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.user}) : super(key: key);
@@ -33,11 +34,11 @@ class _ProfilePageState extends State<ProfilePage> {
         },
         child: ListView(
           children: <Widget>[
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(15),
               child: Text(
                 'Profile',
-                style: TextStyle(fontSize: 50),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.height*HEADING_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -46,8 +47,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 labelText: "User Name",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 hintText: widget.user.getUserName(),
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE
                 ),
               ),
               controller: userNameController,
@@ -62,8 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 labelText: "Age",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 hintText: widget.user.getAge().toString(),
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE
                 ),
               ),
               keyboardType: TextInputType.number,
@@ -74,11 +77,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
               },
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
                 'Calibrated Performance',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.height*SUBHEADING_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -86,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
               child: Text(
                 'Reaction: ${widget.user.getReactionBaseline().toString()}',
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -110,9 +113,9 @@ class _ProfilePageState extends State<ProfilePage> {
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
               ),
-              child: const Text(
+              child: Text(
                 'Recalibrate',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -129,9 +132,9 @@ class _ProfilePageState extends State<ProfilePage> {
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
               ),
-              child: const Text(
+              child: Text(
                 'Reset Profile',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/constants.dart';
 
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/questionaire_start.dart';
@@ -16,34 +17,45 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Text(
-              'Welcome ${widget.user.getUserName()}',
-              style: const TextStyle(fontSize: 50),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => QuestionairePage(user: widget.user)));
-            },
-            style: ElevatedButton.styleFrom(
-              fixedSize: const Size(350, 350),
-              shape: const CircleBorder(),
-            ),
-            child: const Text(
-              'Start Driving',
-              style: TextStyle(fontSize: 75),
-              textAlign: TextAlign.center,
-            ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.02,
+                bottom: MediaQuery.of(context).size.height*0.02),
+                child: Text(
+                  'Welcome ${widget.user.getUserName()}',
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * HEADING_TEXT_SIZE
+                  ),
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => QuestionairePage(user: widget.user)));
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE
+                      , MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
+                  shape: const CircleBorder(),
+                ),
+                child: Text(
+                  'Start Driving',
+                  style: TextStyle(fontSize: MediaQuery.of(context).size.width*MAIN_BUTTON_TEXT_SIZE),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
         ],
-      ),
+      )
     );
   }
 }
