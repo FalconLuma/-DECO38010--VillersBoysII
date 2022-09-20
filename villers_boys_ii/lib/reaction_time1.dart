@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/main_page.dart';
+import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/reaction_time_test1.dart';
 import 'package:villers_boys_ii/user.dart';
 
@@ -30,7 +31,7 @@ class _ReactionTimeState extends State<ReactionTimePage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ReactionTimeTest( user: widget.user)));
+                    builder: (context) => ReactionTimeIntro( user: widget.user)));
                     //builder: (context) => MainPage(title: 'Fatigue Management App',user: widget.user)));
               },
               child: Icon(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/user.dart';
 
 class ReactionTimeTest extends StatefulWidget {
@@ -6,37 +7,14 @@ class ReactionTimeTest extends StatefulWidget {
   final User user;
 
   @override
-  State<ReactionTimeTest> createState() => ReactionTestState();
+  State<ReactionTimeTest> createState() => ReactionTestState(user);
 }
 
-class ReactionTimeIntro extends State<ReactionTimeTest> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text(
-            "Tap screen when you are ready to start",
-            style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
-          )
 
-      ),
-      body: Center(
-        child:
-          GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => setState(() {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                ReactionTimeTest(user: widget.user)));
-          }),
-        ),
-    )
-    );
-  }
-}
 
 class ReactionTestState extends State<ReactionTimeTest> {
+  ReactionTestState( this.user, {Key? key});
+  final User user;
   bool shownIntro = false;
   int _tnum = 0; // Test number
 
@@ -58,8 +36,13 @@ class ReactionTestState extends State<ReactionTimeTest> {
   Widget build(BuildContext context) {
 
     if (true) {
-      setState(() {
-        ReactionTimeIntro();
+      setState((){
+        Widget build(BuildContext context) {
+          return MaterialApp(
+              home: new ReactionTimeIntro(user: user)
+
+          );
+        }
       });
     }
     double WIDTH = (MediaQuery. of(context). size. width) / 2;
