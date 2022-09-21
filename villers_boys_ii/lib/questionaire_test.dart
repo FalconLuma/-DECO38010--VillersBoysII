@@ -55,21 +55,21 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> questions = const [
-    'Over the last week I have averaged x hours of sleep per night.',
-    'Over the last week how interrupted has your sleep been?',
-    'Last night I averaged x hours of sleep.',
-    'Over the last week I have found myself feeling tired before half my day has passed.',
-    'Over the last week I have completed my daily routine without needing an additional pick-me-up (e.g. coffee/energy drink).',
-    'Over the last week I have had problems concentrating and thinking clearly.',
-    'I have been yawning frequently today?',
-    'Over the last week I have been starting my day earlier than normal.',
-    'Over the last week I have been falling asleep later than normal.',
-    'Over the last week I have been waking up feeling well rested and refreshed.',
+    'How many hours of sleep per night have you averaged over the last week?',
+    'In general what would best describe how interrupted your sleep has been over the last week?',
+    'How many hours of sleep did you get last night?',
+    'How often have you found yourself feeling tired in the first half of your day over the last week?',
+    'How often have you completed your daily routine without needing an additional caffine kick or nap over the last week?',
+    'How often have you had problems concentrating and thinking clearly over the last week?',
+    'You have been yawning frequently today?',
+    'How often have you been starting your day earlier than normal over the last week?',
+    'How often have you been falling asleep later than normal over the last week?',
+    'How often have you been waking up feeling well rested and refreshed over the last week?',
   ];
 
   List<String> firstAnswer = const [
     '0-2',
-    'I slept like a log',
+    'Uninterrupted',
     '8+',
     'Never (0%)',
     'Never (0%)',
@@ -95,7 +95,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   List<String> secondAnswer = const [
     '2-4',
-    'I woke up briefly once or twice',
+    'Only woke up briefly once or twice a night',
     '6-8',
     'Sometimes (25%)',
     'Sometimes (25%)',
@@ -121,7 +121,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   List<String> thirdAnswer = const [
     '4-6',
-    'I woke up long enough to feel awake',
+    'I woke up each night for at least 5 minutes',
     '4-6',
     'Often (50%)',
     'Often (50%)',
@@ -148,7 +148,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   // ignore: non_constant_identifier_names
   List<String> FourthAnswer = const [
     '6-8',
-    'I feel like I wake up every few hours',
+    'I woke up each night for longer than 5 minutes',
     '2-4',
     'Usually (75%)',
     'Usually (75%)',
@@ -174,7 +174,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   List<String> fifthAnswer = const [
     '8+',
-    'I spent more time awake trying to sleep',
+    'I probably spent more time awake than asleep',
     '0-2',
     'Always (100%)',
     'Always (100%)',
