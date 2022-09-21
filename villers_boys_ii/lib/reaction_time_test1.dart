@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/user.dart';
 
+import 'memory_test_intro.dart';
+
 class ReactionTimeTest extends StatefulWidget {
   const ReactionTimeTest({Key? key, required this.user}) : super(key: key);
   final User user;
@@ -61,6 +63,16 @@ class ReactionTestState extends State<ReactionTimeTest> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MemoryTestIntro( user: widget.user)));
+              },
+              child: Icon(
+                Icons.start_sharp,
+                size: 50,
+              ),
+            ),
             Row(
               children: [
                 SizedBox(
@@ -72,7 +84,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
                     child: ElevatedButton(
                       onPressed: (){}, child: const Text("Top Left"),
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.lightBlueAccent,
+                          backgroundColor: Colors.lightBlueAccent,
                           fixedSize: Size(WIDTH, HEIGHT),
                       ),
                     ),
@@ -119,7 +131,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
                   child: ElevatedButton(
                     onPressed: (){}, child: const Text("Bottom Right"),
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.lightBlueAccent,
+                        backgroundColor: Colors.lightBlueAccent,
                         fixedSize: Size(WIDTH, HEIGHT)
                     ),
                   ),
