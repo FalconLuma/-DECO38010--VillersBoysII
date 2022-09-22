@@ -61,7 +61,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     'How often have you found yourself feeling tired in the first half of your day over the last week?',
     'How often have you completed your daily routine without needing an additional caffine kick or nap over the last week?',
     'How often have you had problems concentrating and thinking clearly over the last week?',
-    'You have been yawning frequently today?',
+    'You have been yawning frequently today.',
     'How often have you been starting your day earlier than normal over the last week?',
     'How often have you been falling asleep later than normal over the last week?',
     'How often have you been waking up feeling well rested and refreshed over the last week?',
@@ -148,7 +148,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   // ignore: non_constant_identifier_names
   List<String> FourthAnswer = const [
     '6-8',
-    'I woke up each night for longer than 5 minutes',
+    'I woke up each night for at least 30 minutes',
     '2-4',
     'Usually (75%)',
     'Usually (75%)',

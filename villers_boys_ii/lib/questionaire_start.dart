@@ -24,7 +24,7 @@ class _QuestionaireState extends State<QuestionairePage> {
           child: Column(children: [
             Text(
                 'Before you begin driving please complete the following questionnaire.'
-                'The questionnaire will consist of 10 multi-choice questions. If you answer a question accidently, swipe back to access the previous question.',
+                'The questionnaire will consist of 10 multiple-choice questions. If you answer a question incorrectly, swipe back to access the previous question.',
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
