@@ -18,6 +18,7 @@ class ReactionTimeTest extends StatefulWidget {
 class ReactionTestState extends State<ReactionTimeTest> {
   ReactionTestState(this.user, {Key? key});
   final User user;
+  int startTime = DateTime.now().millisecondsSinceEpoch;
   bool shownIntro = false;
   int _tnum = 0; // Test number
 
@@ -51,7 +52,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-          "Test: $_tnum",
+          "Test: $_tnum, rtime: $rTimes",
           style: const TextStyle(fontSize: 25),
           textAlign: TextAlign.center,
         )),
@@ -68,13 +69,23 @@ class ReactionTestState extends State<ReactionTimeTest> {
                     height: 50,
                     child: ElevatedButton(
 
-                      onPressed: (){}, child: const Icon(
+                      onPressed: (){
+                        int endTime = DateTime.now().millisecondsSinceEpoch;
+                        rTimes[_tnum] = endTime - startTime;
+                        setState(() {
+                          if (_tnum < 9) {
+                            _tnum++;
+                          } else {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => MemoryTestIntro(user: widget.user)));
+                          }
+                        });
+                      }, child: const Icon(
                       Icons.close_rounded,
                     ),
                     ),
                   )
                 ),
-
               ],)
 
         ));
