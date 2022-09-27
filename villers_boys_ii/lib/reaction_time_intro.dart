@@ -18,7 +18,7 @@ class IntroScreen extends State<ReactionTimeIntro>{
     return Scaffold(
         appBar: AppBar(
             title: const Text(
-              "Tap screen when you are ready to start",
+              "Get Ready!",
               style: TextStyle(fontSize: 25),
               textAlign: TextAlign.center,
             )
@@ -28,10 +28,18 @@ class IntroScreen extends State<ReactionTimeIntro>{
           child:
           GestureDetector(
               behavior: HitTestBehavior.opaque,
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.only(left: 50, right: 50, top: 300, bottom: 300),
+                child: const Text("Tap screen when you are ready to start!", style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
+
+              ),
               onTap: () =>
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          ReactionTimeTest(user: widget.user)))
+                          ReactionTimeTest(user: widget.user))
+                  )
           ),
         )
     );
