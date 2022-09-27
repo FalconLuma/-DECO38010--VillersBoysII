@@ -18,23 +18,23 @@ class _ReactionTimeState extends State<ReactionTimePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reaction Time Test'),
+        title: const Text('Reaction Time Test'),
         centerTitle: true,
       ),
       body: Container(
           margin: EdgeInsets.all(10),
           child: Column(children: [
-            Text(
+            const Text(
                 'In this activity, we will ask you to perform an activity used to'
-                ' measure your reaction time!',
+                ' measure your reaction time. Press the blue x on the screen as '
+                    'fast as you can!',
                 style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ReactionTimeIntro( user: widget.user)));
-                    //builder: (context) => MainPage(title: 'Fatigue Management App',user: widget.user)));
               },
-              child: Icon(
+              child: const Icon(
                 Icons.start_sharp,
                 size: 50,
               ),

@@ -20,7 +20,6 @@ class ReactionTimeTest extends StatefulWidget {
 class ReactionTestState extends State<ReactionTimeTest> {
   ReactionTestState(this.user, {Key? key});
   final User user;
-  int startTime = DateTime.now().millisecondsSinceEpoch;
   bool shownIntro = false;
   int _tnum = 0; // Test number
 
@@ -40,6 +39,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
 
   @override
   Widget build(BuildContext context) {
+    int startTime = DateTime.now().millisecondsSinceEpoch;
     if (true) {
       setState(() {
         Widget build(BuildContext context) {
@@ -49,19 +49,37 @@ class ReactionTestState extends State<ReactionTimeTest> {
     }
     double WIDTH = (MediaQuery.of(context).size.width) / 2;
     double HEIGHT = (MediaQuery.of(context).size.height) / 6;
+    double left = Random().nextDouble() * (MediaQuery.of(context).size.width - 100 );
+    double top = Random().nextDouble() * (MediaQuery.of(context).size.height - 100);
+
+    //Check to make sure values aren't less than 150 i.e. button can appear off-screen
+    // if (left < 150) {
+    //   left = 150;
+    // }
+    if (top < 0) {
+      top = 0;
+    }
+    //Check to make sure values aren't within 150 pixels of edge of screen
+    // if (left > (MediaQuery.of(context).size.width - 150)) {
+    //   left = MediaQuery.of(context).size.width - 150;
+    // }
+    if (top > (MediaQuery.of(context).size.height)) {
+      top = MediaQuery.of(context).size.height;
+    }
+
+
     return Scaffold(
         appBar: AppBar(
             title: Text(
-          "Test: $_tnum",
+          "Test: ${_tnum + 1} ",
           style: const TextStyle(fontSize: 25),
           textAlign: TextAlign.center,
         )),
         body: Center(
               child: Stack(children: [
                 Positioned(
-                  left: Random().nextDouble() * (MediaQuery.of(context).size.width - 100 - (100)) + 100,
-                  bottom: Random().nextDouble() * ((MediaQuery.of(context).size.height - 100) - (100)) + 100,
-
+                  left: left,
+                  top: top,
                   child: SizedBox(
                     width: 50,
                     height: 50,
