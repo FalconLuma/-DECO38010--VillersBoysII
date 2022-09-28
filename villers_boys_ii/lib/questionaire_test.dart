@@ -59,7 +59,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     'In general what would best describe how interrupted your sleep has been over the last week?',
     'How many hours of sleep did you get last night?',
     'How often have you found yourself feeling tired in the first half of your day over the last week?',
-    'How often have you completed your daily routine without needing an additional caffine kick or nap over the last week?',
+    'How often have you completed your daily routine without needing an additional caffeine kick or nap over the last week?',
     'How often have you had problems concentrating and thinking clearly over the last week?',
     'You have been yawning frequently today.',
     'How often have you been starting your day earlier than normal over the last week?',
