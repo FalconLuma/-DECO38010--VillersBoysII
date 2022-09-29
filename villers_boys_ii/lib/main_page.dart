@@ -14,9 +14,7 @@ import 'package:villers_boys_ii/questionaire_test.dart';
 import 'package:villers_boys_ii/driving_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage(
-      {Key? key, required this.title, required this.user, required this.index})
-      : super(key: key);
+  const MainPage({Key? key, required this.title, required this.user, required this.index}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect

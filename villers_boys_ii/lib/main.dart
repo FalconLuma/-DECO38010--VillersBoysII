@@ -10,37 +10,58 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyApp();
+}
+
+class _MyApp extends State<MyApp>{
 
   String name = "";
   int age = 0;
   double memoryBase = 0;
   double reactionBase = 0;
   bool calibrated = false;
+  bool loaded = false;
 
   void loadData() async {
+    print("start");
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    name = prefs.getString('username') ?? "";
-    age = prefs.getInt('age') ?? 0;
-    memoryBase = prefs.getDouble('memory') ?? 0;
-    reactionBase = prefs.getDouble('reaction') ?? 0.0;
-    calibrated = prefs.getBool('calibrate') ?? false;
+    print("instance");
+    setState(() {
+      name = prefs.getString('username') ?? "";
+      age = prefs.getInt('age') ?? 0;
+      memoryBase = prefs.getDouble('memory') ?? 0;
+      reactionBase = prefs.getDouble('reaction') ?? 0.0;
+      calibrated = prefs.getBool('calibrate') ?? false;
+      loaded = true;
+    });
+    print("loaded");
+    print(calibrated.toString());
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'DECO3801 Project',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: check());
-  }
+    if(loaded == false){
+      loadData();
+    }
+
+    print("startWaiting");
+    if (loaded == false) return CircularProgressIndicator();
+    print("finishWaiting");
+
+      return MaterialApp(
+          title: 'DECO3801 Project',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: check());
+    }
 
   Widget check() {
-    loadData();
     if (calibrated == false) {
       return StartCalibratePage(user: User("Jacob", 32, 64, 128));
     } else {
