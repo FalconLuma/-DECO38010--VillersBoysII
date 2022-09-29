@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// Global size multipliers
 /// Usage: MediaQuery.of(context).size.<width/height> * CONSTANT
 
@@ -10,3 +12,10 @@ const double MENU_BUTTON_TEXT_SIZE = 0.04;
 
 // Widget Sizes
 const double MAIN_BUTTON_SIZE = 0.85; // Always relative to size.width
+
+// Colours
+const MaterialColor primary = Colors.purple;
+const MaterialColor secondary = Colors.orange;
+Color? neutral = Colors.purple[100];
+const MaterialColor grey = Colors.grey;
+const MaterialColor start = Colors.green;

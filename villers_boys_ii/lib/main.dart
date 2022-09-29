@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:villers_boys_ii/StartCalibrate.dart';
+import 'package:villers_boys_ii/constants.dart';
 
 import 'package:villers_boys_ii/user.dart';
 
@@ -56,7 +57,8 @@ class _MyApp extends State<MyApp>{
       return MaterialApp(
           title: 'DECO3801 Project',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: primary,
+            scaffoldBackgroundColor: neutral,
           ),
           home: check());
     }

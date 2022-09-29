@@ -4,7 +4,6 @@ import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
-import 'dart:async';
 
 import 'memory_test_intro.dart';
 
@@ -80,7 +79,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-          "Test: ${_tnum + 1} ",
+          "Test: ${_tnum + 1}/10 ",
           style: const TextStyle(fontSize: 25),
           textAlign: TextAlign.center,
         )),
@@ -128,6 +127,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
                     child: const Icon(
                       Icons.close_rounded,
                     ),
+
                   ),
                 )),
           ],
