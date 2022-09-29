@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/newStart.dart';
 import 'package:villers_boys_ii/reaction_time1.dart';
 
 import 'package:villers_boys_ii/user.dart';
@@ -11,7 +14,8 @@ import 'package:villers_boys_ii/questionaire_test.dart';
 import 'package:villers_boys_ii/driving_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, required this.title, required this.user})
+  const MainPage(
+      {Key? key, required this.title, required this.user, required this.index})
       : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -25,6 +29,7 @@ class MainPage extends StatefulWidget {
 
   final String title;
   final User user;
+  final int index;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -42,6 +47,12 @@ class _MainPageState extends State<MainPage> {
     QuestionairePage(user: widget.user),
     QuestionaireTestPage(user: widget.user),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.index;
+  }
 
   void _onItemTapped(int index) {
     setState(() {

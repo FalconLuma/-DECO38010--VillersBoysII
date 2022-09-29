@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/StartCalibrate.dart';
+import 'package:villers_boys_ii/newStart.dart';
 
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/constants.dart';
@@ -35,53 +37,28 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Text(
                 'Profile',
-                style: TextStyle(fontSize: MediaQuery.of(context).size.height*HEADING_TEXT_SIZE),
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.height * HEADING_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "User Name",
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintText: widget.user.getUserName(),
-                hintStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE
-                ),
-              ),
-              controller: userNameController,
-              onSubmitted: (userName) {
-                setState(() {
-                  widget.user.setUserName(userName);
-                });
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Age",
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintText: widget.user.getAge().toString(),
-                hintStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE
-                ),
-              ),
-              keyboardType: TextInputType.number,
-              controller: ageController,
-              onSubmitted: (age) {
-                setState(() {
-                  widget.user.setAge(int.parse(age));
-                });
-              },
-            ),
             Padding(
-              padding: EdgeInsets.only(left: 16, top: 50, right: 16),
+                padding: const EdgeInsets.all(15),
+                child: Text(widget.user.getUserName())),
+            Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(widget.user.getAge().toString())),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
                 'Calibrated Performance',
-                style: TextStyle(fontSize: MediaQuery.of(context).size.height*SUBHEADING_TEXT_SIZE),
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height *
+                        SUBHEADING_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -89,7 +66,9 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
               child: Text(
                 'Reaction: ${widget.user.getReactionBaseline().toString()}',
-                style: TextStyle(fontSize: MediaQuery.of(context).size.height*BODY_TEXT_SIZE),
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -104,18 +83,18 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  // Temporary implementation
-                  widget.user.setReactionBaseline(16.0 + Random().nextInt(256));
-                  widget.user.setMemoryBaseline(16.0 + Random().nextInt(256));
-                });
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        StartCalibratePage(user: widget.user)));
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
               ),
               child: Text(
-                'Recalibrate',
-                style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
+                'Recalibrate Reaction/Memory',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height *
+                        MENU_BUTTON_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -124,17 +103,20 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  // Temporary implementation
-                  widget.user.reset();
-                });
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => newStart(
+                          user: widget.user,
+                          flag: false,
+                        )));
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
               ),
               child: Text(
-                'Reset Profile',
-                style: TextStyle(fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE),
+                'Edit Name/Age',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height *
+                        MENU_BUTTON_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),

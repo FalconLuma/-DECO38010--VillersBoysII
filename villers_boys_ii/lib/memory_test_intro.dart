@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/user.dart';
 
@@ -12,23 +11,20 @@ class MemoryTestIntro extends StatefulWidget {
   State<MemoryTestIntro> createState() => _MemoryTestIntroScreen();
 }
 
-
-class _MemoryTestIntroScreen extends State<MemoryTestIntro>{
+class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: const Text(
-              "Memory Test Intro",
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            )
-
-        ),
+          "Memory Test Intro",
+          style: TextStyle(fontSize: 25),
+          textAlign: TextAlign.center,
+        )),
         body: Center(
-          child:
-          ElevatedButton(
+          child: ElevatedButton(
             onPressed: () {
+              debugPrint("End 2");
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => MemoryTest(user: widget.user)));
             },
@@ -37,7 +33,6 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro>{
               size: 50,
             ),
           ),
-        )
-    );
+        ));
   }
 }

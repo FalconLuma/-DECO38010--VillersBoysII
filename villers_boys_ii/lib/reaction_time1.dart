@@ -27,12 +27,14 @@ class _ReactionTimeState extends State<ReactionTimePage> {
             const Text(
                 'In this activity, we will ask you to perform an activity used to'
                 ' measure your reaction time. Press the blue x on the screen as '
-                    'fast as you can!',
+                'fast as you can!',
                 style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
+                debugPrint("End start 2");
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ReactionTimeIntro( user: widget.user)));
+                    builder: (context) =>
+                        ReactionTimeIntro(user: widget.user)));
               },
               child: const Icon(
                 Icons.start_sharp,

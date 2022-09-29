@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/driving_page.dart';
 import 'package:villers_boys_ii/user.dart';
 
 class ResultsPage extends StatefulWidget {
@@ -10,31 +10,28 @@ class ResultsPage extends StatefulWidget {
   State<ResultsPage> createState() => _ResultsPageState();
 }
 
-
-class _ResultsPageState extends State<ResultsPage>{
+class _ResultsPageState extends State<ResultsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: const Text(
-              "Results",
-              style: TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            )
-
-        ),
+          "Results",
+          style: TextStyle(fontSize: 25),
+          textAlign: TextAlign.center,
+        )),
         body: Center(
-          child:
-          ElevatedButton(
+          child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).popUntil(ModalRoute.withName('/'));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      DrivingPage(restInterval: Duration(seconds: 5))));
             },
             child: const Icon(
               Icons.start_sharp,
               size: 50,
             ),
           ),
-        )
-    );
+        ));
   }
 }
