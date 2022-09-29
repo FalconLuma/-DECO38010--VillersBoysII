@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:villers_boys_ii/constants.dart';
+import 'package:villers_boys_ii/main_page.dart';
+import 'package:villers_boys_ii/user.dart';
 
 class DrivingPage extends StatefulWidget {
   const DrivingPage({Key? key, required this.restInterval}) : super(key: key);
@@ -74,7 +76,12 @@ class _DrivingPageState extends State<DrivingPage> {
               child: ElevatedButton(
                 onPressed: () {
                   _resetTimer();
-                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MainPage(
+                            title: 'Fatigue Managment App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 1,
+                          )));
                 },
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.05,

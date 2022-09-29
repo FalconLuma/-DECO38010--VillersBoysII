@@ -11,8 +11,11 @@ import 'dart:async';
 import 'memory_test_intro.dart';
 
 class ReactionTimeTest extends StatefulWidget {
-  const ReactionTimeTest({Key? key, required this.user}) : super(key: key);
+  const ReactionTimeTest(
+      {Key? key, required this.user, required this.calibrate})
+      : super(key: key);
   final User user;
+  final bool calibrate;
 
   @override
   State<ReactionTimeTest> createState() => ReactionTestState(user);
@@ -46,7 +49,11 @@ class ReactionTestState extends State<ReactionTimeTest> {
     if (true) {
       setState(() {
         Widget build(BuildContext context) {
-          return MaterialApp(home: ReactionTimeIntro(user: user));
+          return MaterialApp(
+              home: ReactionTimeIntro(
+            user: user,
+            calibrate: widget.calibrate,
+          ));
         }
       });
     }
@@ -107,15 +114,16 @@ class ReactionTestState extends State<ReactionTimeTest> {
                           debugPrint(rTimes.toString());
                           debugPrint("Your average reaction time is: $average");
                           //Put this in an if statment to only run if its a setup/calibration version
-                          debugPrint(calibrate.toString());
-                          if (calibrate == false) {
+                          if (widget.calibrate == false) {
                             save(average);
-                            debugPrint(calibrate.toString());
+                          } else {
+                            //Store average as current reaction time
                           }
-                          debugPrint("End 1");
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  MemoryTestIntro(user: widget.user)));
+                              builder: (context) => MemoryTestIntro(
+                                    user: widget.user,
+                                    calibrate: widget.calibrate,
+                                  )));
                         }
                       });
                     },
@@ -131,7 +139,6 @@ class ReactionTestState extends State<ReactionTimeTest> {
   save(average) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setDouble("reaction", average);
-    calibrate = prefs.getBool('calibrate') ?? false;
   }
 }
 //Navigator.of(context).push(MaterialPageRoute(

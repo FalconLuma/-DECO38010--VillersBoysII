@@ -3,8 +3,11 @@ import 'package:villers_boys_ii/reaction_time_test1.dart';
 import 'package:villers_boys_ii/user.dart';
 
 class ReactionTimeIntro extends StatefulWidget {
-  const ReactionTimeIntro({Key? key, required this.user}) : super(key: key);
+  const ReactionTimeIntro(
+      {Key? key, required this.user, required this.calibrate})
+      : super(key: key);
   final User user;
+  final bool calibrate;
 
   @override
   State<ReactionTimeIntro> createState() => IntroScreen();
@@ -32,7 +35,10 @@ class IntroScreen extends State<ReactionTimeIntro> {
                     style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
               ),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ReactionTimeTest(user: widget.user)))),
+                  builder: (context) => ReactionTimeTest(
+                        user: widget.user,
+                        calibrate: widget.calibrate,
+                      )))),
         ));
   }
 }

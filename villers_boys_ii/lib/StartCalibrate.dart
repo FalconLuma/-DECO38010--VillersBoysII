@@ -29,7 +29,10 @@ class _StartCalibrateState extends State<StartCalibratePage> {
               onPressed: () {
                 debugPrint("End start");
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ReactionTimePage(user: widget.user)));
+                    builder: (context) => ReactionTimePage(
+                          user: widget.user,
+                          calibrate: false,
+                        )));
               },
               child: const Text('Begin'),
             )

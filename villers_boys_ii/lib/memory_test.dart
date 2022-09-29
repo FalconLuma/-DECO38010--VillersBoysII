@@ -12,8 +12,10 @@ import 'dart:math';
 import 'dart:async';
 
 class MemoryTest extends StatefulWidget {
-  const MemoryTest({Key? key, required this.user}) : super(key: key);
+  const MemoryTest({Key? key, required this.user, required this.calibrate})
+      : super(key: key);
   final User user;
+  final bool calibrate;
 
   @override
   State<MemoryTest> createState() => _MemoryTest();
@@ -369,8 +371,9 @@ class _MemoryTest extends State<MemoryTest> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  //Pass in memory test score here
                   save(5.8);
-                  if (calibrate == false &&
+                  if (widget.calibrate == false &&
                       (widget.user.getUserName() == "Jacob" ||
                           widget.user.getAge() == 32)) {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -378,7 +381,7 @@ class _MemoryTest extends State<MemoryTest> {
                               user: widget.user,
                               flag: true,
                             )));
-                  } else if (calibrate == false) {
+                  } else if (widget.calibrate == false) {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => MainPage(
                               title: 'Fatigue Managment App',

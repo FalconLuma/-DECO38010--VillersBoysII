@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    debugPrint("Hello world");
     return MaterialApp(
         title: 'DECO3801 Project',
         theme: ThemeData(
@@ -41,14 +40,10 @@ class MyApp extends StatelessWidget {
   }
 
   Widget check() {
-    debugPrint("Called");
     loadData();
     if (calibrated == false) {
-      debugPrint("This runs first");
       return StartCalibratePage(user: User("Jacob", 32, 64, 128));
     } else {
-      debugPrint(calibrated.toString());
-      debugPrint("This runs if calibrated");
       return MainPage(
         title: 'Fatigue Management App',
         user: User("Jacob", 32, 64, 128),

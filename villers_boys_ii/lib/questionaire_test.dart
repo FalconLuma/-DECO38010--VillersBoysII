@@ -212,7 +212,10 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
       }
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ReactionTimePage(user: widget.user)));
+            builder: (context) => ReactionTimePage(
+                  user: widget.user,
+                  calibrate: true,
+                )));
       });
     }
     return GestureDetector(

@@ -42,7 +42,10 @@ class _MainPageState extends State<MainPage> {
     SettingsPage(user: widget.user),
     HomePage(user: widget.user),
     ProfilePage(user: widget.user),
-    ReactionTimePage(user: widget.user),
+    ReactionTimePage(
+      user: widget.user,
+      calibrate: false,
+    ),
     DrivingPage(restInterval: Duration(seconds: 5)),
     QuestionairePage(user: widget.user),
     QuestionaireTestPage(user: widget.user),

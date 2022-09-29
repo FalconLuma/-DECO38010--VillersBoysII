@@ -7,8 +7,11 @@ import 'package:villers_boys_ii/user.dart';
 import 'main_page.dart';
 
 class ReactionTimePage extends StatefulWidget {
-  const ReactionTimePage({Key? key, required this.user}) : super(key: key);
+  const ReactionTimePage(
+      {Key? key, required this.user, required this.calibrate})
+      : super(key: key);
   final User user;
+  final bool calibrate;
 
   @override
   State<ReactionTimePage> createState() => _ReactionTimeState();
@@ -31,10 +34,11 @@ class _ReactionTimeState extends State<ReactionTimePage> {
                 style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
-                debugPrint("End start 2");
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        ReactionTimeIntro(user: widget.user)));
+                    builder: (context) => ReactionTimeIntro(
+                          user: widget.user,
+                          calibrate: widget.calibrate,
+                        )));
               },
               child: const Icon(
                 Icons.start_sharp,

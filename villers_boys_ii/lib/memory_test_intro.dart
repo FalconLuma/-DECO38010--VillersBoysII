@@ -5,8 +5,10 @@ import 'constants.dart';
 import 'memory_test.dart';
 
 class MemoryTestIntro extends StatefulWidget {
-  const MemoryTestIntro({Key? key, required this.user}) : super(key: key);
+  const MemoryTestIntro({Key? key, required this.user, required this.calibrate})
+      : super(key: key);
   final User user;
+  final bool calibrate;
 
   @override
   State<MemoryTestIntro> createState() => _MemoryTestIntroScreen();
@@ -33,7 +35,10 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MemoryTest(user: widget.user)));
+                    builder: (context) => MemoryTest(
+                          user: widget.user,
+                          calibrate: widget.calibrate,
+                        )));
               },
               child: const Icon(
                 Icons.start_sharp,
