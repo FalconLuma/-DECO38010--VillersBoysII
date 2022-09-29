@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/reaction_time_test1.dart';
 import 'package:villers_boys_ii/user.dart';
 
+import 'constants.dart';
+
 class ReactionTimeIntro extends StatefulWidget {
   const ReactionTimeIntro(
       {Key? key, required this.user, required this.calibrate})
@@ -31,8 +33,11 @@ class IntroScreen extends State<ReactionTimeIntro> {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(
                     left: 50, right: 50, top: 300, bottom: 300),
-                child: const Text("Tap screen when you are ready to start!",
-                    style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
+                child: Text("Tap screen when you are ready to start!",
+                    style: TextStyle(
+                        fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                        letterSpacing: 2.0)),
               ),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ReactionTimeTest(

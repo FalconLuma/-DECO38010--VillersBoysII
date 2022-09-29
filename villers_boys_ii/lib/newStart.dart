@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/main_page.dart';
-import 'package:villers_boys_ii/profile_page.dart';
 
 import 'package:villers_boys_ii/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +26,7 @@ class newStart extends StatefulWidget {
 class _newStartPageState extends State<newStart> {
   late SharedPreferences prefs;
   final name2 = new TextEditingController();
-  final age2 = TextEditingController();
+  final age2 = new TextEditingController();
   String name = "";
   int age = 0;
   double memoryBase = 0.0;
@@ -36,6 +35,11 @@ class _newStartPageState extends State<newStart> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the HomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text("Edit Profile"),
+      ),
       body: Container(
           margin: const EdgeInsets.all(20),
           child: Column(
@@ -44,7 +48,7 @@ class _newStartPageState extends State<newStart> {
                 decoration: InputDecoration(
                   labelText: "User Name",
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  hintText: "UserName",
+                  hintText: widget.user.getUserName(),
                   hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize:
@@ -59,9 +63,9 @@ class _newStartPageState extends State<newStart> {
               ),
               TextField(
                 decoration: InputDecoration(
-                  labelText: "age",
+                  labelText: "Age",
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  hintText: "CurrentAge",
+                  hintText: widget.user.getAge().toString(),
                   hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize:
@@ -78,7 +82,10 @@ class _newStartPageState extends State<newStart> {
               ),
               Text(
                 message,
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(
+                    fontSize:
+                    MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                    letterSpacing: 2.0),
               ),
               ElevatedButton(
                 child: const Text("Save"),
@@ -91,19 +98,27 @@ class _newStartPageState extends State<newStart> {
                   } else {
                     save();
                     if (widget.flag == true) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MainPage(
-                                title: 'Fatigue Managment App',
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => MainPage(
+                                title: 'Fatigue Management App',
                                 user: User(name, age, reactionBase, memoryBase),
                                 index: 1,
-                              )));
+                              )),
+                              (route) => false
+                      );
+                      // Go to home page, and reset route stack
                     } else {
-                      Navigator.of(context).push(MaterialPageRoute(
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
                           builder: (context) => MainPage(
-                                title: 'Fatigue Managment App',
+                                title: 'Fatigue Management App',
                                 user: User(name, age, reactionBase, memoryBase),
                                 index: 2,
-                              )));
+                              )),
+                              (route) => false
+                          // Return to home page, and reset route stack
+                      );
                     }
                   }
                 },

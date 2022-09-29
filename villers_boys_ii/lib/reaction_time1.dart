@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/reaction_time_intro.dart';
-import 'package:villers_boys_ii/reaction_time_test1.dart';
 import 'package:villers_boys_ii/user.dart';
 
-import 'main_page.dart';
+import 'constants.dart';
 
 class ReactionTimePage extends StatefulWidget {
   const ReactionTimePage(
@@ -27,11 +25,14 @@ class _ReactionTimeState extends State<ReactionTimePage> {
       body: Container(
           margin: EdgeInsets.all(10),
           child: Column(children: [
-            const Text(
+            Text(
                 'In this activity, we will ask you to perform an activity used to'
-                ' measure your reaction time. Press the blue x on the screen as '
+                ' measure your reaction time. Press the purple x on the screen as '
                 'fast as you can!',
-                style: TextStyle(fontSize: 20.0, letterSpacing: 2.0)),
+                style: TextStyle(
+                    fontSize:
+                    MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                    letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(

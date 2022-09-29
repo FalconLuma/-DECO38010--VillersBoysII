@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:villers_boys_ii/newStart.dart';
 import 'package:villers_boys_ii/reaction_time1.dart';
 
 import 'package:villers_boys_ii/user.dart';
@@ -12,6 +11,8 @@ import 'package:villers_boys_ii/profile_page.dart';
 import 'package:villers_boys_ii/questionaire_start.dart';
 import 'package:villers_boys_ii/questionaire_test.dart';
 import 'package:villers_boys_ii/driving_page.dart';
+
+import 'constants.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key, required this.title, required this.user, required this.index}) : super(key: key);
@@ -85,23 +86,23 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',
-              backgroundColor: Colors.blue),
+              backgroundColor: primary),
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
-              backgroundColor: Colors.blue),
+              backgroundColor: primary),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Account',
-              backgroundColor: Colors.blue),
+              backgroundColor: primary),
           BottomNavigationBarItem(
               icon: Icon(Icons.timer),
               label: 'ReactionTime',
-              backgroundColor: Colors.blue),
+              backgroundColor: primary),
           BottomNavigationBarItem(
               icon: Icon(Icons.car_crash),
               label: 'ReactionTime',
-              backgroundColor: Colors.blue),
+              backgroundColor: primary),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

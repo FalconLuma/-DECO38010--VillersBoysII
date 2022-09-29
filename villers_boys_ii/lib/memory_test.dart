@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:villers_boys_ii/home_page.dart';
 import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/newStart.dart';
-import 'package:villers_boys_ii/profile_page.dart';
 import 'package:villers_boys_ii/results_page.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'dart:math';
 import 'dart:async';
+
+import 'constants.dart';
 
 class MemoryTest extends StatefulWidget {
   const MemoryTest({Key? key, required this.user, required this.calibrate})
@@ -28,8 +28,8 @@ class _MemoryTest extends State<MemoryTest> {
 
   bool calibrate = false;
 
-  Color defaultColor = Colors.blue;
-  Color pressedColor = Colors.red;
+  Color defaultColor = primary;
+  Color pressedColor = secondary;
   int duration = 500;
   int sequenceItems = 7;
   int numSquares = 16;
@@ -329,10 +329,12 @@ class _MemoryTest extends State<MemoryTest> {
                   padding: EdgeInsets.all(
                       MediaQuery.of(context).size.height * 0.015),
                   child: Text(
-                    "Was the highlighted tile in position ${questionPosition[questionNum]}",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.03),
-                    textAlign: TextAlign.center,
+                      "Was the highlighted tile in position ${questionPosition[questionNum]}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize:
+                          MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                          letterSpacing: 2.0),
                   ),
                 ),
               ),

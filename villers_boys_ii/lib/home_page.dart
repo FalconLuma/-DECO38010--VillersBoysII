@@ -54,8 +54,7 @@ class _HomePageState extends State<HomePage> {
       save();
     }
     return Scaffold(
-        body: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView(
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -84,11 +83,20 @@ class _HomePageState extends State<HomePage> {
                     MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
                 shape: const CircleBorder(),
               ),
+              child: Image.asset(
+                'images/driving-control.png',
+                height: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
+                width: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
-                'Start Driving',
+                'Tap above to determine your driver fatigue',
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width *
-                        MAIN_BUTTON_TEXT_SIZE),
+                    fontSize: MediaQuery.of(context).size.height *
+                        BODY_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),

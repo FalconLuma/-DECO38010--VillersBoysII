@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/StartCalibrate.dart';
 import 'package:villers_boys_ii/newStart.dart';
@@ -47,11 +46,57 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text(widget.user.getUserName())),
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Text(
+                'User',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height *
+                        SUBHEADING_TEXT_SIZE),
+                textAlign: TextAlign.center,
+              ),
+            ),
             Padding(
-                padding: const EdgeInsets.all(15),
-                child: Text(widget.user.getAge().toString())),
+                padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
+                child: Text(
+                  "Name: ${widget.user.getUserName()}",
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height *
+                          BODY_TEXT_SIZE),
+                  textAlign: TextAlign.center,
+                ),
+            ),
+            Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, top: 15, right: 16, bottom: 15),
+                child: Text(
+                  "Age: ${widget.user.getAge()}",
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height *
+                    BODY_TEXT_SIZE),
+                  textAlign: TextAlign.center,
+                ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => newStart(
+                      user: widget.user,
+                      flag: false,
+                    )));
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(200, 50),
+              ),
+              child: Text(
+                'Edit User',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height *
+                        MENU_BUTTON_TEXT_SIZE),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
@@ -65,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
               child: Text(
-                'Reaction: ${widget.user.getReactionBaseline().toString()}',
+                'Reaction: ${widget.user.getReactionBaseline().toStringAsFixed(1)}',
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
@@ -74,13 +119,16 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 16, top: 15, right: 16, bottom: 30),
+                  left: 16, top: 15, right: 16, bottom: 15),
               child: Text(
-                'Memory: ${widget.user.getMemoryBaseline().toString()}',
-                style: const TextStyle(fontSize: 20),
+                'Memory: ${widget.user.getMemoryBaseline().toStringAsFixed(1)}',
+                style: TextStyle(
+                    fontSize:
+                    MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
+
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -91,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 fixedSize: const Size(200, 50),
               ),
               child: Text(
-                'Recalibrate Reaction/Memory',
+                'Recalibrate',
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.height *
                         MENU_BUTTON_TEXT_SIZE),
@@ -100,25 +148,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(
               height: 30,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => newStart(
-                          user: widget.user,
-                          flag: false,
-                        )));
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(200, 50),
-              ),
-              child: Text(
-                'Edit Name/Age',
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height *
-                        MENU_BUTTON_TEXT_SIZE),
-                textAlign: TextAlign.center,
-              ),
             ),
           ],
         ),

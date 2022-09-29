@@ -46,6 +46,7 @@ class _DrivingPageState extends State<DrivingPage> {
                 fontSize:
                     MediaQuery.of(context).size.height * SUBHEADING_TEXT_SIZE),
           ),
+          backgroundColor: neutral,
           children: [
             Padding(
               padding: EdgeInsets.only(
@@ -76,12 +77,15 @@ class _DrivingPageState extends State<DrivingPage> {
               child: ElevatedButton(
                 onPressed: () {
                   _resetTimer();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MainPage(
-                            title: 'Fatigue Managment App',
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => MainPage(
+                            title: 'Fatigue Management App',
                             user: User("kevin", 32, 32, 32),
                             index: 1,
-                          )));
+                          )),
+                          (route) => false
+                  ); // Go to home page, and reset route stack
                 },
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
