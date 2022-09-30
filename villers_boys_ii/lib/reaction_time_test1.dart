@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:collection/collection.dart';
@@ -8,11 +9,12 @@ import 'dart:math';
 import 'memory_test_intro.dart';
 
 class ReactionTimeTest extends StatefulWidget {
-  const ReactionTimeTest(
-      {Key? key, required this.user, required this.calibrate})
+  ReactionTimeTest(
+      {Key? key, required this.user, required this.calibrate, this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
+  DriveAssessment? driveAssessment;
 
   @override
   State<ReactionTimeTest> createState() => ReactionTestState(user);
@@ -50,6 +52,7 @@ class ReactionTestState extends State<ReactionTimeTest> {
               home: ReactionTimeIntro(
             user: user,
             calibrate: widget.calibrate,
+            driveAssessment: widget.driveAssessment,
           ));
         }
       });
@@ -114,12 +117,13 @@ class ReactionTestState extends State<ReactionTimeTest> {
                           if (widget.calibrate == false) {
                             save(average);
                           } else {
-                            //Store average as current reaction time
+                            widget.driveAssessment?.setReactionTime(average);
                           }
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => MemoryTestIntro(
                                     user: widget.user,
                                     calibrate: widget.calibrate,
+                                    driveAssessment: widget.driveAssessment,
                                   )));
                         }
                       });

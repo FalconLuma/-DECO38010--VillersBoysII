@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
 
 class ReactionTimePage extends StatefulWidget {
-  const ReactionTimePage(
-      {Key? key, required this.user, required this.calibrate})
+  ReactionTimePage(
+      {Key? key, required this.user, required this.calibrate, this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
+  DriveAssessment? driveAssessment;
 
   @override
   State<ReactionTimePage> createState() => _ReactionTimeState();
@@ -39,6 +41,7 @@ class _ReactionTimeState extends State<ReactionTimePage> {
                     builder: (context) => ReactionTimeIntro(
                           user: widget.user,
                           calibrate: widget.calibrate,
+                          driveAssessment: widget.driveAssessment,
                         )));
               },
               child: const Icon(

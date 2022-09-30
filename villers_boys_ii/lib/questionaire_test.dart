@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/reaction_time1.dart';
 import 'package:villers_boys_ii/constants.dart';
+import 'package:villers_boys_ii/drive_assessment.dart';
 
 class QuestionaireTestPage extends StatefulWidget {
   const QuestionaireTestPage({Key? key, required this.user}) : super(key: key);
@@ -203,6 +204,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   Widget build(BuildContext context) {
     if (_flag == 1) {
       debugPrint("Quiz Over Score: $_score");
+      DriveAssessment da = DriveAssessment(_score,0,0,widget.user);
       if (_score < 22) {
         debugPrint("You have healthy levels of fatigue!");
       } else if (_score >= 22 && _score <= 34) {
@@ -215,6 +217,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             builder: (context) => ReactionTimePage(
                   user: widget.user,
                   calibrate: true,
+                  driveAssessment: da,
                 )));
       });
     }

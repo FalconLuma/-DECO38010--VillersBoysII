@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/newStart.dart';
 import 'package:villers_boys_ii/results_page.dart';
@@ -10,10 +11,11 @@ import 'dart:async';
 import 'constants.dart';
 
 class MemoryTest extends StatefulWidget {
-  const MemoryTest({Key? key, required this.user, required this.calibrate})
+  MemoryTest({Key? key, required this.user, required this.calibrate, this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
+  DriveAssessment? driveAssessment;
 
   @override
   State<MemoryTest> createState() => _MemoryTest();
@@ -389,8 +391,15 @@ class _MemoryTest extends State<MemoryTest> {
                               index: 2,
                             )));
                   } else {
+                    widget.driveAssessment?.setMemoryScore(10);
+                    DriveAssessment da;
+                    if(widget.driveAssessment != null){
+                      da = widget.driveAssessment!;
+                    } else {
+                      da = DriveAssessment(0, 0, 0, User("a",0,0,0));
+                    }
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ResultsPage(user: widget.user)));
+                        builder: (context) => ResultsPage(user: widget.user, driveAssessment: da,)));
                   }
                 },
                 child: const Icon(

@@ -3,6 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter_vibrate/flutter_vibrate.dart';
+import 'package:flutter/services.dart';
+
 import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
@@ -26,6 +29,7 @@ class _DrivingPageState extends State<DrivingPage> {
   int _timerMode = 0; // 0 = not started, 1 = running, 2 = paused
   final stopwatch = Stopwatch();
   bool _reccStop = false;
+  bool _vibrate = true;
 
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
@@ -86,6 +90,7 @@ class _DrivingPageState extends State<DrivingPage> {
                           )),
                           (route) => false
                   ); // Go to home page, and reset route stack
+
                 },
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
@@ -177,6 +182,10 @@ class _DrivingPageState extends State<DrivingPage> {
     if (_elapsed >= widget.restInterval) {
       setState(() {
         _reccStop = true;
+        HapticFeedback.mediumImpact();
+        if(_vibrate){
+          true;
+        }
       });
     } else {
       setState(() {
@@ -232,6 +241,31 @@ class _DrivingPageState extends State<DrivingPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                ElevatedButton(
+                    onPressed: (){
+                      if(_vibrate){
+                        _vibrate = false;
+                      } else{
+                        _vibrate = true;
+                      }
+                    },
+                    child: Container(
+                        child: Visibility(visible: _vibrate,
+                          replacement: Row(
+                            children: const [
+                              Icon(Icons.volume_off),
+                              Text("Vibration off")
+                            ],
+                          ),
+                          child: Row(
+                            children: const [
+                              Icon(Icons.volume_up),
+                              Text("Vibration on")
+                            ],
+                          ),
+                        )
+                    )
+                ),
                 ElevatedButton(
                   onPressed: () {
                     _timerActions(context);

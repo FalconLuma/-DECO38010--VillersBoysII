@@ -45,9 +45,6 @@ class _MainPageState extends State<MainPage> {
       user: widget.user,
       calibrate: false,
     ),
-    DrivingPage(restInterval: Duration(seconds: 5)),
-    QuestionairePage(user: widget.user),
-    QuestionaireTestPage(user: widget.user),
   ];
 
   @override
@@ -97,10 +94,6 @@ class _MainPageState extends State<MainPage> {
               backgroundColor: primary),
           BottomNavigationBarItem(
               icon: Icon(Icons.timer),
-              label: 'ReactionTime',
-              backgroundColor: primary),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.car_crash),
               label: 'ReactionTime',
               backgroundColor: primary),
         ],

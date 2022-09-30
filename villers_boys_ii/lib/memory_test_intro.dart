@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
 import 'memory_test.dart';
 
 class MemoryTestIntro extends StatefulWidget {
-  const MemoryTestIntro({Key? key, required this.user, required this.calibrate})
+  MemoryTestIntro({Key? key, required this.user, required this.calibrate, this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
+  DriveAssessment? driveAssessment;
 
   @override
   State<MemoryTestIntro> createState() => _MemoryTestIntroScreen();
@@ -38,6 +40,7 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
                     builder: (context) => MemoryTest(
                           user: widget.user,
                           calibrate: widget.calibrate,
+                          driveAssessment: widget.driveAssessment,
                         )));
               },
               child: const Icon(

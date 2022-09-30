@@ -3,13 +3,15 @@ import 'package:villers_boys_ii/reaction_time_test1.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
+import 'drive_assessment.dart';
 
 class ReactionTimeIntro extends StatefulWidget {
-  const ReactionTimeIntro(
-      {Key? key, required this.user, required this.calibrate})
+  ReactionTimeIntro(
+      {Key? key, required this.user, required this.calibrate, this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
+  DriveAssessment? driveAssessment;
 
   @override
   State<ReactionTimeIntro> createState() => IntroScreen();
@@ -43,6 +45,7 @@ class IntroScreen extends State<ReactionTimeIntro> {
                   builder: (context) => ReactionTimeTest(
                         user: widget.user,
                         calibrate: widget.calibrate,
+                        driveAssessment: widget.driveAssessment,
                       )))),
         ));
   }
