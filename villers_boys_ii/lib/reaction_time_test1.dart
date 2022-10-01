@@ -10,7 +10,10 @@ import 'memory_test_intro.dart';
 
 class ReactionTimeTest extends StatefulWidget {
   ReactionTimeTest(
-      {Key? key, required this.user, required this.calibrate, this.driveAssessment})
+      {Key? key,
+      required this.user,
+      required this.calibrate,
+      this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
@@ -131,7 +134,6 @@ class ReactionTestState extends State<ReactionTimeTest> {
                     child: const Icon(
                       Icons.close_rounded,
                     ),
-
                   ),
                 )),
           ],
@@ -140,7 +142,8 @@ class ReactionTestState extends State<ReactionTimeTest> {
 
   save(average) async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setDouble("reaction", average);
+    //prefs.setDouble("reaction", 0.0);
+    prefs.setDouble("reactionTemp", average);
   }
 }
 //Navigator.of(context).push(MaterialPageRoute(

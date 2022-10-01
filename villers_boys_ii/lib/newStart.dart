@@ -11,7 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 //This page lets the user enter a
 //user name and age which can be used
 //in the calibration/reseting profile process
-
+//Takes in a user and a flag (flag = true means return to home page,
+// flag = false means return to profile page)
 class newStart extends StatefulWidget {
   const newStart({Key? key, required this.user, required this.flag})
       : super(key: key);
@@ -24,6 +25,7 @@ class newStart extends StatefulWidget {
 }
 
 class _newStartPageState extends State<newStart> {
+  //Declare needed variables
   late SharedPreferences prefs;
   final name2 = new TextEditingController();
   final age2 = new TextEditingController();
@@ -38,7 +40,7 @@ class _newStartPageState extends State<newStart> {
       appBar: AppBar(
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("Edit Profile"),
+        title: const Text("Edit Profile"),
       ),
       body: Container(
           margin: const EdgeInsets.all(20),
@@ -84,7 +86,7 @@ class _newStartPageState extends State<newStart> {
                 message,
                 style: TextStyle(
                     fontSize:
-                    MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                     letterSpacing: 2.0),
               ),
               ElevatedButton(
@@ -101,24 +103,25 @@ class _newStartPageState extends State<newStart> {
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => MainPage(
-                                title: 'Fatigue Management App',
-                                user: User(name, age, reactionBase, memoryBase),
-                                index: 1,
-                              )),
-                              (route) => false
-                      );
+                                    title: 'Fatigue Management App',
+                                    user: User(
+                                        name, age, reactionBase, memoryBase),
+                                    index: 1,
+                                  )),
+                          (route) => false);
                       // Go to home page, and reset route stack
                     } else {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => MainPage(
-                                title: 'Fatigue Management App',
-                                user: User(name, age, reactionBase, memoryBase),
-                                index: 2,
-                              )),
-                              (route) => false
+                          MaterialPageRoute(
+                              builder: (context) => MainPage(
+                                    title: 'Fatigue Management App',
+                                    user: User(
+                                        name, age, reactionBase, memoryBase),
+                                    index: 2,
+                                  )),
+                          (route) => false
                           // Return to home page, and reset route stack
-                      );
+                          );
                     }
                   }
                 },

@@ -20,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   int age = 0;
   double memoryBase = 0;
   double reactionBase = 0;
+  double memoryTemp = 0;
+  double reactionTemp = 0;
   bool calibrate = true;
 
   @override
@@ -34,6 +36,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       name = prefs.getString('username') ?? "";
       age = prefs.getInt('age') ?? 0;
+      memoryTemp = prefs.getDouble('memoryTemp') ?? 4;
+      reactionTemp = prefs.getDouble('reactionTemp') ?? 0.0;
+      if (memoryTemp != 4 && reactionTemp != 0.0) {
+        prefs.setDouble('memory', memoryTemp);
+        prefs.setDouble('reaction', reactionTemp);
+        prefs.remove("memoryTemp");
+        prefs.remove("reactionTemp");
+      }
       memoryBase = prefs.getDouble('memory') ?? 4;
       reactionBase = prefs.getDouble('reaction') ?? 0.0;
     });
@@ -85,18 +95,19 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Image.asset(
                 'images/driving-control.png',
-                height: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
-                width: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
+                height:
+                    MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
+                width:
+                    MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
                 'Tap above to determine your driver fatigue',
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height *
-                        BODY_TEXT_SIZE),
+                    fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),

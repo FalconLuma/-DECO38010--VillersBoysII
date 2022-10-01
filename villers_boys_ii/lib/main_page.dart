@@ -8,14 +8,13 @@ import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/settings_page.dart';
 import 'package:villers_boys_ii/home_page.dart';
 import 'package:villers_boys_ii/profile_page.dart';
-import 'package:villers_boys_ii/questionaire_start.dart';
-import 'package:villers_boys_ii/questionaire_test.dart';
-import 'package:villers_boys_ii/driving_page.dart';
 
 import 'constants.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, required this.title, required this.user, required this.index}) : super(key: key);
+  const MainPage(
+      {Key? key, required this.title, required this.user, required this.index})
+      : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -85,9 +84,7 @@ class _MainPageState extends State<MainPage> {
               label: 'Settings',
               backgroundColor: primary),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: primary),
+              icon: Icon(Icons.home), label: 'Home', backgroundColor: primary),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Account',

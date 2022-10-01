@@ -8,7 +8,7 @@ import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/main_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -18,8 +18,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyApp();
 }
 
-class _MyApp extends State<MyApp>{
-
+class _MyApp extends State<MyApp> {
   String name = "";
   int age = 0;
   double memoryBase = 0;
@@ -28,9 +27,7 @@ class _MyApp extends State<MyApp>{
   bool loaded = false;
 
   void loadData() async {
-    print("start");
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("instance");
     setState(() {
       name = prefs.getString('username') ?? "";
       age = prefs.getInt('age') ?? 0;
@@ -39,29 +36,23 @@ class _MyApp extends State<MyApp>{
       calibrated = prefs.getBool('calibrate') ?? false;
       loaded = true;
     });
-    print("loaded");
-    print(calibrated.toString());
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if(loaded == false){
+    if (loaded == false) {
       loadData();
     }
-
-    print("startWaiting");
-    if (loaded == false) return CircularProgressIndicator();
-    print("finishWaiting");
-
-      return MaterialApp(
-          title: 'DECO3801 Project',
-          theme: ThemeData(
-            primarySwatch: primary,
-            scaffoldBackgroundColor: neutral,
-          ),
-          home: check());
-    }
+    if (loaded == false) return const CircularProgressIndicator();
+    return MaterialApp(
+        title: 'DECO3801 Project',
+        theme: ThemeData(
+          primarySwatch: primary,
+          scaffoldBackgroundColor: neutral,
+        ),
+        home: check());
+  }
 
   Widget check() {
     if (calibrated == false) {

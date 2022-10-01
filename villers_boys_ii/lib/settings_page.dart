@@ -14,6 +14,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  String message = "Device Not Found!";
+  String message2 = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,43 +24,67 @@ class _SettingsPageState extends State<SettingsPage> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              'Settings',
+              'Smart Seatbelt Status',
               style: TextStyle(
                   fontSize:
-                  MediaQuery.of(context).size.height * HEADING_TEXT_SIZE),
+                      MediaQuery.of(context).size.height * HEADING_TEXT_SIZE),
               textAlign: TextAlign.center,
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.only(left: 5, right: 5),
             child: Text(
-              'Smart Seatbelt Status:',
+              message,
               style: TextStyle(
                   fontSize: MediaQuery.of(context).size.height *
                       SUBHEADING_TEXT_SIZE),
               textAlign: TextAlign.center,
             ),
           ),
-
           Padding(
-            padding: const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
+            padding:
+                const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
             child: Text(
-              'DEVICE NOT CONNECTED',
+              message2,
               style: TextStyle(
                   fontSize: MediaQuery.of(context).size.height *
                       SUBHEADING_TEXT_SIZE),
               textAlign: TextAlign.center,
             ),
           ),
-
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  message2 = "SMRTBLT1304";
+                  message = "Potential Device Found";
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(200, 50),
+              ),
+              child: Text(
+                'Search For Device',
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height *
+                        MENU_BUTTON_TEXT_SIZE),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                message = "Connected to Device";
+              });
+            },
             style: ElevatedButton.styleFrom(
               fixedSize: const Size(200, 50),
             ),
             child: Text(
-              'Connect Device',
+              'Connect To Device',
               style: TextStyle(
                   fontSize: MediaQuery.of(context).size.height *
                       MENU_BUTTON_TEXT_SIZE),

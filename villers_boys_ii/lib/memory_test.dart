@@ -11,7 +11,11 @@ import 'dart:async';
 import 'constants.dart';
 
 class MemoryTest extends StatefulWidget {
-  MemoryTest({Key? key, required this.user, required this.calibrate, this.driveAssessment})
+  MemoryTest(
+      {Key? key,
+      required this.user,
+      required this.calibrate,
+      this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
@@ -331,12 +335,12 @@ class _MemoryTest extends State<MemoryTest> {
                   padding: EdgeInsets.all(
                       MediaQuery.of(context).size.height * 0.015),
                   child: Text(
-                      "Was the highlighted tile in position ${questionPosition[questionNum]}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
-                          letterSpacing: 2.0),
+                    "Was the highlighted tile in position ${questionPosition[questionNum]}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize:
+                            MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                        letterSpacing: 2.0),
                   ),
                 ),
               ),
@@ -374,16 +378,17 @@ class _MemoryTest extends State<MemoryTest> {
               ElevatedButton(
                 onPressed: () {
                   //Pass in memory test score here
-                  save(5.8);
                   if (widget.calibrate == false &&
                       (widget.user.getUserName() == "Jacob" ||
                           widget.user.getAge() == 32)) {
+                    save(5.8);
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => newStart(
                               user: widget.user,
                               flag: true,
                             )));
                   } else if (widget.calibrate == false) {
+                    save(5.8);
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => MainPage(
                               title: 'Fatigue Managment App',
@@ -393,13 +398,16 @@ class _MemoryTest extends State<MemoryTest> {
                   } else {
                     widget.driveAssessment?.setMemoryScore(10);
                     DriveAssessment da;
-                    if(widget.driveAssessment != null){
+                    if (widget.driveAssessment != null) {
                       da = widget.driveAssessment!;
                     } else {
-                      da = DriveAssessment(0, 0, 0, User("a",0,0,0));
+                      da = DriveAssessment(0, 0, 0, User("a", 0, 0, 0));
                     }
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ResultsPage(user: widget.user, driveAssessment: da,)));
+                        builder: (context) => ResultsPage(
+                              user: widget.user,
+                              driveAssessment: da,
+                            )));
                   }
                 },
                 child: const Icon(
@@ -414,11 +422,12 @@ class _MemoryTest extends State<MemoryTest> {
 
   save(average) async {
     prefs = await SharedPreferences.getInstance();
-    prefs.setDouble("memory", average);
+    //prefs.setDouble("memory", 0.0);
+    prefs.setDouble("memoryTemp", average);
     name = prefs.getString('username') ?? "";
     age = prefs.getInt('age') ?? 0;
     calibrate = prefs.getBool('calibrate') ?? false;
-    reaction = prefs.getDouble('reaction') ?? 0.0;
-    memory = prefs.getDouble('memory') ?? 0.0;
+    reaction = prefs.getDouble('reactionTemp') ?? 0.0;
+    memory = prefs.getDouble('memoryTemp') ?? 0.0;
   }
 }
