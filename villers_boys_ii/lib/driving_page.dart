@@ -181,15 +181,19 @@ class _DrivingPageState extends State<DrivingPage> {
     if (_elapsed >= widget.restInterval) {
       setState(() {
         _reccStop = true;
-        HapticFeedback.mediumImpact();
-        if (_vibrate) {
-          true;
-        }
+        _startVibrate();
       });
     } else {
       setState(() {
         _reccStop = false;
       });
+    }
+  }
+
+  void _startVibrate(){
+    /// Calls a single impact haptic
+    if(_vibrate){
+      HapticFeedback.mediumImpact();
     }
   }
 
@@ -328,6 +332,7 @@ class _DrivingPageState extends State<DrivingPage> {
                 ElevatedButton(
                     onPressed: () {
                       _heartRateText = _heartRateDrop;
+                      _startVibrate();
                     },
                     child: Text('Heart Rate Drop Demo'))
               ],
