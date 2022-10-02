@@ -4,6 +4,8 @@ import 'package:villers_boys_ii/reaction_time1.dart';
 import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/drive_assessment.dart';
 
+import 'main_page.dart';
+
 class QuestionaireTestPage extends StatefulWidget {
   const QuestionaireTestPage({Key? key, required this.user}) : super(key: key);
   final User user;
@@ -240,6 +242,21 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             // Here we take the value from the HomePage object that was created by
             // the App.build method, and use it to set our appbar title.
             title: const Text('Fatigue Management App'),
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: (){
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 1,
+                        )
+                    ),
+                        (route) => false
+                );
+              },
+            ),
           ),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it

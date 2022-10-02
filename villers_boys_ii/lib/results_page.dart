@@ -4,6 +4,8 @@ import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/driving_page.dart';
 import 'package:villers_boys_ii/user.dart';
 
+import 'main_page.dart';
+
 class ResultsPage extends StatefulWidget {
   ResultsPage({Key? key, required this.user, required this.driveAssessment})
       : super(key: key);
@@ -55,11 +57,25 @@ class _ResultsPageState extends State<ResultsPage> {
     print(widget.driveAssessment);
     return Scaffold(
         appBar: AppBar(
-            title: const Text(
-          "Results",
-          style: TextStyle(fontSize: 25),
-          textAlign: TextAlign.center,
-        )),
+          title: const Text("Results",
+            style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: (){
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => MainPage(
+                    title: 'Fatigue Management App',
+                    user: User("kevin", 32, 32, 32),
+                    index: 1,
+                  )
+                ),
+                (route) => false
+              );
+            },
+          ),
+        ),
         body: Center(
             child: Column(
           children: [

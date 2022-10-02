@@ -6,6 +6,7 @@ import 'package:villers_boys_ii/user.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
 
+import 'main_page.dart';
 import 'memory_test_intro.dart';
 
 class ReactionTimeTest extends StatefulWidget {
@@ -84,11 +85,27 @@ class ReactionTestState extends State<ReactionTimeTest> {
 
     return Scaffold(
         appBar: AppBar(
-            title: Text(
-          "Test: ${_tnum + 1}/10 ",
-          style: const TextStyle(fontSize: 25),
-          textAlign: TextAlign.center,
-        )),
+          title: Text(
+            "Test: ${_tnum + 1}/10 ",
+            style: const TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: (){
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => MainPage(
+                    title: 'Fatigue Management App',
+                    user: User("kevin", 32, 32, 32),
+                    index: 1,
+                  )
+                ),
+                (route) => false
+              );
+            },
+          ),
+        ),
         body: Center(
             child: Stack(
           children: [

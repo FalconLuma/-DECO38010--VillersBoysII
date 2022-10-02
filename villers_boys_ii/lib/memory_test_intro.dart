@@ -3,6 +3,7 @@ import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
+import 'main_page.dart';
 import 'memory_test.dart';
 
 class MemoryTestIntro extends StatefulWidget {
@@ -25,7 +26,23 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
           "Memory Test Intro",
           style: TextStyle(fontSize: 25),
           textAlign: TextAlign.center,
-        )),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: (){
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => MainPage(
+                        title: 'Fatigue Management App',
+                        user: User("kevin", 32, 32, 32),
+                        index: 1,
+                      )
+                  ),
+                      (route) => false
+              );
+            },
+          ),
+        ),
         body: Center(
           child: Column(children: [
             Text(

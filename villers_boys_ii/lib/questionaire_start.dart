@@ -3,6 +3,8 @@ import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/questionaire_test.dart';
 import 'package:villers_boys_ii/user.dart';
 
+import 'main_page.dart';
+
 class QuestionairePage extends StatefulWidget {
   const QuestionairePage({Key? key, required this.user}) : super(key: key);
   final User user;
@@ -18,6 +20,21 @@ class _QuestionaireState extends State<QuestionairePage> {
       appBar: AppBar(
         title: const Text('Questionnaire Start'),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: (){
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => MainPage(
+                      title: 'Fatigue Management App',
+                      user: User("kevin", 32, 32, 32),
+                      index: 1,
+                    )
+                ),
+                    (route) => false
+            );
+          },
+        ),
       ),
       body: Container(
           margin: const EdgeInsets.all(10),

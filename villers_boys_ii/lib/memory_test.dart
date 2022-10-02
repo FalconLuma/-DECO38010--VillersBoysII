@@ -138,7 +138,23 @@ class _MemoryTest extends State<MemoryTest> {
           "Memory Test",
           style: TextStyle(fontSize: 25),
           textAlign: TextAlign.center,
-        )),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: (){
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => MainPage(
+                        title: 'Fatigue Management App',
+                        user: User("kevin", 32, 32, 32),
+                        index: 1,
+                      )
+                  ),
+                      (route) => false
+              );
+            },
+          ),
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
