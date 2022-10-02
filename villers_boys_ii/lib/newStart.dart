@@ -41,6 +41,21 @@ class _newStartPageState extends State<newStart> {
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: const Text("Edit Profile"),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: (){
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => MainPage(
+                      title: 'Fatigue Management App',
+                      user: User("kevin", 32, 32, 32),
+                      index: 1,
+                    )
+                ),
+              (route) => false
+            );
+          },
+        ),
       ),
       body: Container(
           margin: const EdgeInsets.all(20),
