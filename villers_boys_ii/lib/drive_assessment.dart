@@ -60,7 +60,7 @@ class DriveAssessment{
     /// Determines the fatigue level based on the number of tests above certain thresholds
     /// Returns: 0 - No Fatigue, 1 - Some Fatigue, 2 - High Fatigue
 
-    //  No fatigue, Med fatigue, high fatigue
+    // [No fatigue, Med fatigue, High fatigue]
     List<int> fatigueLevels = [0,0,0];
 
     for(int i = 0; i < questionnaireThresholds.length; i++){
@@ -88,8 +88,6 @@ class DriveAssessment{
     fatigueLevels.forEach((f) {
       maxValue = max(maxValue,f);
     });
-
-    print(fatigueLevels);
 
     if(maxValue == 1){ // Equal scores for all fatigue levels
       return 1;

@@ -4,6 +4,7 @@ import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
 import 'drive_assessment.dart';
+import 'main_page.dart';
 
 class ReactionTimeIntro extends StatefulWidget {
   ReactionTimeIntro(
@@ -22,11 +23,27 @@ class IntroScreen extends State<ReactionTimeIntro> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text(
-          "Get Ready!",
-          style: TextStyle(fontSize: 25),
-          textAlign: TextAlign.center,
-        )),
+          title: const Text(
+            "Get Ready!",
+            style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: (){
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => MainPage(
+                    title: 'Fatigue Management App',
+                    user: User("kevin", 32, 32, 32),
+                    index: 1,
+                  )
+                ),
+                (route) => false
+              );
+            },
+          ),
+        ),
         body: Center(
           child: GestureDetector(
               behavior: HitTestBehavior.opaque,

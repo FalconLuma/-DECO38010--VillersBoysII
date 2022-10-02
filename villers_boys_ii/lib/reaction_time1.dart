@@ -4,6 +4,7 @@ import 'package:villers_boys_ii/reaction_time_intro.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
+import 'main_page.dart';
 
 class ReactionTimePage extends StatefulWidget {
   ReactionTimePage(
@@ -23,6 +24,21 @@ class _ReactionTimeState extends State<ReactionTimePage> {
       appBar: AppBar(
         title: const Text('Reaction Time Test'),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: (){
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => MainPage(
+                      title: 'Fatigue Management App',
+                      user: User("kevin", 32, 32, 32),
+                      index: 1,
+                    )
+                ),
+                    (route) => false
+            );
+          },
+        ),
       ),
       body: Container(
           margin: EdgeInsets.all(10),

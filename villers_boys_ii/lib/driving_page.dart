@@ -25,7 +25,7 @@ class _DrivingPageState extends State<DrivingPage> {
       seconds:
           0); // The total amount of time the timer has run since the  last reset but before the last pause
   Duration _elapsed = const Duration(
-      seconds: 0); // The amount of time elapsed since hte last pause ended
+      seconds: 0); // The amount of time elapsed since the last pause ended
   int _timerMode = 0; // 0 = not started, 1 = running, 2 = paused
   final stopwatch = Stopwatch();
   bool _reccStop = false;
@@ -40,7 +40,7 @@ class _DrivingPageState extends State<DrivingPage> {
   final _buttonTexts = ['Start', 'Pause', 'Resume'];
 
   void _showTimerDialog(BuildContext context) {
-    // Opens a dialog box to choose between pausing or resetting the timer
+    /// Opens a dialog box to choose between pausing or resetting the timer
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -131,8 +131,7 @@ class _DrivingPageState extends State<DrivingPage> {
   }
 
   void _timerActions(BuildContext context) {
-    // Using the current timer state decide whether to start the timer or open
-    // the dialog to pause/reset the timer
+    /// Using the current timer state decide whether to start the timer or open the dialog to pause/reset the timer
     switch (_timerMode) {
       case 0:
         _startTimer();
@@ -166,16 +165,15 @@ class _DrivingPageState extends State<DrivingPage> {
   void _resetTimer() {
     setState(() {
       _timerMode = 0;
-      _totalDuration = Duration(seconds: 0);
+      _totalDuration = const Duration(seconds: 0);
     });
     stopwatch.stop();
     stopwatch.reset();
   }
 
   void _refresh() {
-    // Called once a second by the incremental timer
-    // Updates the elapsed time and checks if the recommended rest time has
-    // been reached
+    /// Called once a second by the incremental timer
+    /// Updates the elapsed time and checks if the recommended rest time has been reached
     setState(() {
       _elapsed = stopwatch.elapsed;
     });
@@ -196,7 +194,7 @@ class _DrivingPageState extends State<DrivingPage> {
   }
 
   String _timeString(Duration d) {
-    // Returns a duration in HH:MM:SS Format
+    /// Returns a duration as a string in HH:MM:SS Format
     int hours = d.inHours;
     int mins = d.inMinutes - (hours * 60);
     int secs = d.inSeconds - (hours * 360) - (mins * 60);
@@ -220,20 +218,38 @@ class _DrivingPageState extends State<DrivingPage> {
 
   @override
   void initState() {
-    //Called during initializing the screen
-    // Sets up the timer for refresh()
-    _t = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    /// Called during initializing the screen
+    // Set up the timer to call refresh() every half second
+    _t = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       _refresh();
     });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _t.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the HomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text('Driving Page'),
+          title: const Text('Driving Page'),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => MainPage(
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 1,
+                          )),
+                  (route) => false);
+            },
+          ),
         ),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -258,8 +274,7 @@ class _DrivingPageState extends State<DrivingPage> {
                         _vibrate = true;
                       }
                     },
-                    child: Container(
-                        child: Visibility(
+                    child: Visibility(
                       visible: _vibrate,
                       replacement: Row(
                         children: const [
@@ -273,7 +288,7 @@ class _DrivingPageState extends State<DrivingPage> {
                           Text("Vibration on")
                         ],
                       ),
-                    ))),
+                    )),
                 ElevatedButton(
                   onPressed: () {
                     _timerActions(context);
