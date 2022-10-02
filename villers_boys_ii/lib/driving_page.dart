@@ -35,6 +35,8 @@ class _DrivingPageState extends State<DrivingPage> {
   final _ebSidePad = 0.02;
   final _ebTopPad = 0.02;
 
+  var _heartRateText = ['67', '64', '65', '68', '63'];
+  var _heartRateDrop = ['40', '40', '40', '40', '40'];
   final _buttonTexts = ['Start', 'Pause', 'Resume'];
 
   void _showTimerDialog(BuildContext context) {
@@ -84,13 +86,12 @@ class _DrivingPageState extends State<DrivingPage> {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => MainPage(
-                            title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
-                            index: 1,
-                          )),
-                          (route) => false
-                  ); // Go to home page, and reset route stack
-
+                                title: 'Fatigue Management App',
+                                user: User("kevin", 32, 32, 32),
+                                index: 1,
+                              )),
+                      (route) =>
+                          false); // Go to home page, and reset route stack
                 },
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
@@ -183,7 +184,7 @@ class _DrivingPageState extends State<DrivingPage> {
       setState(() {
         _reccStop = true;
         HapticFeedback.mediumImpact();
-        if(_vibrate){
+        if (_vibrate) {
           true;
         }
       });
@@ -241,31 +242,38 @@ class _DrivingPageState extends State<DrivingPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
+                  child: Text("Heart Rate"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(300, 0, 15, 15),
+                  child: Text(_heartRateText[(_elapsed.inSeconds) % 5]),
+                ),
                 ElevatedButton(
-                    onPressed: (){
-                      if(_vibrate){
+                    onPressed: () {
+                      if (_vibrate) {
                         _vibrate = false;
-                      } else{
+                      } else {
                         _vibrate = true;
                       }
                     },
                     child: Container(
-                        child: Visibility(visible: _vibrate,
-                          replacement: Row(
-                            children: const [
-                              Icon(Icons.volume_off),
-                              Text("Vibration off")
-                            ],
-                          ),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.volume_up),
-                              Text("Vibration on")
-                            ],
-                          ),
-                        )
-                    )
-                ),
+                        child: Visibility(
+                      visible: _vibrate,
+                      replacement: Row(
+                        children: const [
+                          Icon(Icons.volume_off),
+                          Text("Vibration off")
+                        ],
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.volume_up),
+                          Text("Vibration on")
+                        ],
+                      ),
+                    ))),
                 ElevatedButton(
                   onPressed: () {
                     _timerActions(context);
@@ -302,6 +310,11 @@ class _DrivingPageState extends State<DrivingPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      _heartRateText = _heartRateDrop;
+                    },
+                    child: Text('Heart Rate Drop Demo'))
               ],
             ),
           ],
