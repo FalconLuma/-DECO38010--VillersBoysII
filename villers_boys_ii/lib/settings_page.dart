@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:villers_boys_ii/user.dart';
 
@@ -14,10 +15,13 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  late SharedPreferences prefs;
   String message = "Device Not Found!";
   String message2 = "";
+
   @override
   Widget build(BuildContext context) {
+    loadData();
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -60,6 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 setState(() {
                   message2 = "SMRTBLT1304";
                   message = "Potential Device Found";
+                  save(message, message2);
                 });
               },
               style: ElevatedButton.styleFrom(
@@ -78,6 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
             onPressed: () {
               setState(() {
                 message = "Connected to Device";
+                save(message, message2);
               });
             },
             style: ElevatedButton.styleFrom(
@@ -94,5 +100,23 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
+  }
+
+  loadData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      message = prefs.getString('message') ?? "";
+      message2 = prefs.getString('message2') ?? "";
+      if (message.isEmpty && message2.isEmpty) {
+        prefs.setString('memory', "Device Not Found!");
+        prefs.setString('reaction', "");
+      }
+    });
+  }
+
+  save(message, message2) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString("message", message);
+    prefs.setString("message2", message2);
   }
 }
