@@ -13,9 +13,9 @@ import 'constants.dart';
 class MemoryTest extends StatefulWidget {
   MemoryTest(
       {Key? key,
-      required this.user,
-      required this.calibrate,
-      this.driveAssessment})
+        required this.user,
+        required this.calibrate,
+        this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
@@ -36,47 +36,115 @@ class _MemoryTest extends State<MemoryTest> {
 
   Color defaultColor = primary;
   Color pressedColor = secondary;
-  int duration = 500;
+  int duration = 1500;
   int sequenceItems = 7;
   int numSquares = 16;
-  List<int> sequence = List<int>.generate(16, (i) => i);
-  List<bool> pressed = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  int numQuestions = 5; // NOTE: if updated, also update list generation
+
+  late List<int> sequence = List<int>.generate(sequenceItems, (i) => 0);
+  late List<String> textValues = List<String>.generate(numSquares, (i) => '');
+  late List<bool> pressed = List<bool>.generate(numSquares, (i) => false);
+  late List<int> questionSquare = List<int>.generate(numQuestions, (i) => 0);
+  late List<int> questionPosition = List<int>.generate(numQuestions, (i) => 0);
+  late List<bool> answers = List<bool>.generate(numQuestions, (i) => false);
+
   bool setup = false;
-  int numQuestions = 3;
-  List<int> questionSquare = List<int>.generate(3, (i) => 0);
-  List<int> questionPosition = List<int>.generate(3, (i) => 0);
-  List<bool> answers = List<bool>.generate(3, (i) => false);
   bool showQuestion = false;
   int questionNum = 0;
+
+  void _setResult() {
+    double result = 0;
+    for (int i = 0; i < numQuestions; i++) {
+      if (answers[i] && sequence[questionPosition[i]] == questionSquare[i]) {
+        // Answered yes and was in correct position
+        result += 1;
+      } else if (!answers[i] && sequence[questionPosition[i]] != questionSquare[i]) {
+        // Answered no and not in correct position
+        result += 1;
+      }
+    }
+    debugPrint(answers.toString());
+    debugPrint("Your memory score is: $result");
+
+
+    //Pass in memory test score here
+    if (widget.calibrate == false &&
+        (widget.user.getUserName() == "Jacob" ||
+            widget.user.getAge() == 32)) {
+      save(result);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => newStart(
+            user: widget.user,
+            flag: true,
+          )));
+    } else if (widget.calibrate == false) {
+      save(result);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MainPage(
+            title: 'Fatigue Managment App',
+            user: User(name, age, reaction, memory),
+            index: 2,
+          )));
+    } else {
+      widget.driveAssessment?.setMemoryScore(result);
+      DriveAssessment da;
+      if (widget.driveAssessment != null) {
+        da = widget.driveAssessment!;
+      } else {
+        da = DriveAssessment(0, 0, 0, User("a", 0, 0, 0));
+      }
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ResultsPage(
+            user: widget.user,
+            driveAssessment: da,
+          )));
+    }
+  }
+
+  /*
+  Generate a question
+   */
+  void _generateQuestion(int index) {
+    var rng = Random();
+    if (rng.nextBool()) {
+      // Question that is forced to be true
+      int val = rng.nextInt(sequenceItems);
+      questionSquare[index] = sequence[val];
+      questionPosition[index] = val;
+    } else {
+      // Question that could be true or false
+      questionSquare[index] = rng.nextInt(numSquares);
+      questionPosition[index] = rng.nextInt(sequenceItems);
+    }
+  }
 
   void _genRandSequence() {
     // Create random sequence
     var rng = Random();
+    int val;
     for (var i = 0; i < sequenceItems; i++) {
-      sequence[i] = rng.nextInt(numSquares);
+      val = rng.nextInt(numSquares);
+      if (i != 0) {
+        // Don't set the sequence to the same square twice in a row
+        while (val == sequence[i-1]) {
+          val = rng.nextInt(numSquares);
+        }
+      }
+      sequence[i] = val;
     }
-    for (var i = 0; i < numQuestions; i++) {
-      questionSquare[i] = rng.nextInt(numSquares);
-      questionPosition[i] = rng.nextInt(sequenceItems);
-      // TODO: Ensure some of the actual questions have yes answers. Probably around 50%
+
+    // Create questions
+    _generateQuestion(0);
+    for (var i = 1; i < numQuestions; i++) {
+      do {
+        _generateQuestion(i);
+        // Check question is not the same as the question before
+      } while (questionSquare[i] == questionSquare[i-1] && questionPosition[i]
+          == questionPosition[i-1]);
     }
+    debugPrint("Generated sequence: $sequence");
+    debugPrint("Question tiles: $questionSquare");
+    debugPrint("Question positions: $questionPosition");
   }
 
   void _updateBoard() {
@@ -86,11 +154,13 @@ class _MemoryTest extends State<MemoryTest> {
       Timer(Duration(milliseconds: duration * i), () {
         setState(() {
           if (i != sequenceItems) {
+            textValues[sequence[i]] = "$i";
             pressed[sequence[i]] = !pressed[sequence[i]]; // turn square on
           }
           if (i != 0) {
+            textValues[sequence[i - 1]] = '';
             pressed[sequence[i - 1]] =
-                !pressed[sequence[i - 1]]; // turn previous square off
+            !pressed[sequence[i - 1]]; // turn previous square off
           }
         });
       });
@@ -98,8 +168,10 @@ class _MemoryTest extends State<MemoryTest> {
     Timer(Duration(milliseconds: duration * sequenceItems + 500), () {
       setState(() {
         showQuestion = true;
+        int position = questionPosition[questionNum];
+        textValues[questionSquare[questionNum]] = "$position";
         pressed[questionSquare[questionNum]] =
-            !pressed[questionSquare[questionNum]];
+        !pressed[questionSquare[questionNum]];
       });
     });
   }
@@ -107,18 +179,26 @@ class _MemoryTest extends State<MemoryTest> {
   void _nextQuestion() {
     questionNum++;
     // Hide previous tile
-    print(questionNum);
     if (questionNum < numQuestions) {
-      pressed[questionSquare[questionNum - 1]] =
-          !pressed[questionSquare[questionNum - 1]];
+      if (questionNum != 0) {
+        textValues[questionSquare[questionNum - 1]] = '';
+        pressed[questionSquare[questionNum - 1]] =
+        !pressed[questionSquare[questionNum - 1]];
+      }
       // Show new tile
+      int position = questionPosition[questionNum];
+      textValues[questionSquare[questionNum]] = "$position";
       pressed[questionSquare[questionNum]] =
-          !pressed[questionSquare[questionNum]];
+      !pressed[questionSquare[questionNum]];
     } else {
+      // Questions are finished. Show nothing
+      textValues[questionSquare[questionNum - 1]] = '';
       pressed[questionSquare[questionNum - 1]] =
-          !pressed[questionSquare[questionNum - 1]];
+      !pressed[questionSquare[questionNum - 1]];
       questionNum = 0;
       showQuestion = false;
+      _setResult();
+
     }
   }
 
@@ -134,10 +214,10 @@ class _MemoryTest extends State<MemoryTest> {
     });
     return Scaffold(
         appBar: AppBar(
-            title: const Text(
-          "Memory Test",
-          style: TextStyle(fontSize: 25),
-          textAlign: TextAlign.center,
+          title: const Text(
+            "Memory Test",
+            style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
           ),
           leading: IconButton(
             icon: const Icon(Icons.close),
@@ -167,182 +247,18 @@ class _MemoryTest extends State<MemoryTest> {
                 mainAxisSpacing: 1,
                 crossAxisCount: 4,
                 children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[0] = !pressed[0];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[0] ? pressedColor : defaultColor),
+                  for (int i = 0; i < 16; i++) InkWell(
+                      onTap: () {},
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(color: pressed[i] ? pressedColor : defaultColor),
+                          child: Align (
+                            alignment: Alignment.center,
+                            child: Text(
+                                style: const TextStyle(fontSize: 25),
+                                textValues[i]),
+                          )
+                      )
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[1] = !pressed[1];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[1] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[2] = !pressed[2];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[2] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[3] = !pressed[3];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[3] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[4] = !pressed[4];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[4] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[5] = !pressed[5];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[5] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[6] = !pressed[6];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[6] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[7] = !pressed[7];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[7] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[8] = !pressed[8];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[8] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[9] = !pressed[9];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[9] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[10] = !pressed[10];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[10] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[11] = !pressed[11];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[11] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[12] = !pressed[12];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[12] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[13] = !pressed[13];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[13] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[14] = !pressed[14];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[14] ? pressedColor : defaultColor),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pressed[15] = !pressed[15];
-                      });
-                    },
-                    child: Ink(
-                        height: 100,
-                        width: 100,
-                        color: pressed[15] ? pressedColor : defaultColor),
-                  )
                 ],
               ),
               Visibility(
@@ -355,7 +271,7 @@ class _MemoryTest extends State<MemoryTest> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize:
-                            MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                         letterSpacing: 2.0),
                   ),
                 ),
@@ -367,7 +283,7 @@ class _MemoryTest extends State<MemoryTest> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.02),
+                            MediaQuery.of(context).size.height * 0.05),
                         child: ElevatedButton(
                             onPressed: () {
                               setState(() {
@@ -375,11 +291,11 @@ class _MemoryTest extends State<MemoryTest> {
                                 _nextQuestion();
                               });
                             },
-                            child: Text("Yes")),
+                            child: const Text("Yes")),
                       ),
                       Padding(
                         padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.02),
+                            MediaQuery.of(context).size.height * 0.05),
                         child: ElevatedButton(
                             onPressed: () {
                               setState(() {
@@ -387,49 +303,9 @@ class _MemoryTest extends State<MemoryTest> {
                                 _nextQuestion();
                               });
                             },
-                            child: Text("No")),
+                            child: const Text("No")),
                       ),
                     ]),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  //Pass in memory test score here
-                  if (widget.calibrate == false &&
-                      (widget.user.getUserName() == "Jacob" ||
-                          widget.user.getAge() == 32)) {
-                    save(5.8);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => newStart(
-                              user: widget.user,
-                              flag: true,
-                            )));
-                  } else if (widget.calibrate == false) {
-                    save(5.8);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Managment App',
-                              user: User(name, age, reaction, memory),
-                              index: 2,
-                            )));
-                  } else {
-                    widget.driveAssessment?.setMemoryScore(10);
-                    DriveAssessment da;
-                    if (widget.driveAssessment != null) {
-                      da = widget.driveAssessment!;
-                    } else {
-                      da = DriveAssessment(0, 0, 0, User("a", 0, 0, 0));
-                    }
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ResultsPage(
-                              user: widget.user,
-                              driveAssessment: da,
-                            )));
-                  }
-                },
-                child: const Icon(
-                  Icons.start_sharp,
-                  size: 50,
-                ),
               ),
             ],
           ),
