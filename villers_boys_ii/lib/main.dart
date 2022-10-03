@@ -50,6 +50,20 @@ class _MyApp extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: primary,
           scaffoldBackgroundColor: neutral,
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              titleTextStyle: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: darkBlue,
+              ),
+              iconTheme: IconThemeData(
+                color: darkBlue,
+              )
+          ),
+          navigationBarTheme: const NavigationBarThemeData(
+            backgroundColor:Colors.white,
+          )
         ),
         home: check());
   }

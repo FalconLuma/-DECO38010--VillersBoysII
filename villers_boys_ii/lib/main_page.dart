@@ -40,10 +40,6 @@ class _MainPageState extends State<MainPage> {
     SettingsPage(user: widget.user),
     HomePage(user: widget.user),
     ProfilePage(user: widget.user),
-    ReactionTimePage(
-      user: widget.user,
-      calibrate: false,
-    ),
   ];
 
   @override
@@ -78,26 +74,45 @@ class _MainPageState extends State<MainPage> {
           // in the middle of the parent.
           child: pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: primary),
+              icon: Icon(
+                Icons.settings_outlined,
+                color: deselectedColor,
+              ),
+              activeIcon: Icon(
+                Icons.settings,
+                color: darkBlue,
+              ),
+              label: 'Seatbelt',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home), label: 'Home', backgroundColor: primary),
+              icon: Icon(
+                Icons.home_outlined,
+                color: deselectedColor,
+              ),
+              activeIcon: Icon(
+                Icons.home,
+                color: darkBlue,
+              ),
+              label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Account',
-              backgroundColor: primary),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.timer),
-              label: 'ReactionTime',
-              backgroundColor: primary),
+              icon: Icon(
+                Icons.person_outline,
+                color: deselectedColor,
+              ),
+              activeIcon: Icon(
+                  Icons.person,
+                color: darkBlue,
+              ),
+                label: 'Profile',
+          ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         selectedIconTheme: const IconThemeData(size: 35),
         unselectedIconTheme: const IconThemeData(size: 35),
       ),
