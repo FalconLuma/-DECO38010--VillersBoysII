@@ -105,11 +105,11 @@ class _SettingsPageState extends State<SettingsPage> {
   loadData() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {
-      message = prefs.getString('message') ?? "";
+      message = prefs.getString('message') ?? "Device Not Found";
       message2 = prefs.getString('message2') ?? "";
-      if (message.isEmpty && message2.isEmpty) {
+      if (message == "Device Not Found" && message2.isEmpty) {
         prefs.setString('memory', "Device Not Found!");
-        prefs.setString('reaction', "");
+        prefs.setString('memory2', "");
       }
     });
   }

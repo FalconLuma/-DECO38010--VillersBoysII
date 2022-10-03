@@ -30,6 +30,7 @@ class _DrivingPageState extends State<DrivingPage> {
   final stopwatch = Stopwatch();
   bool _reccStop = false;
   bool _vibrate = true;
+  bool _recommendations = false;
 
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
@@ -130,6 +131,63 @@ class _DrivingPageState extends State<DrivingPage> {
     );
   }
 
+  void _showRecommendations(BuildContext context) {
+    /// Opens a dialog box to choose between pausing or resetting the timer
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text(
+            "Feeling fatigued?",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height *
+                    SUBHEADING_TEXT_SIZE /
+                    1.2),
+          ),
+          backgroundColor: neutral,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * _ebSidePad,
+                  right: MediaQuery.of(context).size.width * _ebSidePad,
+                  top: MediaQuery.of(context).size.height * _ebTopPad),
+              child: Text(
+                "• Please Note the following recommendations are only temporary fixes.\n"
+                "•Firstly try lowering the cars interior temparature/putting the aircon on high\n"
+                "• Try adjusting and focusing on your seating posture\n"
+                "• Try increasing or turning on some music\n",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * _ebSidePad,
+                  right: MediaQuery.of(context).size.width * _ebSidePad,
+                  top: MediaQuery.of(context).size.height * _ebTopPad),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
+                        MediaQuery.of(context).size.height * _ebHeight)),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height *
+                          MENU_BUTTON_TEXT_SIZE),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _timerActions(BuildContext context) {
     /// Using the current timer state decide whether to start the timer or open the dialog to pause/reset the timer
     switch (_timerMode) {
@@ -190,9 +248,9 @@ class _DrivingPageState extends State<DrivingPage> {
     }
   }
 
-  void _startVibrate(){
+  void _startVibrate() {
     /// Calls a single impact haptic
-    if(_vibrate){
+    if (_vibrate) {
       HapticFeedback.mediumImpact();
     }
   }
@@ -262,6 +320,27 @@ class _DrivingPageState extends State<DrivingPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        _showRecommendations(context);
+                        if (_recommendations) {
+                          _recommendations = false;
+                        } else {
+                          _recommendations = true;
+                        }
+                      },
+                      child: Visibility(
+                        visible: _recommendations,
+                        replacement: Row(children: const [
+                          Icon(Icons.help),
+                        ]),
+                        child: Row(children: const [
+                          Icon(Icons.help),
+                        ]),
+                      )),
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
                   child: Text("Heart Rate"),
