@@ -15,17 +15,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final userNameController = TextEditingController();
-  final ageController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    userNameController.dispose();
-    ageController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Text(
@@ -55,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
+
             Padding(
                 padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
                 child: Text(
@@ -65,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   textAlign: TextAlign.center,
                 ),
             ),
+
             Padding(
                 padding: const EdgeInsets.only(
                     left: 16, top: 15, right: 16, bottom: 15),
@@ -107,6 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
               child: Text(
@@ -117,6 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(
                   left: 16, top: 15, right: 16, bottom: 15),
@@ -145,9 +139,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         MENU_BUTTON_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(
-              height: 30,
             ),
           ],
         ),

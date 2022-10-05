@@ -26,6 +26,8 @@ class _MyApp extends State<MyApp> {
   bool calibrated = false;
   bool loaded = false;
 
+  /// Load the data of the user saved on the device into the respective
+  /// instance variables.
   void loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -68,6 +70,9 @@ class _MyApp extends State<MyApp> {
         home: check());
   }
 
+  /// If it's the user's first time opening the app, take them through
+  /// calibration and setting up a new user. Otherwise, just return the main
+  /// page.
   Widget check() {
     if (calibrated == false) {
       return StartCalibratePage(user: User("Jacob", 32, 64, 128));

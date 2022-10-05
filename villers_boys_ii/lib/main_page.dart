@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:villers_boys_ii/reaction_time1.dart';
 
 import 'package:villers_boys_ii/user.dart';
 
@@ -34,20 +33,25 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 1;
-
+  /// The pages that will appear in the bottom navigation bar.
   late final pages = [
     SettingsPage(user: widget.user),
     HomePage(user: widget.user),
     ProfilePage(user: widget.user),
   ];
 
+  /// The index of the page currently being looked at.
+  int _selectedIndex = 1;
+
+  /// Initialise the page to the specified index at construction.
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.index;
   }
 
+  /// Change the page being looked at when a bottom navigation bar item is
+  /// tapped.
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -86,6 +90,7 @@ class _MainPageState extends State<MainPage> {
               ),
               label: 'Seatbelt',
           ),
+
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,
@@ -97,6 +102,7 @@ class _MainPageState extends State<MainPage> {
               ),
               label: 'Home',
           ),
+
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.person_outline,
