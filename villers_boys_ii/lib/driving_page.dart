@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:vibration/vibration.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:flutter/services.dart';
 
@@ -31,6 +32,7 @@ class _DrivingPageState extends State<DrivingPage> {
   bool _reccStop = false;
   bool _vibrate = true;
   bool _recommendations = false;
+  bool _vibrated = false;
 
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
@@ -206,6 +208,7 @@ class _DrivingPageState extends State<DrivingPage> {
     setState(() {
       _timerMode = 1;
       _reccStop = false;
+      _vibrated = false;
       _elapsed = const Duration(seconds: 0);
     });
     stopwatch.start();
@@ -239,7 +242,10 @@ class _DrivingPageState extends State<DrivingPage> {
     if (_elapsed >= widget.restInterval) {
       setState(() {
         _reccStop = true;
-        _startVibrate();
+        if (!_vibrated) {
+          _startVibrate();
+          _vibrated = true;
+        }
       });
     } else {
       setState(() {
@@ -251,7 +257,10 @@ class _DrivingPageState extends State<DrivingPage> {
   void _startVibrate() {
     /// Calls a single impact haptic
     if (_vibrate) {
-      HapticFeedback.mediumImpact();
+      Vibration.vibrate(duration: 1000);
+      // Vibrate for 1 second
+      debugPrint("Vibration");
+      //HapticFeedback.mediumImpact();
     }
   }
 
