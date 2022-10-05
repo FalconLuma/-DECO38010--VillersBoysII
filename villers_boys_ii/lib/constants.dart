@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 /// Global size multipliers
@@ -16,20 +18,20 @@ const double MAIN_BUTTON_SIZE = 0.85; // Always relative to size.width
 // Colours
 const Color darkBlue = Color(0xFF1D4659);
 
-const Map<int, Color> darkBlueMap ={
-  50:Color.fromRGBO(29,70,89, .1),
-  100:Color.fromRGBO(29,70,89, .2),
-  200:Color.fromRGBO(29,70,89, .3),
-  300:Color.fromRGBO(29,70,89, .4),
-  400:Color.fromRGBO(29,70,89, .5),
-  500:Color.fromRGBO(29,70,89, .6),
-  600:Color.fromRGBO(29,70,89, .7),
-  700:Color.fromRGBO(29,70,89, .8),
-  800:Color.fromRGBO(29,70,89, .9),
-  900:Color.fromRGBO(29,70,89, 1),
+const Map<int, Color> darkBlueMap = {
+  50: Color.fromRGBO(29, 70, 89, .1),
+  100: Color.fromRGBO(29, 70, 89, .2),
+  200: Color.fromRGBO(29, 70, 89, .3),
+  300: Color.fromRGBO(29, 70, 89, .4),
+  400: Color.fromRGBO(29, 70, 89, .5),
+  500: Color.fromRGBO(29, 70, 89, .6),
+  600: Color.fromRGBO(29, 70, 89, .7),
+  700: Color.fromRGBO(29, 70, 89, .8),
+  800: Color.fromRGBO(29, 70, 89, .9),
+  900: Color.fromRGBO(29, 70, 89, 1),
 };
 
-MaterialColor primary = MaterialColor(0xFF1D4659, darkBlueMap);
+MaterialColor primary = const MaterialColor(0xFF1D4659, darkBlueMap);
 const MaterialColor secondary = Colors.orange;
 Color? deselectedColor = Colors.grey[800];
 Color? neutral = Colors.grey[100];

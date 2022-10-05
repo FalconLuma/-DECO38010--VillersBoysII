@@ -35,7 +35,6 @@ class _SettingsPageState extends State<SettingsPage> {
               textAlign: TextAlign.center,
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.only(left: 5, right: 5),
             child: Text(
@@ -46,7 +45,6 @@ class _SettingsPageState extends State<SettingsPage> {
               textAlign: TextAlign.center,
             ),
           ),
-
           Padding(
             padding:
                 const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
@@ -58,7 +56,6 @@ class _SettingsPageState extends State<SettingsPage> {
               textAlign: TextAlign.center,
             ),
           ),
-
           Padding(
             padding:
                 const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
@@ -82,7 +79,6 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
-
           ElevatedButton(
             onPressed: () {
               setState(() {

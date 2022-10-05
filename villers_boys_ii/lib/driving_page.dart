@@ -1,11 +1,11 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:vibration/vibration.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
-import 'package:flutter/services.dart';
 
 import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/main_page.dart';
@@ -350,8 +350,8 @@ class _DrivingPageState extends State<DrivingPage> {
                         ]),
                       )),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(300, 15, 15, 0),
                   child: Text("Heart Rate"),
                 ),
                 Padding(
@@ -422,7 +422,7 @@ class _DrivingPageState extends State<DrivingPage> {
                       _heartRateText = _heartRateDrop;
                       _startVibrate();
                     },
-                    child: Text('Heart Rate Drop Demo'))
+                    child: const Text('Heart Rate Drop Demo'))
               ],
             ),
           ],

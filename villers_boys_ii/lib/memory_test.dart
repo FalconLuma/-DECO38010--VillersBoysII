@@ -13,9 +13,9 @@ import 'constants.dart';
 class MemoryTest extends StatefulWidget {
   MemoryTest(
       {Key? key,
-        required this.user,
-        required this.calibrate,
-        this.driveAssessment})
+      required this.user,
+      required this.calibrate,
+      this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
@@ -58,7 +58,8 @@ class _MemoryTest extends State<MemoryTest> {
       if (answers[i] && sequence[questionPosition[i]] == questionSquare[i]) {
         // Answered yes and was in correct position
         result += 1;
-      } else if (!answers[i] && sequence[questionPosition[i]] != questionSquare[i]) {
+      } else if (!answers[i] &&
+          sequence[questionPosition[i]] != questionSquare[i]) {
         // Answered no and not in correct position
         result += 1;
       }
@@ -66,25 +67,23 @@ class _MemoryTest extends State<MemoryTest> {
     debugPrint(answers.toString());
     debugPrint("Your memory score is: $result");
 
-
     //Pass in memory test score here
     if (widget.calibrate == false &&
-        (widget.user.getUserName() == "Jacob" ||
-            widget.user.getAge() == 32)) {
+        (widget.user.getUserName() == "Jacob" || widget.user.getAge() == 32)) {
       save(result);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => newStart(
-            user: widget.user,
-            flag: true,
-          )));
+                user: widget.user,
+                flag: true,
+              )));
     } else if (widget.calibrate == false) {
       save(result);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => MainPage(
-            title: 'Fatigue Managment App',
-            user: User(name, age, reaction, memory),
-            index: 2,
-          )));
+                title: 'Fatigue Managment App',
+                user: User(name, age, reaction, memory),
+                index: 2,
+              )));
     } else {
       widget.driveAssessment?.setMemoryScore(result);
       DriveAssessment da;
@@ -95,9 +94,9 @@ class _MemoryTest extends State<MemoryTest> {
       }
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ResultsPage(
-            user: widget.user,
-            driveAssessment: da,
-          )));
+                user: widget.user,
+                driveAssessment: da,
+              )));
     }
   }
 
@@ -126,7 +125,7 @@ class _MemoryTest extends State<MemoryTest> {
       val = rng.nextInt(numSquares);
       if (i != 0) {
         // Don't set the sequence to the same square twice in a row
-        while (val == sequence[i-1]) {
+        while (val == sequence[i - 1]) {
           val = rng.nextInt(numSquares);
         }
       }
@@ -139,8 +138,8 @@ class _MemoryTest extends State<MemoryTest> {
       do {
         _generateQuestion(i);
         // Check question is not the same as the question before
-      } while (questionSquare[i] == questionSquare[i-1] && questionPosition[i]
-          == questionPosition[i-1]);
+      } while (questionSquare[i] == questionSquare[i - 1] &&
+          questionPosition[i] == questionPosition[i - 1]);
     }
     debugPrint("Generated sequence: $sequence");
     debugPrint("Question tiles: $questionSquare");
@@ -160,7 +159,7 @@ class _MemoryTest extends State<MemoryTest> {
           if (i != 0) {
             textValues[sequence[i - 1]] = '';
             pressed[sequence[i - 1]] =
-            !pressed[sequence[i - 1]]; // turn previous square off
+                !pressed[sequence[i - 1]]; // turn previous square off
           }
         });
       });
@@ -171,7 +170,7 @@ class _MemoryTest extends State<MemoryTest> {
         int position = questionPosition[questionNum];
         textValues[questionSquare[questionNum]] = "${position + 1}";
         pressed[questionSquare[questionNum]] =
-        !pressed[questionSquare[questionNum]];
+            !pressed[questionSquare[questionNum]];
       });
     });
   }
@@ -183,28 +182,27 @@ class _MemoryTest extends State<MemoryTest> {
       if (questionNum != 0) {
         textValues[questionSquare[questionNum - 1]] = '';
         pressed[questionSquare[questionNum - 1]] =
-        !pressed[questionSquare[questionNum - 1]];
+            !pressed[questionSquare[questionNum - 1]];
       }
       // Show new tile
       int position = questionPosition[questionNum];
       textValues[questionSquare[questionNum]] = "${position + 1}";
       pressed[questionSquare[questionNum]] =
-      !pressed[questionSquare[questionNum]];
+          !pressed[questionSquare[questionNum]];
     } else {
       // Questions are finished. Show nothing
       textValues[questionSquare[questionNum - 1]] = '';
       pressed[questionSquare[questionNum - 1]] =
-      !pressed[questionSquare[questionNum - 1]];
+          !pressed[questionSquare[questionNum - 1]];
       questionNum = 0;
       showQuestion = false;
       _setResult();
-
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       setState(() {
         if (!setup) {
           _updateBoard();
@@ -221,17 +219,15 @@ class _MemoryTest extends State<MemoryTest> {
           ),
           leading: IconButton(
             icon: const Icon(Icons.close),
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) => MainPage(
-                        title: 'Fatigue Management App',
-                        user: User("kevin", 32, 32, 32),
-                        index: 1,
-                      )
-                  ),
-                      (route) => false
-              );
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 1,
+                          )),
+                  (route) => false);
             },
           ),
         ),
@@ -247,18 +243,19 @@ class _MemoryTest extends State<MemoryTest> {
                 mainAxisSpacing: 1,
                 crossAxisCount: 4,
                 children: <Widget>[
-                  for (int i = 0; i < 16; i++) InkWell(
-                      onTap: () {},
-                      child: DecoratedBox(
-                          decoration: BoxDecoration(color: pressed[i] ? pressedColor : defaultColor),
-                          child: Align (
-                            alignment: Alignment.center,
-                            child: Text(
-                                style: const TextStyle(fontSize: 25),
-                                textValues[i]),
-                          )
-                      )
-                  ),
+                  for (int i = 0; i < 16; i++)
+                    InkWell(
+                        onTap: () {},
+                        child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                color:
+                                    pressed[i] ? pressedColor : defaultColor),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                  style: const TextStyle(fontSize: 25),
+                                  textValues[i]),
+                            ))),
                 ],
               ),
               Visibility(
@@ -271,7 +268,7 @@ class _MemoryTest extends State<MemoryTest> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                            MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                         letterSpacing: 2.0),
                   ),
                 ),
