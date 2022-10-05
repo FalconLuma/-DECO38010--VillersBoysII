@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   double reactionTemp = 0;
   bool calibrate = true;
 
+  /// Initialising the page by loading in the user's saved data.
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,8 @@ class _HomePageState extends State<HomePage> {
     loadData();
   }
 
+  /// Load the data of the user saved on the device into the respective
+  /// instance variables.
   void loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -57,12 +60,14 @@ class _HomePageState extends State<HomePage> {
       memoryBase = widget.user.getMemoryBaseline();
       reactionBase = widget.user.getReactionBaseline();
     } else {
+      // Set user to the one that is saved to the device.
       widget.user.setUserName(name);
       widget.user.setAge(age);
       widget.user.setMemoryBaseline(memoryBase);
       widget.user.setReactionBaseline(reactionBase);
       save();
     }
+
     return Scaffold(
         body: ListView(
       children: [
@@ -82,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                 softWrap: true,
               ),
             ),
+
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -101,6 +107,7 @@ class _HomePageState extends State<HomePage> {
                     MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
@@ -117,6 +124,7 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 
+  /// Save whether or not the user has completed calibration to the device.
   save() async {
     prefs = await SharedPreferences.getInstance();
     prefs.setBool("calibrate", true);

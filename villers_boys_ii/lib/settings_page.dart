@@ -35,6 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
               textAlign: TextAlign.center,
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.only(left: 5, right: 5),
             child: Text(
@@ -45,6 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
               textAlign: TextAlign.center,
             ),
           ),
+
           Padding(
             padding:
                 const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
@@ -56,6 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
               textAlign: TextAlign.center,
             ),
           ),
+
           Padding(
             padding:
                 const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
@@ -79,6 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -102,6 +106,8 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  /// Load the saved values of the messages on the device into the respective
+  /// instance variables.
   loadData() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -114,6 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
+  /// Save the current values of the messages to the device.
   save(message, message2) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setString("message", message);
