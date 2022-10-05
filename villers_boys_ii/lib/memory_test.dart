@@ -154,7 +154,7 @@ class _MemoryTest extends State<MemoryTest> {
       Timer(Duration(milliseconds: duration * i), () {
         setState(() {
           if (i != sequenceItems) {
-            textValues[sequence[i]] = "$i";
+            textValues[sequence[i]] = "${i + 1}";
             pressed[sequence[i]] = !pressed[sequence[i]]; // turn square on
           }
           if (i != 0) {
@@ -169,7 +169,7 @@ class _MemoryTest extends State<MemoryTest> {
       setState(() {
         showQuestion = true;
         int position = questionPosition[questionNum];
-        textValues[questionSquare[questionNum]] = "$position";
+        textValues[questionSquare[questionNum]] = "${position + 1}";
         pressed[questionSquare[questionNum]] =
         !pressed[questionSquare[questionNum]];
       });
@@ -187,7 +187,7 @@ class _MemoryTest extends State<MemoryTest> {
       }
       // Show new tile
       int position = questionPosition[questionNum];
-      textValues[questionSquare[questionNum]] = "$position";
+      textValues[questionSquare[questionNum]] = "${position + 1}";
       pressed[questionSquare[questionNum]] =
       !pressed[questionSquare[questionNum]];
     } else {
@@ -267,7 +267,7 @@ class _MemoryTest extends State<MemoryTest> {
                   padding: EdgeInsets.all(
                       MediaQuery.of(context).size.height * 0.015),
                   child: Text(
-                    "Was the highlighted tile in position ${questionPosition[questionNum]}",
+                    "Was the highlighted tile labeled ${questionPosition[questionNum] + 1}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize:
