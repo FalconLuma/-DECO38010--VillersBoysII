@@ -114,8 +114,8 @@ class _SettingsPageState extends State<SettingsPage> {
       message = prefs.getString('message') ?? "Device Not Found";
       message2 = prefs.getString('message2') ?? "";
       if (message == "Device Not Found" && message2.isEmpty) {
-        prefs.setString('memory', "Device Not Found!");
-        prefs.setString('memory2', "");
+        prefs.setString('message', "Device Not Found!");
+        prefs.setString('message2', "");
       }
     });
   }
