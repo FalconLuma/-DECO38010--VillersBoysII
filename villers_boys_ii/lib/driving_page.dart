@@ -254,10 +254,12 @@ class _DrivingPageState extends State<DrivingPage> {
     }
   }
 
-  void _startVibrate() {
+  _startVibrate() async {
     /// Calls a single impact haptic
     if (_vibrate) {
-      Vibration.vibrate(duration: 1000);
+      if (await Vibration.hasVibrator() ?? false) {
+        Vibration.vibrate(duration: 1000);
+      }
       // Vibrate for 1 second
       debugPrint("Vibration");
       //HapticFeedback.mediumImpact();
