@@ -12,13 +12,14 @@ class DriveAssessment{
   User user;
 
   int reactionScore = 0;
+  int finalMemoryScore = 0;
 
   static const questionnaireThresholds = [22,34,50];
   //TODO Determine better thresholds
-  static const reactionThresholds = [22,34,50];
-  static const memoryThresholds = [22,34,50];
+  static const reactionThresholds = [20,30,50];
+  static const memoryThresholds = [20,30,50];
 
-  static const avgThresholds = [22,34,50];
+  static const avgThresholds = [20,30,50];
 
   void calcReactionScore(){
     /// Uses the stored reaction time and baseline to determine a score out of 50
@@ -29,6 +30,13 @@ class DriveAssessment{
     double diff = (reactionTime/baseline) - 1;
     diff = min(max(diff, 0), 1);
     reactionScore = (50 * diff).round();
+  }
+
+  void calcMemoryScore(){
+    double baseline = user.getMemoryBaseline();
+    double diff = (memoryScore/baseline);
+    diff = min(max(diff, 0), 1);
+    finalMemoryScore =  50 - (50 * diff).round();
   }
 
   void setQuestionnaireScore(int score){
@@ -50,10 +58,11 @@ class DriveAssessment{
 
   void setMemoryScore(double score){
     memoryScore = score;
+    calcMemoryScore();
   }
 
-  double getMemoryScore(){
-    return memoryScore;
+  int getMemoryScore(){
+    return finalMemoryScore;
   }
 
   int getFatigue1(){
@@ -78,7 +87,7 @@ class DriveAssessment{
     }
 
     for(int i = 0; i < memoryThresholds.length; i++){
-      if(memoryScore <= memoryThresholds[i]) {
+      if(finalMemoryScore <= memoryThresholds[i]) {
         fatigueLevels[i] += 1;
         break;
       }
@@ -103,7 +112,7 @@ class DriveAssessment{
   int getFatigue2(){
     /// Determines the fatigue level based on the average score
     /// Returns: 0 - No Fatigue, 1 - Some Fatigue, 2 - High Fatigue
-    double avgScore = (questionnaireScore + reactionScore + questionnaireScore)/3;
+    double avgScore = (questionnaireScore + reactionScore + finalMemoryScore)/3;
 
     for(int i = 0; i < avgThresholds.length; i++){
       if(avgScore <= avgThresholds[i]){

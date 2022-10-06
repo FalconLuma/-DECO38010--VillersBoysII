@@ -114,6 +114,8 @@ class _ResultsPageState extends State<ResultsPage> {
             Text("Baseline Memory:" +
                 widget.driveAssessment.user.getMemoryBaseline().toString()),
             Text("Memory Test:" +
+                widget.driveAssessment.memoryScore.toString()),
+            Text("Memory Score:" +
                 widget.driveAssessment.getMemoryScore().toString() +
                 "\n"),
             Text("Fatigue level Best of Three:" +
