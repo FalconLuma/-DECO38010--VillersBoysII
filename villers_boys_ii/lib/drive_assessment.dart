@@ -15,7 +15,6 @@ class DriveAssessment{
   int finalMemoryScore = 0;
 
   static const questionnaireThresholds = [22,34,50];
-  //TODO Determine better thresholds
   static const reactionThresholds = [20,30,50];
   static const memoryThresholds = [20,30,50];
 
@@ -25,7 +24,7 @@ class DriveAssessment{
     /// Uses the stored reaction time and baseline to determine a score out of 50
     /// If reactionTime <= baseline: 0
     /// If reactionTime >= baseline * 2: 50
-    /// All other values evenly distributed within this range
+    /// All other values are evenly distributed within this range
     double baseline = user.getReactionBaseline();
     double diff = (reactionTime/baseline) - 1;
     diff = min(max(diff, 0), 1);
@@ -33,6 +32,10 @@ class DriveAssessment{
   }
 
   void calcMemoryScore(){
+    /// Uses the stored memory test score and baseline to determine a score out of 50
+    /// If memoryScore <= baseline: 0
+    /// If memoryScore >= baseline * 2: 50
+    /// All other values are evenly distributed within this range
     double baseline = user.getMemoryBaseline();
     double diff = (memoryScore/baseline);
     diff = min(max(diff, 0), 1);
@@ -49,6 +52,7 @@ class DriveAssessment{
 
   void setReactionTime(double time){
     reactionTime = time;
+    // calc and set the score used in fatigue calculations
     calcReactionScore();
   }
 
@@ -58,6 +62,7 @@ class DriveAssessment{
 
   void setMemoryScore(double score){
     memoryScore = score;
+    // calc and set the score used in fatigue calculations
     calcMemoryScore();
   }
 
@@ -66,7 +71,7 @@ class DriveAssessment{
   }
 
   int getFatigue1(){
-    /// Determines the fatigue level based on the number of tests above certain thresholds
+    /// Determines the fatigue level based on the number of tests above set thresholds
     /// Returns: 0 - No Fatigue, 1 - Some Fatigue, 2 - High Fatigue
 
     // [No fatigue, Med fatigue, High fatigue]
@@ -94,9 +99,9 @@ class DriveAssessment{
     }
 
     int maxValue = 0;
-    fatigueLevels.forEach((f) {
+    for (var f in fatigueLevels) {
       maxValue = max(maxValue,f);
-    });
+    }
 
     if(maxValue == 1){ // Equal scores for all fatigue levels
       return 1;
@@ -110,10 +115,9 @@ class DriveAssessment{
   }
 
   int getFatigue2(){
-    /// Determines the fatigue level based on the average score
+    /// Determines the fatigue level based on the average score across all tests
     /// Returns: 0 - No Fatigue, 1 - Some Fatigue, 2 - High Fatigue
     double avgScore = (questionnaireScore + reactionScore + finalMemoryScore)/3;
-
     for(int i = 0; i < avgThresholds.length; i++){
       if(avgScore <= avgThresholds[i]){
         return i;

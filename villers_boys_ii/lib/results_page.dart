@@ -54,7 +54,6 @@ class _ResultsPageState extends State<ResultsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.driveAssessment);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Results",
