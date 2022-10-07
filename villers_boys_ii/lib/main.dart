@@ -62,8 +62,10 @@ class _MyApp extends State<MyApp> {
                   "TYRED",
                   style: TextStyle(
                     color: darkBlue,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
+                    fontSize: 50,
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'Inter',
                   ),
                 )
               ],
@@ -78,6 +80,7 @@ class _MyApp extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: primary,
           scaffoldBackgroundColor: neutral,
+          fontFamily: 'Inter',
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.white,
               titleTextStyle: TextStyle(
