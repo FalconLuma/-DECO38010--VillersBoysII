@@ -40,12 +40,16 @@ const MaterialColor start = Colors.green;
 
 
 // Images links
-String tyredLogo = 'images/tempTYREDLogo.png';
-String crossIcon = 'images/tempCross.png';
-String infoIcon = 'images/tempInfo.png';
-String personOutline = 'images/tempPersonOutline.png';
-String personColour = 'images/tempPersonColour.png';
-String seatbeltOutline = 'images/tempSeatbeltOutline.png';
-String seatbeltColour = 'images/tempSeatbeltColour.png';
-String carOutline = 'images/tempCarOutline.png';
-String carColour = 'images/tempCarColour.png';
+String tyredLogo = 'images/Tyred_Logo.png';
+String crossIcon = 'images/Cancel.png';
+String infoIconOutline = 'images/Information_grey.png';
+String infoIconColour = 'images/Information_blue.png';
+String personOutline = 'images/Profile_Grey.png';
+String personColour = 'images/Profile_Blue.png';
+String seatbeltOutline = 'images/Seatbelt_Grey.png';
+String seatbeltColour = 'images/Seatbelt_Blue.png';
+String carOutline = 'images/Car_Grey.png';
+String carColour = 'images/Car_Blue.png';
+String bellOutline = 'images/Notif_Grey.png';
+String bellColour = 'images/Notif_Blue.png';
+
