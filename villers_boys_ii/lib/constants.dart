@@ -37,3 +37,15 @@ Color? deselectedColor = Colors.grey[800];
 Color? neutral = Colors.grey[100];
 const MaterialColor grey = Colors.grey;
 const MaterialColor start = Colors.green;
+
+
+// Images links
+String tyredLogo = 'images/tempTYREDLogo.png';
+String crossIcon = 'images/tempCross.png';
+String infoIcon = 'images/tempInfo.png';
+String personOutline = 'images/tempPersonOutline.png';
+String personColour = 'images/tempPersonColour.png';
+String seatbeltOutline = 'images/tempSeatbeltOutline.png';
+String seatbeltColour = 'images/tempSeatbeltColour.png';
+String carOutline = 'images/tempCarOutline.png';
+String carColour = 'images/tempCarColour.png';

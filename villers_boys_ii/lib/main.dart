@@ -52,13 +52,11 @@ class _MyApp extends State<MyApp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Placeholder Icon, replace with TYRED logo when avaliable
-                Icon(
-                  Icons.circle,
-                  color: darkBlue,
-                  size: 300,
+                Image(
+                  image: AssetImage(tyredLogo),
+                  width: 300,
                 ),
-                Text(
+                const Text(
                   "TYRED",
                   style: TextStyle(
                     color: darkBlue,

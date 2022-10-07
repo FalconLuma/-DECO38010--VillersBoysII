@@ -65,6 +65,15 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/driving-control.png
+    - images/tempTYREDLogo.png
+    - images/tempCross.png
+    - images/tempInfo.png
+    - images/tempPersonOutline.png
+    - images/tempPersonColour.png
+    - images/tempSeatbeltOutline.png
+    - images/tempSeatbeltColour.png
+    - images/tempCarOutline.png
+    - images/tempCarColour.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
