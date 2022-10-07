@@ -8,6 +8,7 @@ import 'package:villers_boys_ii/user.dart';
 import 'dart:math';
 import 'dart:async';
 
+import 'StartCalibrate.dart';
 import 'constants.dart';
 
 class MemoryTest extends StatefulWidget {
@@ -75,7 +76,8 @@ class _MemoryTest extends State<MemoryTest> {
           builder: (context) => newStart(
                 user: widget.user,
                 flag: true,
-              )));
+              ),
+      settings: RouteSettings(name: ModalRoute.of(context)!.settings.name)));
     } else if (widget.calibrate == false) {
       save(result);
       Navigator.of(context).push(MaterialPageRoute(
@@ -220,14 +222,38 @@ class _MemoryTest extends State<MemoryTest> {
           leading: IconButton(
             icon: const Icon(Icons.close),
             onPressed: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => MainPage(
-                            title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
-                            index: 1,
-                          )),
-                  (route) => false);
+              if(ModalRoute.of(context)?.settings.name == 'preDrive'){
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 1,
+                        )
+                    ),
+                        (route) => false
+                );
+              } else if(ModalRoute.of(context)?.settings.name == 'edit'){
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 2,
+                        )
+                    ),
+                        (route) => false
+                );
+              } else {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => StartCalibratePage(
+                            user: User("kevin", 32, 32, 32)
+                        )
+                    ),
+                        (route) => false
+                );
+              }
             },
           ),
         ),

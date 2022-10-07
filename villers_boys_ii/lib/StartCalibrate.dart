@@ -35,12 +35,17 @@ class _StartCalibrateState extends State<StartCalibratePage> {
                     letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
+                String routeName = 'calibrate';
+                if(ModalRoute.of(context)?.settings.name != null){
+                  routeName = ModalRoute.of(context)!.settings.name!;
+                }
                 debugPrint("End start");
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ReactionTimePage(
                           user: widget.user,
                           calibrate: false,
-                        )));
+                        ),
+                settings: RouteSettings(name: routeName)));
               },
               child: const Text('Begin'),
             )

@@ -8,6 +8,8 @@ import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'StartCalibrate.dart';
+
 //This page lets the user enter a
 //user name and age which can be used
 //in the calibration/reseting profile process
@@ -44,16 +46,38 @@ class _newStartPageState extends State<newStart> {
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: (){
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => MainPage(
-                      title: 'Fatigue Management App',
-                      user: User("kevin", 32, 32, 32),
-                      index: 1,
-                    )
-                ),
-              (route) => false
-            );
+            if(ModalRoute.of(context)?.settings.name == 'preDrive'){
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => MainPage(
+                        title: 'Fatigue Management App',
+                        user: User("kevin", 32, 32, 32),
+                        index: 1,
+                      )
+                  ),
+                      (route) => false
+              );
+            } else if(ModalRoute.of(context)?.settings.name == 'edit'){
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => MainPage(
+                        title: 'Fatigue Management App',
+                        user: User("kevin", 32, 32, 32),
+                        index: 2,
+                      )
+                  ),
+                      (route) => false
+              );
+            } else {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => StartCalibratePage(
+                          user: User("kevin", 32, 32, 32)
+                      )
+                  ),
+                      (route) => false
+              );
+            }
           },
         ),
       ),

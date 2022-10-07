@@ -6,6 +6,7 @@ import 'package:villers_boys_ii/user.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
 
+import 'StartCalibrate.dart';
 import 'main_page.dart';
 import 'memory_test_intro.dart';
 
@@ -93,16 +94,38 @@ class ReactionTestState extends State<ReactionTimeTest> {
           leading: IconButton(
             icon: const Icon(Icons.close),
             onPressed: (){
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => MainPage(
-                    title: 'Fatigue Management App',
-                    user: User("kevin", 32, 32, 32),
-                    index: 1,
-                  )
-                ),
-                (route) => false
-              );
+              if(ModalRoute.of(context)?.settings.name == 'preDrive'){
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 1,
+                        )
+                    ),
+                        (route) => false
+                );
+              } else if(ModalRoute.of(context)?.settings.name == 'edit'){
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 2,
+                        )
+                    ),
+                        (route) => false
+                );
+              } else {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => StartCalibratePage(
+                            user: User("kevin", 32, 32, 32)
+                        )
+                    ),
+                        (route) => false
+                );
+              }
             },
           ),
         ),
@@ -144,7 +167,8 @@ class ReactionTestState extends State<ReactionTimeTest> {
                                     user: widget.user,
                                     calibrate: widget.calibrate,
                                     driveAssessment: widget.driveAssessment,
-                                  )));
+                                  ),
+                              settings: RouteSettings(name: ModalRoute.of(context)!.settings.name)));
                         }
                       });
                     },

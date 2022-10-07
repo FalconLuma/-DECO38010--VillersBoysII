@@ -75,7 +75,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     builder: (context) => newStart(
                       user: widget.user,
                       flag: false,
-                    )));
+                    ),
+                    settings: const RouteSettings(name: 'edit')));
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
@@ -127,7 +128,8 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) =>
-                        StartCalibratePage(user: widget.user)));
+                        StartCalibratePage(user: widget.user),
+                    settings: const RouteSettings(name: 'edit')));
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(200, 50),
