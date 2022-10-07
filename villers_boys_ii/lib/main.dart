@@ -45,8 +45,34 @@ class _MyApp extends State<MyApp> {
   Widget build(BuildContext context) {
     if (loaded == false) {
       loadData();
+      // Loading Screen
+      return MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Placeholder Icon, replace with TYRED logo when avaliable
+                Icon(
+                  Icons.circle,
+                  color: darkBlue,
+                  size: 300,
+                ),
+                Text(
+                  "TYRED",
+                  style: TextStyle(
+                    color: darkBlue,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
     }
-    if (loaded == false) return const CircularProgressIndicator();
+
     return MaterialApp(
         title: 'DECO3801 Project',
         theme: ThemeData(
