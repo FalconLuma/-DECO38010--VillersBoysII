@@ -43,6 +43,58 @@ class _MainPageState extends State<MainPage> {
   /// The index of the page currently being looked at.
   int _selectedIndex = 1;
 
+  void _openPopUp(BuildContext context){
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: neutral,
+      isScrollControlled: true,
+      builder: (context) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    icon: ImageIcon(
+                      AssetImage(crossIcon),
+                      size: 50,
+                      color: darkBlue,
+                    )
+                )
+              ],
+            ),
+            Padding(padding: EdgeInsets.all(20),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [BoxShadow(
+                        color: Colors.grey.withOpacity(0.8),
+                        spreadRadius: 2,
+                        blurRadius: 1,
+                        offset: Offset(0, 2),
+                      )]
+                  ),
+                  child: Text('On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes. '
+                      '\n\nBeing awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05.'
+                      '\n\nThere are rest areas across the Queensland road network open all year round to help you manage your fatigue and not drive tired.',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: darkBlue,
+                        fontSize: 25
+                    ),
+                  ),
+                )
+            )
+          ],
+        ),
+    );
+  }
+
   /// Initialise the page to the specified index at construction.
   @override
   void initState() {
@@ -70,7 +122,23 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('Driving fatigued can kill',
+          softWrap: true,
+          style: TextStyle(
+            fontSize: 30
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: (){
+              _openPopUp(context);
+            },
+            icon: ImageIcon(
+              AssetImage(infoIconColour),
+              size: 50,
+            )
+          )
+        ],
       ),
       body: Container(
           padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
@@ -80,36 +148,36 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings_outlined,
+              icon: ImageIcon(
+                AssetImage(seatbeltOutline),
                 color: deselectedColor,
               ),
-              activeIcon: Icon(
-                Icons.settings,
+              activeIcon: ImageIcon(
+                AssetImage(seatbeltColour),
                 color: darkBlue,
               ),
-              label: 'Seatbelt',
+              label: 'Smart Seatbelt',
           ),
 
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
+              icon: ImageIcon(
+                AssetImage(carOutline),
                 color: deselectedColor,
               ),
-              activeIcon: Icon(
-                Icons.home,
+              activeIcon: ImageIcon(
+                AssetImage(carColour),
                 color: darkBlue,
               ),
-              label: 'Home',
+              label: 'TYRED Drive',
           ),
 
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline,
+              icon: ImageIcon(
+                AssetImage(personOutline),
                 color: deselectedColor,
               ),
-              activeIcon: Icon(
-                  Icons.person,
+              activeIcon: ImageIcon(
+                AssetImage(personColour),
                 color: darkBlue,
               ),
                 label: 'Profile',
