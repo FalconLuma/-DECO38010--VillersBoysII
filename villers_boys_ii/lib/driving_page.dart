@@ -11,6 +11,8 @@ import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class DrivingPage extends StatefulWidget {
   const DrivingPage({Key? key, required this.restInterval}) : super(key: key);
 
@@ -21,6 +23,7 @@ class DrivingPage extends StatefulWidget {
 }
 
 class _DrivingPageState extends State<DrivingPage> {
+  late SharedPreferences prefs;
   late Timer _t;
   Duration _totalDuration = const Duration(
       seconds:
@@ -33,13 +36,14 @@ class _DrivingPageState extends State<DrivingPage> {
   bool _vibrate = true;
   bool _recommendations = false;
   bool _vibrated = false;
+  bool _showHeartRate = false;
 
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
   final _ebTopPad = 0.02;
 
   var _heartRateText = ['67', '64', '65', '68', '63'];
-  var _heartRateDrop = ['40', '40', '40', '40', '40'];
+  final _heartRateDrop = ['40', '40', '40', '40', '40'];
   final _buttonTexts = ['Start', 'Pause', 'Resume'];
 
   void _showTimerDialog(BuildContext context) {
@@ -307,6 +311,7 @@ class _DrivingPageState extends State<DrivingPage> {
 
   @override
   Widget build(BuildContext context) {
+    loadData();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Driving Page'),
@@ -352,13 +357,25 @@ class _DrivingPageState extends State<DrivingPage> {
                         ]),
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(300, 15, 15, 0),
-                  child: Text("Heart Rate"),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
+                  child: Visibility(
+                    visible: !_showHeartRate,
+                    replacement: Row(
+                      children: const [Text("Heart Rate")],
+                    ),
+                    child: Row(children: const [Text("")]),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(300, 0, 15, 15),
-                  child: Text(_heartRateText[(_elapsed.inSeconds) % 5]),
+                  child: Visibility(
+                    visible: !_showHeartRate,
+                    replacement: Row(children: [
+                      Text(_heartRateText[(_elapsed.inSeconds) % 5]),
+                    ]),
+                    child: Row(children: const [Text("")]),
+                  ),
                 ),
                 ElevatedButton(
                     onPressed: () {
@@ -429,5 +446,12 @@ class _DrivingPageState extends State<DrivingPage> {
             ),
           ],
         ));
+  }
+
+  loadData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _showHeartRate = prefs.getBool('connected') ?? false;
+    });
   }
 }
