@@ -334,139 +334,144 @@ class _DrivingPageState extends State<DrivingPage> {
   Widget build(BuildContext context) {
     loadData();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Driving Page'),
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => MainPage(
-                            title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
-                            index: 1,
-                          )),
-                  (route) => false);
-            },
-          ),
+      appBar: AppBar(
+        title: const Text('Driving Page'),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 1,
+                        )),
+                (route) => false);
+          },
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        _showRecommendations(context, widget.level);
-                        if (_recommendations) {
-                          _recommendations = false;
-                        } else {
-                          _recommendations = true;
-                        }
-                      },
-                      child: Visibility(
-                        visible: _recommendations,
-                        replacement: Row(children: const [
-                          Icon(Icons.help),
-                        ]),
-                        child: Row(children: const [
-                          Icon(Icons.help),
-                        ]),
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
-                  child: Visibility(
-                    visible: !_showHeartRate,
-                    replacement: Row(
-                      children: const [Text("Heart Rate")],
-                    ),
-                    child: Row(children: const [Text("")]),
+      ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
+                child: Visibility(
+                  visible: !_showHeartRate,
+                  replacement: Row(
+                    children: const [Text("Heart Rate")],
                   ),
+                  child: Row(children: const [Text("")]),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(300, 0, 15, 15),
-                  child: Visibility(
-                    visible: !_showHeartRate,
-                    replacement: Row(children: [
-                      Text(_heartRateText[(_elapsed.inSeconds) % 5]),
-                    ]),
-                    child: Row(children: const [Text("")]),
-                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(300, 0, 15, 15),
+                child: Visibility(
+                  visible: !_showHeartRate,
+                  replacement: Row(children: [
+                    Text(_heartRateText[(_elapsed.inSeconds) % 5]),
+                  ]),
+                  child: Row(children: const [Text("")]),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      if (_vibrate) {
-                        _vibrate = false;
-                      } else {
-                        _vibrate = true;
-                      }
-                    },
-                    child: Visibility(
-                      visible: _vibrate,
-                      replacement: Row(
-                        children: const [
-                          Icon(Icons.volume_off),
-                          Text("Vibration off")
-                        ],
-                      ),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.volume_up),
-                          Text("Vibration on")
-                        ],
-                      ),
-                    )),
-                ElevatedButton(
+              ),
+              ElevatedButton(
                   onPressed: () {
-                    _timerActions(context);
+                    if (_vibrate) {
+                      _vibrate = false;
+                    } else {
+                      _vibrate = true;
+                    }
                   },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(
-                        MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
-                        MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
-                    shape: const CircleBorder(),
-                  ),
-                  child: Text(
-                    _buttonTexts[_timerMode] +
-                        '\n' +
-                        _timeString(_elapsed + _totalDuration),
-                    style: TextStyle(
-                        fontSize: min(MediaQuery.of(context).size.width,
-                                MediaQuery.of(context).size.height) *
-                            MAIN_BUTTON_TEXT_SIZE),
-                    textAlign: TextAlign.center,
-                  ),
+                  child: Visibility(
+                    visible: _vibrate,
+                    replacement: Row(
+                      children: const [
+                        Icon(Icons.volume_off),
+                        Text("Vibration off")
+                      ],
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.volume_up),
+                        Text("Vibration on")
+                      ],
+                    ),
+                  )),
+              ElevatedButton(
+                onPressed: () {
+                  _timerActions(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(
+                      MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
+                      MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
+                  shape: const CircleBorder(),
                 ),
-                Visibility(
-                  visible: _reccStop,
-                  replacement: Text('No Recommendations',
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.height *
-                              SUBHEADING_TEXT_SIZE),
-                      textAlign: TextAlign.center),
-                  child: Text(
-                    'Rest Recommended',
+                child: Text(
+                  _buttonTexts[_timerMode] +
+                      '\n' +
+                      _timeString(_elapsed + _totalDuration),
+                  style: TextStyle(
+                      fontSize: min(MediaQuery.of(context).size.width,
+                              MediaQuery.of(context).size.height) *
+                          MAIN_BUTTON_TEXT_SIZE),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Visibility(
+                visible: _reccStop,
+                replacement: Text('No Recommendations',
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.height *
                             SUBHEADING_TEXT_SIZE),
-                    textAlign: TextAlign.center,
-                  ),
+                    textAlign: TextAlign.center),
+                child: Text(
+                  'Rest Recommended',
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height *
+                          SUBHEADING_TEXT_SIZE),
+                  textAlign: TextAlign.center,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      _heartRateText = _heartRateDrop;
-                      _startVibrate();
-                    },
-                    child: const Text('Heart Rate Drop Demo'))
-              ],
-            ),
-          ],
-        ));
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    _heartRateText = _heartRateDrop;
+                    _startVibrate();
+                  },
+                  child: const Text('Heart Rate Drop Demo'))
+            ],
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+          child: Row(
+        children: [
+          IconButton(
+              onPressed: () {
+                if (_vibrate) {
+                  _vibrate = false;
+                } else {
+                  _vibrate = true;
+                }
+              },
+              icon: ImageIcon(
+                AssetImage(bellOutline),
+                size: 50,
+              )),
+          IconButton(
+              onPressed: () {
+                _showRecommendations(context, widget.level);
+              },
+              icon: ImageIcon(
+                AssetImage(infoIconColour),
+                size: 50,
+              ))
+        ],
+      )),
+    );
   }
 
   loadData() async {
