@@ -25,14 +25,14 @@ class MemoryTestIntro extends StatefulWidget {
 class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
   String message =
       'You are about to begin your baseline TYRED memory test calibration.\n'
-      '\nA series of numbered and coloured squares will randomly appear in a grid. You are required to memorise its position and order to recall when required.\n'
+      '\nA series of numbered and coloured squares will randomly appear in a grid. You are required to memorise its position and order, to recall when required.\n'
       '\nGood luck!';
 
   @override
   Widget build(BuildContext context) {
     if (widget.calibrate) {
       message = 'You are about to begin your  TYRED rating memory test.\n'
-          '\nA series of numbered and coloured squares will randomly appear in a grid. You are required to memorise its position and order to recall when required.\n'
+          '\nA series of numbered and coloured squares will randomly appear in a grid. You are required to memorise its position and order, to recall when required.\n'
           '\nGood luck!';
     }
     return Scaffold(

@@ -83,6 +83,25 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     loadData();
     return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the HomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(
+          'Smart Seatbelt',
+          softWrap: true,
+          style: TextStyle(fontSize: 30),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _showRecommendations(context);
+              },
+              icon: ImageIcon(
+                AssetImage(infoIconColour),
+                size: 50,
+              ))
+        ],
+      ),
       body: ListView(
         children: <Widget>[
           Column(
@@ -90,16 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(130, 0, 210, 10),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _showRecommendations(context);
-                  },
-                  child: const Text("Smart Seatbelt  "),
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(10),
                   child: Visibility(
                     visible: flag,
                     replacement: Row(

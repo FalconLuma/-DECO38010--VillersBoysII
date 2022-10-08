@@ -34,48 +34,44 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Text(
-                'User',
+                'User Details',
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.height *
                         SUBHEADING_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
-                padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
-                child: Text(
-                  "Name: ${widget.user.getUserName()}",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          BODY_TEXT_SIZE),
-                  textAlign: TextAlign.center,
-                ),
+              padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
+              child: Text(
+                "Name: ${widget.user.getUserName()}",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+                textAlign: TextAlign.center,
+              ),
             ),
-
             Padding(
-                padding: const EdgeInsets.only(
-                    left: 16, top: 15, right: 16, bottom: 15),
-                child: Text(
-                  "Age: ${widget.user.getAge()}",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                    BODY_TEXT_SIZE),
-                  textAlign: TextAlign.center,
-                ),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 15, right: 16, bottom: 15),
+              child: Text(
+                "Age: ${widget.user.getAge()}",
+                style: TextStyle(
+                    fontSize:
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+                textAlign: TextAlign.center,
+              ),
             ),
-
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => newStart(
-                      user: widget.user,
-                      flag: false,
-                    ),
+                          user: widget.user,
+                          flag: false,
+                        ),
                     settings: const RouteSettings(name: 'edit')));
               },
               style: ElevatedButton.styleFrom(
@@ -89,7 +85,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
@@ -100,7 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 15, right: 16),
               child: Text(
@@ -111,7 +105,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(
                   left: 16, top: 15, right: 16, bottom: 15),
@@ -119,16 +112,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 'Memory: ${widget.user.getMemoryBaseline().toStringAsFixed(1)}',
                 style: TextStyle(
                     fontSize:
-                    MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
                 textAlign: TextAlign.center,
               ),
             ),
-
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        StartCalibratePage(user: widget.user),
+                    builder: (context) => StartCalibratePage(user: widget.user),
                     settings: const RouteSettings(name: 'edit')));
               },
               style: ElevatedButton.styleFrom(
