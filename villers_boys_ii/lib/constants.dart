@@ -14,6 +14,9 @@ const double MENU_BUTTON_TEXT_SIZE = 0.04;
 
 // Widget Sizes
 const double MAIN_BUTTON_SIZE = 0.85; // Always relative to size.width
+const double BORDER_RADIUS_CONTAINER = 30;
+const double BORDER_RADIUS_BUTTON = 20;
+
 
 // Colours
 const Color darkBlue = Color(0xFF1D4659);

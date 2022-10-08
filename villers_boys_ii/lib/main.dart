@@ -79,6 +79,13 @@ class _MyApp extends State<MyApp> {
           primarySwatch: primary,
           scaffoldBackgroundColor: neutral,
           fontFamily: 'Inter',
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: darkBlue
+            ),
+          ),
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.white,
               titleTextStyle: TextStyle(
