@@ -71,9 +71,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> firstAnswer = const [
-    '0-2',
+    '0-2 hours',
     'Uninterrupted',
-    '8+',
+    '8+ hours',
     'Never (0%)',
     'Never (0%)',
     'Never (0%)',
@@ -97,9 +97,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> secondAnswer = const [
-    '2-4',
+    '2-4 hours',
     'Only woke up briefly once or twice a night',
-    '6-8',
+    '6-8 hours',
     'Sometimes (25%)',
     'Sometimes (25%)',
     'Sometimes (25%)',
@@ -123,9 +123,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> thirdAnswer = const [
-    '4-6',
+    '4-6 hours',
     'I woke up each night for at least 5 minutes',
-    '4-6',
+    '4-6 hours',
     'Often (50%)',
     'Often (50%)',
     'Often (50%)',
@@ -150,9 +150,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   // ignore: non_constant_identifier_names
   List<String> FourthAnswer = const [
-    '6-8',
+    '6-8 hours',
     'I woke up each night for at least 30 minutes',
-    '2-4',
+    '2-4 hours',
     'Usually (75%)',
     'Usually (75%)',
     'Usually (75%)',
@@ -176,9 +176,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   ];
 
   List<String> fifthAnswer = const [
-    '8+',
+    '8+ hours',
     'I probably spent more time awake than asleep',
-    '0-2',
+    '0-2 hours',
     'Always (100%)',
     'Always (100%)',
     'Always (100%)',
@@ -206,7 +206,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   Widget build(BuildContext context) {
     if (_flag == 1) {
       debugPrint("Quiz Over Score: $_score");
-      DriveAssessment da = DriveAssessment(_score,0,0,widget.user);
+      DriveAssessment da = DriveAssessment(_score, 0, 0, widget.user);
       if (_score < 22) {
         debugPrint("You have healthy levels of fatigue!");
       } else if (_score >= 22 && _score <= 34) {
@@ -245,17 +245,15 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             title: const Text('Fatigue Management App'),
             leading: IconButton(
               icon: const Icon(Icons.close),
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 1,
-                        )
-                    ),
-                        (route) => false
-                );
+                              title: 'Fatigue Management App',
+                              user: User("kevin", 32, 32, 32),
+                              index: 1,
+                            )),
+                    (route) => false);
               },
             ),
           ),

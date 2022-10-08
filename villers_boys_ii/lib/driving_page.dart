@@ -11,16 +11,21 @@ import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class DrivingPage extends StatefulWidget {
-  const DrivingPage({Key? key, required this.restInterval}) : super(key: key);
+  const DrivingPage({Key? key, required this.restInterval, required this.level})
+      : super(key: key);
 
   final Duration restInterval;
+  final int level;
 
   @override
   State<DrivingPage> createState() => _DrivingPageState();
 }
 
 class _DrivingPageState extends State<DrivingPage> {
+  late SharedPreferences prefs;
   late Timer _t;
   Duration _totalDuration = const Duration(
       seconds:
@@ -33,14 +38,29 @@ class _DrivingPageState extends State<DrivingPage> {
   bool _vibrate = true;
   bool _recommendations = false;
   bool _vibrated = false;
+  bool _showHeartRate = false;
 
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
   final _ebTopPad = 0.02;
 
   var _heartRateText = ['67', '64', '65', '68', '63'];
-  var _heartRateDrop = ['40', '40', '40', '40', '40'];
+  final _heartRateDrop = ['40', '40', '40', '40', '40'];
   final _buttonTexts = ['Start', 'Pause', 'Resume'];
+
+  final String _fatigueLevelLow =
+      "You are not showing symptoms of driver fatigue.\n\nYou should still stop driving for at least 15 minutes every 2 hours.\n\nNever drive for more than 10 hours in a single day.";
+  final String _fatigueLevelMedium =
+      "You are begining to show symptoms of driver fatigue.\n You should stop driving for at least 15 minutes every 2 hours. Utilise rest areas, tourist spots and driver reviver stops.\n\nIf you really need to keep driving, try some of the following:\n\n •Lower the cars interior temparature (putting the aircon on high)\n"
+      "• Try adjusting and focusing on your seating posture\n"
+      "• Try increasing or turning on some music\n"
+      "• Try a caffinated drink, it can help temporarily boost energy levels\n";
+  final String _fatigueLevelHigh =
+      "You are showing symptoms of severe driver fatigue.\n You must stop driving and rest as soon as possible. Utilise rest areas, tourist spots and driver reviver stops.\n\nIf you really need to keep driving, try some of the following:\n\n •Lower the cars interior temparature (putting the aircon on high)\n"
+      "• Try adjusting and focusing on your seating posture\n"
+      "• Try increasing or turning on some music\n"
+      "• Try a caffinated drink, it can help temporarily boost energy levels\n";
+  String _driverTips = "";
 
   void _showTimerDialog(BuildContext context) {
     /// Opens a dialog box to choose between pausing or resetting the timer
@@ -133,8 +153,16 @@ class _DrivingPageState extends State<DrivingPage> {
     );
   }
 
-  void _showRecommendations(BuildContext context) {
+  void _showRecommendations(BuildContext context, int fatigueLevel) {
     /// Opens a dialog box to choose between pausing or resetting the timer
+    debugPrint(fatigueLevel.toString());
+    if (fatigueLevel == 1) {
+      _driverTips = _fatigueLevelLow;
+    } else if (fatigueLevel == 2) {
+      _driverTips = _fatigueLevelMedium;
+    } else {
+      _driverTips = _fatigueLevelHigh;
+    }
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -155,10 +183,7 @@ class _DrivingPageState extends State<DrivingPage> {
                   right: MediaQuery.of(context).size.width * _ebSidePad,
                   top: MediaQuery.of(context).size.height * _ebTopPad),
               child: Text(
-                "• Please Note the following recommendations are only temporary fixes.\n"
-                "•Firstly try lowering the cars interior temparature/putting the aircon on high\n"
-                "• Try adjusting and focusing on your seating posture\n"
-                "• Try increasing or turning on some music\n",
+                _driverTips,
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
@@ -307,6 +332,7 @@ class _DrivingPageState extends State<DrivingPage> {
 
   @override
   Widget build(BuildContext context) {
+    loadData();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Driving Page'),
@@ -335,7 +361,7 @@ class _DrivingPageState extends State<DrivingPage> {
                   padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
                   child: ElevatedButton(
                       onPressed: () {
-                        _showRecommendations(context);
+                        _showRecommendations(context, widget.level);
                         if (_recommendations) {
                           _recommendations = false;
                         } else {
@@ -352,13 +378,25 @@ class _DrivingPageState extends State<DrivingPage> {
                         ]),
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(300, 15, 15, 0),
-                  child: Text("Heart Rate"),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
+                  child: Visibility(
+                    visible: !_showHeartRate,
+                    replacement: Row(
+                      children: const [Text("Heart Rate")],
+                    ),
+                    child: Row(children: const [Text("")]),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(300, 0, 15, 15),
-                  child: Text(_heartRateText[(_elapsed.inSeconds) % 5]),
+                  child: Visibility(
+                    visible: !_showHeartRate,
+                    replacement: Row(children: [
+                      Text(_heartRateText[(_elapsed.inSeconds) % 5]),
+                    ]),
+                    child: Row(children: const [Text("")]),
+                  ),
                 ),
                 ElevatedButton(
                     onPressed: () {
@@ -429,5 +467,12 @@ class _DrivingPageState extends State<DrivingPage> {
             ),
           ],
         ));
+  }
+
+  loadData() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _showHeartRate = prefs.getBool('connected') ?? false;
+    });
   }
 }

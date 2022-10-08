@@ -48,6 +48,9 @@ class _MainPageState extends State<MainPage> {
       context: context,
       backgroundColor: neutral,
       isScrollControlled: true,
+      shape:RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER))
+      ),
       builder: (context) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -60,18 +63,18 @@ class _MainPageState extends State<MainPage> {
                     },
                     icon: ImageIcon(
                       AssetImage(crossIcon),
-                      size: 50,
+                      size: 70,
                       color: darkBlue,
                     )
                 )
               ],
             ),
-            Padding(padding: EdgeInsets.all(20),
+            Padding(padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                       boxShadow: [BoxShadow(
                         color: Colors.grey.withOpacity(0.8),
                         spreadRadius: 2,
@@ -80,15 +83,36 @@ class _MainPageState extends State<MainPage> {
                       )]
                   ),
                   child: Text('On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes. '
-                      '\n\nBeing awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05.'
-                      '\n\nThere are rest areas across the Queensland road network open all year round to help you manage your fatigue and not drive tired.',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: darkBlue,
-                        fontSize: 25
+                        '\n\nBeing awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05.'
+                        '\n\nThere are rest areas across the Queensland road network open all year round to help you manage your fatigue and not drive tired.',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: darkBlue,
+                          fontSize: 25
+                      ),
                     ),
-                  ),
                 )
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 20),
+            child: ElevatedButton(
+                onPressed: (){},
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                    )
+                    )
+                ),
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text('Learn More',
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                      ),
+                    )
+                )
+              ),
             )
           ],
         ),

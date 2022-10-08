@@ -9,7 +9,10 @@ import 'main_page.dart';
 
 class ReactionTimeIntro extends StatefulWidget {
   ReactionTimeIntro(
-      {Key? key, required this.user, required this.calibrate, this.driveAssessment})
+      {Key? key,
+      required this.user,
+      required this.calibrate,
+      this.driveAssessment})
       : super(key: key);
   final User user;
   final bool calibrate;
@@ -31,38 +34,31 @@ class IntroScreen extends State<ReactionTimeIntro> {
           ),
           leading: IconButton(
             icon: const Icon(Icons.close),
-            onPressed: (){
-              if(ModalRoute.of(context)?.settings.name == 'preDrive'){
+            onPressed: () {
+              if (ModalRoute.of(context)?.settings.name == 'preDrive') {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 1,
-                        )
-                    ),
-                        (route) => false
-                );
-              } else if(ModalRoute.of(context)?.settings.name == 'edit'){
+                              title: 'Fatigue Management App',
+                              user: User("kevin", 32, 32, 32),
+                              index: 1,
+                            )),
+                    (route) => false);
+              } else if (ModalRoute.of(context)?.settings.name == 'edit') {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 2,
-                        )
-                    ),
-                        (route) => false
-                );
+                              title: 'Fatigue Management App',
+                              user: User("kevin", 32, 32, 32),
+                              index: 2,
+                            )),
+                    (route) => false);
               } else {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => StartCalibratePage(
-                            user: User("kevin", 32, 32, 32)
-                      )
-                    ),
-                        (route) => false
-                );
+                            user: User("kevin", 32, 32, 32))),
+                    (route) => false);
               }
             },
           ),
@@ -75,10 +71,10 @@ class IntroScreen extends State<ReactionTimeIntro> {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(
                     left: 50, right: 50, top: 300, bottom: 300),
-                child: Text("Tap screen when you are ready to start!",
+                child: Text("Please tap screen when you are ready to begin!",
                     style: TextStyle(
                         fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                            MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                         letterSpacing: 2.0)),
               ),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
@@ -87,7 +83,8 @@ class IntroScreen extends State<ReactionTimeIntro> {
                         calibrate: widget.calibrate,
                         driveAssessment: widget.driveAssessment,
                       ),
-              settings: RouteSettings(name: ModalRoute.of(context)!.settings.name)))),
+                  settings: RouteSettings(
+                      name: ModalRoute.of(context)!.settings.name)))),
         ));
   }
 }

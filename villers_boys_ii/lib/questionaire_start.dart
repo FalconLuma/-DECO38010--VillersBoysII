@@ -22,17 +22,15 @@ class _QuestionaireState extends State<QuestionairePage> {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: (){
+          onPressed: () {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (context) => MainPage(
-                      title: 'Fatigue Management App',
-                      user: User("kevin", 32, 32, 32),
-                      index: 1,
-                    )
-                ),
-                    (route) => false
-            );
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 1,
+                        )),
+                (route) => false);
           },
         ),
       ),
@@ -40,8 +38,10 @@ class _QuestionaireState extends State<QuestionairePage> {
           margin: const EdgeInsets.all(10),
           child: Column(children: [
             Text(
-                'Before you begin driving please complete the following questionnaire.'
-                'The questionnaire will consist of 10 multiple-choice questions. If you answer a question incorrectly, swipe back to access the previous question.',
+                'You are about to begin your TYRED rating questionnaire.\n'
+                '\nPlease answer the following multiple choice questions accurately and honestly to receive an accurate TYRED fatigue rating.\n'
+                '\nIf you answer a question incorrectly, swipe back to have another go.\n'
+                '\nGood Luck!',
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE,

@@ -56,22 +56,22 @@ class _ResultsPageState extends State<ResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Results",
+          title: const Text(
+            "Results",
             style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,),
+            textAlign: TextAlign.center,
+          ),
           leading: IconButton(
             icon: const Icon(Icons.close),
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => MainPage(
-                    title: 'Fatigue Management App',
-                    user: User("kevin", 32, 32, 32),
-                    index: 1,
-                  )
-                ),
-                (route) => false
-              );
+                  MaterialPageRoute(
+                      builder: (context) => MainPage(
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 1,
+                          )),
+                  (route) => false);
             },
           ),
         ),
@@ -95,7 +95,9 @@ class _ResultsPageState extends State<ResultsPage> {
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => DrivingPage(
-                        restInterval: fatigueRestTimers[fatigueLevel])));
+                          restInterval: fatigueRestTimers[fatigueLevel],
+                          level: fatigueLevel,
+                        )));
               },
               child: const Icon(
                 Icons.start_sharp,
@@ -112,8 +114,8 @@ class _ResultsPageState extends State<ResultsPage> {
                 widget.driveAssessment.getReactionScore().toString()),
             Text("Baseline Memory:" +
                 widget.driveAssessment.user.getMemoryBaseline().toString()),
-            Text("Memory Test:" +
-                widget.driveAssessment.memoryScore.toString()),
+            Text(
+                "Memory Test:" + widget.driveAssessment.memoryScore.toString()),
             Text("Memory Score:" +
                 widget.driveAssessment.getMemoryScore().toString() +
                 "\n"),
