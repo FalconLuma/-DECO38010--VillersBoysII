@@ -25,10 +25,10 @@ class _StartCalibrateState extends State<StartCalibratePage> {
           margin: const EdgeInsets.all(10),
           child: Column(children: [
             Text(
-                'Welcome to Tyred, to complete the calibration sequence'
-                ' you will need to complete a reaction test and a memory test.'
-                'Instructions on how these tests work will be present before you begin each test.'
-                'Please ensure that you only run these tests if you are currently not fatigued.',
+                'Welcome to Tyred, your driver fatigue assistance app.\n'
+                '\nYou are about to complete our baseline TYRED calibration tests, consisting of both a reaction and memory test.\n'
+                '\nYou must only perform the baseline calibration tests if you are not currently fatigued.\n'
+                '\nIf you believe you are in a fit state to complete these tests, please click the button below.',
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE,

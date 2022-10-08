@@ -35,7 +35,7 @@ class _newStartPageState extends State<newStart> {
   int age = 0;
   double memoryBase = 0.0;
   double reactionBase = 0.0;
-  String message = "Please enter your name and age to finish your profile";
+  String message = "Please enter your username and age to finish your profile!";
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -45,38 +45,31 @@ class _newStartPageState extends State<newStart> {
         title: const Text("Edit Profile"),
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: (){
-            if(ModalRoute.of(context)?.settings.name == 'preDrive'){
+          onPressed: () {
+            if (ModalRoute.of(context)?.settings.name == 'preDrive') {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) => MainPage(
-                        title: 'Fatigue Management App',
-                        user: User("kevin", 32, 32, 32),
-                        index: 1,
-                      )
-                  ),
-                      (route) => false
-              );
-            } else if(ModalRoute.of(context)?.settings.name == 'edit'){
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 1,
+                          )),
+                  (route) => false);
+            } else if (ModalRoute.of(context)?.settings.name == 'edit') {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) => MainPage(
-                        title: 'Fatigue Management App',
-                        user: User("kevin", 32, 32, 32),
-                        index: 2,
-                      )
-                  ),
-                      (route) => false
-              );
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 2,
+                          )),
+                  (route) => false);
             } else {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (context) => StartCalibratePage(
-                          user: User("kevin", 32, 32, 32)
-                      )
-                  ),
-                      (route) => false
-              );
+                      builder: (context) =>
+                          StartCalibratePage(user: User("kevin", 32, 32, 32))),
+                  (route) => false);
             }
           },
         ),
@@ -134,7 +127,7 @@ class _newStartPageState extends State<newStart> {
                   if (name2.text.toString().isEmpty ||
                       age2.text.toString().isEmpty) {
                     message =
-                        "Please ensure both boxes have been filled out to continue";
+                        "Please ensure both boxes have been filled out to continue!";
                     setState(() {});
                   } else {
                     save();
