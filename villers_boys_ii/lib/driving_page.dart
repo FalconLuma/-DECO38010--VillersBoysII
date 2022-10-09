@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:simple_shadow/simple_shadow.dart';
 import 'dart:async';
 
 import 'package:vibration/vibration.dart';
@@ -39,7 +40,7 @@ class _DrivingPageState extends State<DrivingPage> {
   bool _recommendations = false;
   bool _vibrated = false;
   bool _showHeartRate = false;
-
+  String buttonImage = tyredLogo;
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
   final _ebTopPad = 0.02;
@@ -47,6 +48,12 @@ class _DrivingPageState extends State<DrivingPage> {
   var _heartRateText = ['67', '64', '65', '68', '63'];
   final _heartRateDrop = ['40', '40', '40', '40', '40'];
   final _buttonTexts = ['Start', 'Pause', 'Resume'];
+
+  final _fatigueHeads = ['YOU ARE NOT FATIGUED', 'YOU ARE FATIGUED', 'YOU SHOULD NOT DRIVE'];
+  final _fatigueDescs = ['You are not at an increased risk of a fatigue related crash',
+    'You are at an increased risk of a fatigue related crash',
+    'You are severely fatigued and should not drive'
+  ];
 
   final String _fatigueLevelLow =
       "You are not showing symptoms of driver fatigue.\n\nYou should still stop driving for at least 15 minutes every 2 hours.\n\nNever drive for more than 10 hours in a single day.";
@@ -61,97 +68,6 @@ class _DrivingPageState extends State<DrivingPage> {
       "• Try increasing or turning on some music\n"
       "• Try a caffinated drink, it can help temporarily boost energy levels\n";
   String _driverTips = "";
-
-  void _showTimerDialog(BuildContext context) {
-    /// Opens a dialog box to choose between pausing or resetting the timer
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          title: Text(
-            "What would you like to do?",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize:
-                    MediaQuery.of(context).size.height * SUBHEADING_TEXT_SIZE),
-          ),
-          backgroundColor: neutral,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: ElevatedButton(
-                onPressed: () {
-                  _pauseTimer();
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
-                        MediaQuery.of(context).size.height * _ebHeight)),
-                child: Text(
-                  "Take a Break",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          MENU_BUTTON_TEXT_SIZE),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: ElevatedButton(
-                onPressed: () {
-                  _resetTimer();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => MainPage(
-                                title: 'Fatigue Management App',
-                                user: User("kevin", 32, 32, 32),
-                                index: 1,
-                              )),
-                      (route) =>
-                          false); // Go to home page, and reset route stack
-                },
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
-                        MediaQuery.of(context).size.height * _ebHeight)),
-                child: Text(
-                  "End Journey",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          MENU_BUTTON_TEXT_SIZE),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
-                        MediaQuery.of(context).size.height * _ebHeight)),
-                child: Text(
-                  "Cancel",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          MENU_BUTTON_TEXT_SIZE),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void _showRecommendations(BuildContext context, int fatigueLevel) {
     /// Opens a dialog box to choose between pausing or resetting the timer
@@ -213,20 +129,6 @@ class _DrivingPageState extends State<DrivingPage> {
         );
       },
     );
-  }
-
-  void _timerActions(BuildContext context) {
-    /// Using the current timer state decide whether to start the timer or open the dialog to pause/reset the timer
-    switch (_timerMode) {
-      case 0:
-        _startTimer();
-        break;
-      case 1:
-        _showTimerDialog(context);
-        break;
-      case 2:
-        _startTimer();
-    }
   }
 
   void _startTimer() {
@@ -314,6 +216,183 @@ class _DrivingPageState extends State<DrivingPage> {
     return s;
   }
 
+  Widget _getBody(BuildContext context){
+    var _bodys  = [
+      // Before start
+      Column(
+        children: [
+          Text(_fatigueDescs[widget.level]),
+          GestureDetector(
+            onTap: (){
+              _startTimer();
+            },
+            child: SimpleShadow(
+                offset: Offset(0,5),
+                sigma: 4,
+                child: Image(
+                  image: AssetImage(tyredLogo),
+                  width: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
+                )
+            ),
+          ),
+          Text('Tap to begin your drive'),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                boxShadow: [BoxShadow(
+                  color: Colors.grey.withOpacity(0.8),
+                  spreadRadius: 2,
+                  blurRadius: 1,
+                  offset: Offset(0, 2),
+                )]
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                  _timeString(_elapsed + _totalDuration)
+              ),
+            ),
+          )
+        ],
+      ),
+      // Timer Running
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                  onPressed: (){
+                    _heartRateText = _heartRateDrop;
+                    _startVibrate();
+                  },
+                  icon: ImageIcon(AssetImage(heart))),
+              IconButton(
+                  onPressed: (){
+                    //stopwatch.elapsed += Duration(hours: 2);
+                  },
+                  icon: ImageIcon(AssetImage(clock))),
+            ],
+          ),
+          GestureDetector(
+            onTap: (){
+              _pauseTimer();
+            },
+            child: SimpleShadow(
+                offset: Offset(0,5),
+                sigma: 4,
+                child: Image(
+                  image: AssetImage(tyredPause),
+                  width: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
+                )
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                boxShadow: [BoxShadow(
+                  color: Colors.grey.withOpacity(0.8),
+                  spreadRadius: 2,
+                  blurRadius: 1,
+                  offset: Offset(0, 2),
+                )]
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                  _timeString(_elapsed + _totalDuration)
+              ),
+            ),
+          )
+        ],
+      ),
+      //Paused Screen
+      Column(
+        children: [
+          Text(
+              _timeString(_elapsed + _totalDuration)
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                boxShadow: [BoxShadow(
+                  color: Colors.grey.withOpacity(0.8),
+                  spreadRadius: 2,
+                  blurRadius: 1,
+                  offset: Offset(0, 2),
+                )]
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Text('Your drive is currently paused. \n\n'
+                        'Please take this opportunity to take a break from driving to reduce your liklihood of a fatigue related crash.'
+                  ),
+                  ElevatedButton(
+                      onPressed: (){
+                        _startTimer();
+                      },
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                          )
+                          )
+                      ),
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text('Resume',
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                            ),
+                          )
+                      )
+                  ),
+                ],
+              )
+            ),
+          ),
+          ElevatedButton(
+              onPressed: (){
+                _resetTimer();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                          title: 'Fatigue Management App',
+                          user: User("kevin", 32, 32, 32),
+                          index: 1,
+                        )),
+                        (route) => false);
+              },
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                  )
+                  )
+              ),
+              child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text('End Drive',
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),
+                  )
+              )
+          ),
+        ],
+      ),
+    ];
+
+    return _bodys[_timerMode];
+  }
+
   @override
   void initState() {
     /// Called during initializing the screen
@@ -335,117 +414,10 @@ class _DrivingPageState extends State<DrivingPage> {
     loadData();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Driving Page'),
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 1,
-                        )),
-                (route) => false);
-          },
-        ),
+        automaticallyImplyLeading: false,
+        title: Text(_fatigueHeads[widget.level]),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(300, 15, 15, 0),
-                child: Visibility(
-                  visible: !_showHeartRate,
-                  replacement: Row(
-                    children: const [Text("Heart Rate")],
-                  ),
-                  child: Row(children: const [Text("")]),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(300, 0, 15, 15),
-                child: Visibility(
-                  visible: !_showHeartRate,
-                  replacement: Row(children: [
-                    Text(_heartRateText[(_elapsed.inSeconds) % 5]),
-                  ]),
-                  child: Row(children: const [Text("")]),
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (_vibrate) {
-                      _vibrate = false;
-                    } else {
-                      _vibrate = true;
-                    }
-                  },
-                  child: Visibility(
-                    visible: _vibrate,
-                    replacement: Row(
-                      children: const [
-                        Icon(Icons.volume_off),
-                        Text("Vibration off")
-                      ],
-                    ),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.volume_up),
-                        Text("Vibration on")
-                      ],
-                    ),
-                  )),
-              ElevatedButton(
-                onPressed: () {
-                  _timerActions(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(
-                      MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
-                      MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
-                  shape: const CircleBorder(),
-                ),
-                child: Text(
-                  _buttonTexts[_timerMode] +
-                      '\n' +
-                      _timeString(_elapsed + _totalDuration),
-                  style: TextStyle(
-                      fontSize: min(MediaQuery.of(context).size.width,
-                              MediaQuery.of(context).size.height) *
-                          MAIN_BUTTON_TEXT_SIZE),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Visibility(
-                visible: _reccStop,
-                replacement: Text('No Recommendations',
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height *
-                            SUBHEADING_TEXT_SIZE),
-                    textAlign: TextAlign.center),
-                child: Text(
-                  'Rest Recommended',
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          SUBHEADING_TEXT_SIZE),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _heartRateText = _heartRateDrop;
-                    _startVibrate();
-                  },
-                  child: const Text('Heart Rate Drop Demo'))
-            ],
-          ),
-        ],
-      ),
+      body: _getBody(context),
       bottomNavigationBar: BottomAppBar(
           child: Row(
         children: [
