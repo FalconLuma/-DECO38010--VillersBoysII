@@ -202,7 +202,7 @@ class _DrivingPageState extends State<DrivingPage> {
                     fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
                         MediaQuery.of(context).size.height * _ebHeight)),
                 child: Text(
-                  "Cancel",
+                  "Close",
                   style: TextStyle(
                       fontSize: MediaQuery.of(context).size.height *
                           MENU_BUTTON_TEXT_SIZE),
