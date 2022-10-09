@@ -93,6 +93,7 @@ class _MyApp extends State<MyApp> {
                 fontWeight: FontWeight.bold,
                 color: darkBlue,
               ),
+              //toolbarHeight: 100,
               iconTheme: IconThemeData(
                 color: darkBlue,
               )

@@ -49,7 +49,9 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: neutral,
       isScrollControlled: true,
       shape:RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER))
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(BORDER_RADIUS_CONTAINER),
+              topRight: Radius.circular(BORDER_RADIUS_CONTAINER))
       ),
       builder: (context) => Column(
           mainAxisSize: MainAxisSize.min,
@@ -144,12 +146,17 @@ class _MainPageState extends State<MainPage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text('Driving fatigued can kill',
-          softWrap: true,
-          style: TextStyle(
-            fontSize: 30
+        title: Padding(
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+          child: Text('Driving fatigued can kill',
+            softWrap: true,
+            maxLines: 2,
+            style: TextStyle(
+                fontSize: 30
+            ),
           ),
         ),
         actions: [

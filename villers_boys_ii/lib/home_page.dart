@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_shadow/simple_shadow.dart';
 import 'package:villers_boys_ii/constants.dart';
 
 import 'package:villers_boys_ii/user.dart';
@@ -69,49 +70,27 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-        body: ListView(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02,
-                  bottom: MediaQuery.of(context).size.height * 0.02),
-              child: Text(
-                'Welcome ${widget.user.getUserName()}',
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * HEADING_TEXT_SIZE),
-                textAlign: TextAlign.center,
-                softWrap: true,
-              ),
-            ),
-
-            ElevatedButton(
-              onPressed: () {
+            GestureDetector(
+              onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => QuestionairePage(user: widget.user)));
+                builder: (context) => QuestionairePage(user: widget.user)));
               },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(
-                    MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
-                    MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE),
-                shape: const CircleBorder(),
-              ),
-              child: Image.asset(
-                'images/driving-control.png',
-                height:
-                    MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
-                width:
-                    MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE * 0.8,
+              child: SimpleShadow(
+                offset: Offset(0,5),
+                sigma: 4,
+                child: Image(
+                  image: AssetImage(tyredLogo),
+                  width: MediaQuery.of(context).size.width * MAIN_BUTTON_SIZE,
+                )
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
               child: Text(
-                'Tap above to determine your driver fatigue',
+                'Tap to determine your TYRED fatigue rating',
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
@@ -120,8 +99,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ],
-    ));
+    );
   }
 
   /// Save whether or not the user has completed calibration to the device.
