@@ -44,6 +44,7 @@ const MaterialColor start = Colors.green;
 
 // Images links
 String tyredLogo = 'images/Tyred_Logo.png';
+String tyredPause = 'images/Tyred_Logo_Pause.png';
 String crossIcon = 'images/Cancel.png';
 String infoIconOutline = 'images/Information_grey.png';
 String infoIconColour = 'images/Information_blue.png';
@@ -55,4 +56,7 @@ String carOutline = 'images/Car_Grey.png';
 String carColour = 'images/Car_Blue.png';
 String bellOutline = 'images/Notif_Grey.png';
 String bellColour = 'images/Notif_Blue.png';
+String clock = 'images/Clock_Blue.png';
+String heart = 'images/Heart_Blue.png';
+String qldGov = 'images/QLD_gov.png';
 
