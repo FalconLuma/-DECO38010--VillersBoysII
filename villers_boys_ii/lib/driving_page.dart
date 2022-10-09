@@ -40,7 +40,7 @@ class _DrivingPageState extends State<DrivingPage> {
   bool _recommendations = false;
   bool _vibrated = false;
   bool _showHeartRate = false;
-  String buttonImage = tyredLogo;
+  bool _timeSim = false;
   final _ebHeight = 0.07;
   final _ebSidePad = 0.02;
   final _ebTopPad = 0.02;
@@ -147,6 +147,7 @@ class _DrivingPageState extends State<DrivingPage> {
       _totalDuration += Duration(seconds: _elapsed.inSeconds);
     });
     stopwatch.stop();
+    _timeSim = false;
     stopwatch.reset();
   }
 
@@ -166,7 +167,7 @@ class _DrivingPageState extends State<DrivingPage> {
       _elapsed = stopwatch.elapsed;
     });
 
-    if (_elapsed >= widget.restInterval) {
+    if (_elapsed >= widget.restInterval && !_timeSim) {
       setState(() {
         _reccStop = true;
         if (!_vibrated) {
@@ -195,6 +196,9 @@ class _DrivingPageState extends State<DrivingPage> {
 
   String _timeString(Duration d) {
     /// Returns a duration as a string in HH:MM:SS Format
+    if(_timeSim){
+      d += Duration(hours: 2);
+    }
     int hours = d.inHours;
     int mins = d.inMinutes - (hours * 60);
     int secs = d.inSeconds - (hours * 360) - (mins * 60);
@@ -270,7 +274,7 @@ class _DrivingPageState extends State<DrivingPage> {
                   icon: ImageIcon(AssetImage(heart))),
               IconButton(
                   onPressed: (){
-                    //stopwatch.elapsed += Duration(hours: 2);
+                    _timeSim = true;
                   },
                   icon: ImageIcon(AssetImage(clock))),
             ],
