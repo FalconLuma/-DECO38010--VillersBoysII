@@ -37,49 +37,118 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Memory Test Intro",
-            style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              if (ModalRoute.of(context)?.settings.name == 'preDrive') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
-                              index: 1,
-                            )),
-                    (route) => false);
-              } else if (ModalRoute.of(context)?.settings.name == 'edit') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
-                              index: 2,
-                            )),
-                    (route) => false);
-              } else {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => StartCalibratePage(
-                            user: User("kevin", 32, 32, 32))),
-                    (route) => false);
-              }
-            },
-          ),
-        ),
+          toolbarHeight: APPBAR_HEIGHT,
+            title: const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+              child: Text( "Memory Test Introduction",
+                softWrap: true,
+                maxLines: 2,
+                style: TextStyle(
+                    fontSize: 30
+                ),
+              ),
+            ),
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                icon: ImageIcon(
+                  AssetImage(crossIcon),
+                  size: 70,
+                  color: darkBlue,
+                ),
+                onPressed: () {
+                  if (ModalRoute.of(context)?.settings.name == 'preDrive') {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => MainPage(
+                                  title: 'Fatigue Management App',
+                                  user: User("kevin", 32, 32, 32),
+                                  index: 1,
+                                )),
+                        (route) => false);
+                  } else if (ModalRoute.of(context)?.settings.name == 'edit') {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => MainPage(
+                                  title: 'Fatigue Management App',
+                                  user: User("kevin", 32, 32, 32),
+                                  index: 2,
+                                )),
+                        (route) => false);
+                  } else {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => StartCalibratePage(
+                                user: User("kevin", 32, 32, 32))),
+                        (route) => false);
+                  }
+                },
+              ),
+            ]),
         body: Center(
           child: Column(children: [
+            Padding(padding: EdgeInsets.all(20),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                      boxShadow: [BoxShadow(
+                        color: Colors.grey.withOpacity(0.8),
+                        spreadRadius: 2,
+                        blurRadius: 1,
+                        offset: Offset(0, 2),
+                      )]
+                  ),
+                  child: Text(
+                    message,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: darkBlue,
+                        fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE
+                    ),
+                  ),
+                )
+            ),
+            /*
             Text(message,
                 style: TextStyle(
                     fontSize:
                         MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                     letterSpacing: 2.0)),
+
+             */
+            Padding(padding: EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MemoryTest(
+                          user: widget.user,
+                          calibrate: widget.calibrate,
+                          driveAssessment: widget.driveAssessment,
+                        ),
+                        settings: RouteSettings(
+                            name: ModalRoute.of(context)!.settings.name)));
+                  },
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                      )
+                      )
+                  ),
+                  child: Padding(
+                      padding: EdgeInsets.only(top: 10, bottom: 10, left: 30, right: 30),
+                      child: Text('Begin',
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
+                      )
+                  )
+              ),
+            )
+            /*
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -96,6 +165,8 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
                 size: 50,
               ),
             ),
+
+             */
           ]),
         ));
   }
