@@ -77,14 +77,17 @@ class IntroScreen extends State<ReactionTimeIntro> {
                             MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                         letterSpacing: 2.0)),
               ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ReactionTimeTest(
-                        user: widget.user,
-                        calibrate: widget.calibrate,
-                        driveAssessment: widget.driveAssessment,
-                      ),
-                  settings: RouteSettings(
-                      name: ModalRoute.of(context)!.settings.name)))),
+              onTap: () =>
+                  Future.delayed(const Duration(milliseconds: 500), () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ReactionTimeTest(
+                              user: widget.user,
+                              calibrate: widget.calibrate,
+                              driveAssessment: widget.driveAssessment,
+                            ),
+                        settings: RouteSettings(
+                            name: ModalRoute.of(context)!.settings.name)));
+                  })),
         ));
   }
 }

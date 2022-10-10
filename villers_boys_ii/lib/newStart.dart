@@ -132,6 +132,8 @@ class _newStartPageState extends State<newStart> {
                   } else {
                     save();
                     if (widget.flag == true) {
+                      debugPrint("Here");
+                      debugPrint("$name, $age, $reactionBase, $memoryBase");
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => MainPage(
@@ -143,6 +145,7 @@ class _newStartPageState extends State<newStart> {
                           (route) => false);
                       // Go to home page, and reset route stack
                     } else {
+                      debugPrint("Here2");
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => MainPage(
