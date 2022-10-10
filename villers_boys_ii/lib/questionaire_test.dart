@@ -6,6 +6,12 @@ import 'package:villers_boys_ii/drive_assessment.dart';
 
 import 'main_page.dart';
 
+///This page is for the actual questionnaire test
+///It contains the questions asked
+///the answers available
+///Determins a fatigue score based on the questionnaire
+///And finally navigates to the next test in the list
+
 class QuestionaireTestPage extends StatefulWidget {
   const QuestionaireTestPage({Key? key, required this.user}) : super(key: key);
   final User user;
@@ -29,8 +35,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     return;
   }
 
-  //Create a list of the questions
-  //--------------------------------------------------------
+  //Create a list of the scores after each answer
   List<int> prevScore = [
     0,
     0,
@@ -43,7 +48,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     0,
     0,
   ];
-
+  //Create a list to store the question numbers
   List<String> qNum = const [
     'Question 1/10',
     'Question 2/10',
@@ -56,7 +61,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     'Question 9/10',
     'Question 10/10',
   ];
-
+  //Create a list of all the questions
   List<String> questions = const [
     'How many hours of sleep per night have you averaged over the last week?',
     'In general what would best describe how interrupted your sleep has been over the last week?',
@@ -69,7 +74,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     'How often have you been falling asleep later than normal over the last week?',
     'How often have you been waking up feeling well rested and refreshed over the last week?',
   ];
-
+  //Create a list of all the first answers for each supplied question
   List<String> firstAnswer = const [
     '0-2 hours',
     'Uninterrupted',
@@ -82,7 +87,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     'Never (0%)',
     'Never (0%)',
   ];
-
+  //Create a corresponding list of all the scores given for the corresponding answer selected for a question
   List<int> firstAnswerScore = const [
     5,
     1,
@@ -95,7 +100,8 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     1,
     5,
   ];
-
+  //Create remaining lists and corresponding score lists for each of the 5 potential answers for each question
+  //----------------------------------------------------------------------------------------------------------
   List<String> secondAnswer = const [
     '2-4 hours',
     'Only woke up briefly once or twice a night',
@@ -148,8 +154,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     3,
   ];
 
-  // ignore: non_constant_identifier_names
-  List<String> FourthAnswer = const [
+  List<String> fourthAnswer = const [
     '6-8 hours',
     'I woke up each night for at least 30 minutes',
     '2-4 hours',
@@ -200,10 +205,12 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     5,
     1,
   ];
-  //-------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
+    //Create a check for when the quiz is over, also outline the results generated
+    //Move to next page
     if (_flag == 1) {
       debugPrint("Quiz Over Score: $_score");
       DriveAssessment da = DriveAssessment(_score, 0, 0, widget.user);
@@ -221,11 +228,13 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                   calibrate: true,
                   driveAssessment: da,
                 ),
-            settings: RouteSettings(name: 'preDrive')));
+            settings: const RouteSettings(name: 'preDrive')));
       });
     }
     return GestureDetector(
         onHorizontalDragEnd: (DragEndDetails details) {
+          //Functionality to detect user swiping back
+          //If swipe back is detected return to previous question updating scores, questions and answers accordingly
           if (details.primaryVelocity! > 0) {
             setState(() {
               if (_counter == 0) {
@@ -242,6 +251,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
           appBar: AppBar(
             // Here we take the value from the HomePage object that was created by
             // the App.build method, and use it to set our appbar title.
+            //If the user exits the questionnaire return them to the mainpage
             title: const Text('Fatigue Management App'),
             leading: IconButton(
               icon: const Icon(Icons.close),
@@ -250,7 +260,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     MaterialPageRoute(
                         builder: (context) => MainPage(
                               title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
+                              user: widget.user,
                               index: 1,
                             )),
                     (route) => false);
@@ -261,29 +271,13 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
             child: Column(
-              // Column is also a layout widget. It takes a list of children and
-              // arranges them vertically. By default, it sizes itself to fit its
-              // children horizontally, and tries to be as tall as its parent.
-              //
-              // Invoke "debug painting" (press "p" in the console, choose the
-              // "Toggle Debug Paint" action from the Flutter Inspector in Android
-              // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-              // to see the wireframe for each widget.
-              //
-              // Column has various properties to control how it sizes itself and
-              // how it positions its children. Here we use mainAxisAlignment to
-              // center the children vertically; the main axis here is the vertical
-              // axis because Columns are vertical (the cross axis would be
-              // horizontal).
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                // Text(
-                //   'Score: $_score',
-                // ),
                 Padding(
                   padding: EdgeInsets.all(
                       MediaQuery.of(context).size.height * 0.015),
                   child: Text(
+                    //Display the current question number
                     qNum[_counter],
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.height *
@@ -296,6 +290,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                       top: 10,
                       bottom: MediaQuery.of(context).size.height * 0.015),
                   child: Text(
+                    //Display the current question
                     questions[_counter],
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.height *
@@ -309,6 +304,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
+                          //Update the current score and counter if they select the first answer
                           prevScore[_counter] = _score;
                           _score = _score + firstAnswerScore[_counter];
                           _counter++;
@@ -340,6 +336,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            //Same as previous comment
                             prevScore[_counter] = _score;
                             _score = _score + secondAnswerScore[_counter];
                             _counter++;
@@ -367,6 +364,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            //Same as previous comment
                             prevScore[_counter] = _score;
                             _score = _score + thirdAnswerScore[_counter];
                             _counter++;
@@ -394,6 +392,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            //Same as previous comment
                             prevScore[_counter] = _score;
                             _score = _score + fourthAnswerScore[_counter];
                             _counter++;
@@ -409,7 +408,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                               MediaQuery.of(context).size.height * _ebHeight),
                         ),
                         child: Text(
-                          FourthAnswer[_counter],
+                          fourthAnswer[_counter],
                           style: TextStyle(
                               fontSize: MediaQuery.of(context).size.height *
                                   MENU_BUTTON_TEXT_SIZE),
@@ -421,6 +420,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            //Same as previous comment
                             prevScore[_counter] = _score;
                             _score = _score + fifthAnswerScore[_counter];
                             _counter++;

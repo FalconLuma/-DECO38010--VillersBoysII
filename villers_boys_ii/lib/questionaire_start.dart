@@ -5,6 +5,10 @@ import 'package:villers_boys_ii/user.dart';
 
 import 'main_page.dart';
 
+/// This page is designed to prepare the user for the questionnaire test
+/// The user is given the option to cancel out of the activity and return to the main page
+/// Or start the questionnaire test
+
 class QuestionairePage extends StatefulWidget {
   const QuestionairePage({Key? key, required this.user}) : super(key: key);
   final User user;
@@ -17,6 +21,7 @@ class _QuestionaireState extends State<QuestionairePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //Create an appbar describing the page purpose and give an option to exit
       appBar: AppBar(
         title: const Text('Questionnaire Start'),
         centerTitle: true,
@@ -34,6 +39,7 @@ class _QuestionaireState extends State<QuestionairePage> {
           },
         ),
       ),
+      //The main page content, contains the information text about the questionnaire and a button to move to the actual test
       body: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [

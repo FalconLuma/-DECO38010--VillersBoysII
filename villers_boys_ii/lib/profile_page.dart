@@ -5,6 +5,11 @@ import 'package:villers_boys_ii/newStart.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/constants.dart';
 
+///This is the profile page
+///Allows the user to view their supplied name and age along with
+///the results from their calibration tests
+///Gives the user the ability to change these values/re-calibrate
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required this.user}) : super(key: key);
 

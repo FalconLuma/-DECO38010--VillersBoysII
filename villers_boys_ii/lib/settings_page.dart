@@ -6,6 +6,10 @@ import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
 
+///This is the settings/smartseatbelt page
+///This page allows the user to search for a seatbelt to connect to
+///and connect or disconnect from a seatbelt
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key, required this.user}) : super(key: key);
 
@@ -46,6 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   right: MediaQuery.of(context).size.width * _ebSidePad,
                   top: MediaQuery.of(context).size.height * _ebTopPad),
               child: Text(
+                //Information about the smart seatbelt
                 "The Smart Seatbelt® device can connect to the TYRED app.\n"
                 "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.",
                 style: TextStyle(
@@ -86,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(
+        title: const Text(
           'Smart Seatbelt',
           softWrap: true,
           style: TextStyle(fontSize: 30),
@@ -109,6 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
+                  //If the user has searched for a seatbelt show their options and their connected status
                   padding: const EdgeInsets.all(10),
                   child: Visibility(
                     visible: flag,
@@ -142,6 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   )),
             ],
           ),
+          //Implement the functionality for when the user searches for a seatbelt (this functionality is a mockup as no bluetooth functionality is implemented only hardcoded)
           Padding(
             padding:
                 const EdgeInsets.only(left: 5, top: 200, right: 5, bottom: 20),
