@@ -147,6 +147,9 @@ class _DrivingPageState extends State<DrivingPage> {
       _totalDuration += Duration(seconds: _elapsed.inSeconds);
     });
     stopwatch.stop();
+    if(_timeSim){
+      _totalDuration += Duration(hours: 2);
+    }
     _timeSim = false;
     stopwatch.reset();
   }
@@ -197,12 +200,12 @@ class _DrivingPageState extends State<DrivingPage> {
   String _timeString(Duration d) {
     /// Returns a duration as a string in HH:MM:SS Format
     if(_timeSim){
-      d += Duration(hours: 2);
+      d += Duration(hours: 2, minutes: 0, seconds: 0);
     }
     int hours = d.inHours;
     int mins = d.inMinutes - (hours * 60);
-    int secs = d.inSeconds - (hours * 360) - (mins * 60);
-
+    print(mins);
+    int secs = d.inSeconds - (hours * 3600) - (mins * 60);
     String s = '';
 
     if (hours < 10) {
