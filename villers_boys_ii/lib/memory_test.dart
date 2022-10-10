@@ -38,9 +38,9 @@ class _MemoryTest extends State<MemoryTest> {
   Color defaultColor = primary;
   Color pressedColor = secondary;
   int duration = 1500;
-  int sequenceItems = 7;
+  int sequenceItems = 6;
   int numSquares = 16;
-  int numQuestions = 5; // NOTE: if updated, also update list generation
+  int numQuestions = 5;
 
   late List<int> sequence = List<int>.generate(sequenceItems, (i) => 0);
   late List<String> textValues = List<String>.generate(numSquares, (i) => '');
