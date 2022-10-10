@@ -42,6 +42,13 @@ class _MainPageState extends State<MainPage> {
 
   /// The index of the page currently being looked at.
   int _selectedIndex = 1;
+  List<String> appBarText = ["Smart Seatbelt", 'Driving fatigued can kill', "Profile Settings"];
+  String seatbeltInfo = "The Smart Seatbelt® device can connect to the TYRED app.\n"
+  "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.";
+  String mainInfo = 'On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes. '
+      '\n\nBeing awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05.'
+      '\n\nThere are rest areas across the Queensland road network open all year round to help you manage your fatigue and not drive tired.';
+
 
   void _openPopUp(BuildContext context){
     showModalBottomSheet(
@@ -84,9 +91,8 @@ class _MainPageState extends State<MainPage> {
                         offset: Offset(0, 2),
                       )]
                   ),
-                  child: Text('On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes. '
-                        '\n\nBeing awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05.'
-                        '\n\nThere are rest areas across the Queensland road network open all year round to help you manage your fatigue and not drive tired.',
+                  child: Text(
+                      _selectedIndex == 1 ? mainInfo : seatbeltInfo,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: darkBlue,
@@ -151,7 +157,7 @@ class _MainPageState extends State<MainPage> {
         // the App.build method, and use it to set our appbar title.
         title: Padding(
           padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-          child: Text('Driving fatigued can kill',
+          child: Text(appBarText[_selectedIndex],
             softWrap: true,
             maxLines: 2,
             style: TextStyle(
@@ -160,15 +166,18 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: (){
-              _openPopUp(context);
-            },
-            icon: ImageIcon(
-              AssetImage(infoIconColour),
-              size: 50,
+          Visibility (
+            visible: (_selectedIndex == 2) ? false : true,
+            child: IconButton(
+              onPressed: (){
+                _openPopUp(context);
+              },
+              icon: ImageIcon(
+                AssetImage(infoIconColour),
+                size: 50,
+              )
             )
-          )
+          ),
         ],
       ),
       body: Container(
