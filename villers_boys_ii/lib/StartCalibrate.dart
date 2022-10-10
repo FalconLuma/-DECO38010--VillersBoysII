@@ -6,6 +6,9 @@ import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
 
+///This is the page the user sees if they first open the app
+///or if they choose to re-calibrate their account
+
 class StartCalibratePage extends StatefulWidget {
   const StartCalibratePage({Key? key, required this.user}) : super(key: key);
   final User user;
@@ -24,6 +27,7 @@ class _StartCalibrateState extends State<StartCalibratePage> {
       body: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [
+            //Welcome message and information for the user
             Text(
                 'Welcome to Tyred, your driver fatigue assistance app.\n'
                 '\nYou are about to complete our baseline TYRED calibration tests, consisting of both a reaction and memory test.\n'
@@ -35,6 +39,7 @@ class _StartCalibrateState extends State<StartCalibratePage> {
                     letterSpacing: 2.0)),
             ElevatedButton(
               onPressed: () {
+                //Movement to next appropirate page
                 String routeName = 'calibrate';
                 if (ModalRoute.of(context)?.settings.name != null) {
                   routeName = ModalRoute.of(context)!.settings.name!;
