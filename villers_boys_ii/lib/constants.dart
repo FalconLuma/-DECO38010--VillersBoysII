@@ -16,6 +16,8 @@ const double MENU_BUTTON_TEXT_SIZE = 0.04;
 const double MAIN_BUTTON_SIZE = 0.85; // Always relative to size.width
 const double BORDER_RADIUS_CONTAINER = 30;
 const double BORDER_RADIUS_BUTTON = 20;
+const double BORDER_RADIUS_INPUT = 100;
+
 
 
 // Colours
