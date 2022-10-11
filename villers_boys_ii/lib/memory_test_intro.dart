@@ -41,6 +41,7 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
           text:"Memory Test Introduction",
           showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
               ModalRoute.of(context)?.settings.name == 'edit',
+          user: widget.user,
         ),
         body: Center(
           child:

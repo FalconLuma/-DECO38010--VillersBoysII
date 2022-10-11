@@ -7,11 +7,12 @@ import 'package:villers_boys_ii/StartCalibrate.dart';
 
 class SimpleAppBar extends StatefulWidget implements PreferredSizeWidget{
 
-  const SimpleAppBar({Key? key, required this.text, this.questionaire = false, this.showExitButton = true})
+  const SimpleAppBar({Key? key, required this.text, this.questionaire = false, this.showExitButton = true, required this.user})
       : super(key: key);
   final showExitButton;
   final String text;
   final bool questionaire;
+  final User user;
 
   @override
   State<SimpleAppBar> createState() => _newSimpleAppBarState();
@@ -53,7 +54,7 @@ class _newSimpleAppBarState extends State<SimpleAppBar> {
                       MaterialPageRoute(
                           builder: (context) => MainPage(
                             title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
+                            user: widget.user,
                             index: 1,
                           )),
                           (route) => false);
@@ -62,7 +63,7 @@ class _newSimpleAppBarState extends State<SimpleAppBar> {
                       MaterialPageRoute(
                           builder: (context) => MainPage(
                             title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
+                            user: widget.user,
                             index: 2,
                           )),
                           (route) => false);
@@ -71,7 +72,7 @@ class _newSimpleAppBarState extends State<SimpleAppBar> {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => StartCalibratePage(
-                              user: User("kevin", 32, 32, 32))),
+                              user: widget.user)),
                           (route) => false);
                 }
               },

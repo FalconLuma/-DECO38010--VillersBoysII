@@ -40,6 +40,7 @@ class _ReactionTimeState extends State<ReactionTimePage> {
         text: 'Reaction Time Test Introduction',
         showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
             ModalRoute.of(context)?.settings.name == 'edit',
+        user: widget.user,
       ),
       body: Container(
           margin: const EdgeInsets.all(10),

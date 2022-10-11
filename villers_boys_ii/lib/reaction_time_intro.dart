@@ -29,6 +29,7 @@ class IntroScreen extends State<ReactionTimeIntro> {
           text: "Get Ready!",
           showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
               ModalRoute.of(context)?.settings.name == 'edit',
+          user: widget.user,
         ),
         body: Center(
           child: GestureDetector(

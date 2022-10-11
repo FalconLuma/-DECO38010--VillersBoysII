@@ -31,6 +31,7 @@ class _newStartPageState extends State<newStart> {
         text: "Edit Profile",
         showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
             ModalRoute.of(context)?.settings.name == 'edit',
+        user: widget.user
       ),
       body: newStartPrompt(
           user: widget.user,

@@ -30,6 +30,7 @@ class _StartCalibrateState extends State<StartCalibratePage> {
         text: 'Fatigue Management App',
         showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
             ModalRoute.of(context)?.settings.name == 'edit',
+        user: widget.user,
       ),
       body: Container(
           margin: const EdgeInsets.all(10),

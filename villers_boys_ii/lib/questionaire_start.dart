@@ -26,7 +26,7 @@ class _QuestionaireState extends State<QuestionairePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //Create an appbar describing the page purpose and give an option to exit
-      appBar: SimpleAppBar(text: "Questionaire Introduction", questionaire: true),
+      appBar: SimpleAppBar(text: "Questionaire Introduction", questionaire: true, user: widget.user),
       //The main page content, contains the information text about the questionnaire and a button to move to the actual test
       body: Container(
           margin: const EdgeInsets.all(10),
