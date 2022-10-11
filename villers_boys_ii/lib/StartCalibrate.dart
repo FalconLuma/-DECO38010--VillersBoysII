@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/reaction_time1.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
+import 'package:villers_boys_ii/simple_button.dart';
+import 'package:villers_boys_ii/simple_textbox.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
@@ -18,28 +21,29 @@ class StartCalibratePage extends StatefulWidget {
 }
 
 class _StartCalibrateState extends State<StartCalibratePage> {
+  String message = 'Welcome to Tyred, your driver fatigue assistance app.\n'
+      '\nYou are about to complete our baseline TYRED calibration tests, consisting of both a reaction and memory test.\n'
+      '\nYou must only perform the baseline calibration tests if you are not currently fatigued.\n'
+      '\nIf you believe you are in a fit state to complete these tests, please click the button below.';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fatigue Management App'),
+      appBar: SimpleAppBar(
+        text: 'Fatigue Management App',
+        showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
+            ModalRoute.of(context)?.settings.name == 'edit', // TODO Hide x when in calibration
       ),
       body: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [
             //Welcome message and information for the user
-            Text(
-                'Welcome to Tyred, your driver fatigue assistance app.\n'
-                '\nYou are about to complete our baseline TYRED calibration tests, consisting of both a reaction and memory test.\n'
-                '\nYou must only perform the baseline calibration tests if you are not currently fatigued.\n'
-                '\nIf you believe you are in a fit state to complete these tests, please click the button below.',
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
-                    letterSpacing: 2.0)),
-            ElevatedButton(
+            SimpleTextBox(
+                text: message
+            ),
+            SimpleButton(
+              text: "Begin",
               onPressed: () {
-                //Movement to next appropirate page
+                //Movement to next appropriate page
                 String routeName = 'calibrate';
                 if (ModalRoute.of(context)?.settings.name != null) {
                   routeName = ModalRoute.of(context)!.settings.name!;
@@ -51,7 +55,6 @@ class _StartCalibrateState extends State<StartCalibratePage> {
                         ),
                     settings: RouteSettings(name: routeName)));
               },
-              child: const Text('Begin'),
             )
           ])),
     );
