@@ -88,70 +88,76 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     loadData();
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the HomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text(
-          'Smart Seatbelt',
-          softWrap: true,
-          style: TextStyle(fontSize: 30),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                _showRecommendations(context);
-              },
-              icon: ImageIcon(
-                AssetImage(infoIconColour),
-                size: 50,
-              ))
-        ],
-      ),
       body: ListView(
         children: <Widget>[
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(
+              Container(
+                padding: EdgeInsets.all(20),
+                alignment: Alignment.topCenter,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                    boxShadow: [BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 2,
+                      blurRadius: 1,
+                      offset: Offset(0, 2),
+                    )]
+                ),
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: Padding(
                   //If the user has searched for a seatbelt show their options and their connected status
-                  padding: const EdgeInsets.all(10),
-                  child: Visibility(
-                    visible: flag,
-                    replacement: Row(
-                      children: const [Text("No Devices Found")],
-                    ),
-                    child: Row(children: [
-                      Text(message2),
-                      SlidingSwitch(
-                        value: connected,
-                        onChanged: (bool value) {
-                          setState(() {
-                            //connected = true;
-                            if (connected) {
-                              connected = false;
-                            } else {
-                              connected = true;
-                            }
-                            save(flag, message2, connected);
-                          });
-                        },
-                        onTap: () {},
-                        onDoubleTap: () {},
-                        onSwipe: () {},
-                        textOff: "Disconnected",
-                        textOn: "Connected",
-                        colorOn: const Color(0xFF00FF00),
-                        colorOff: const Color(0xFFFF0000),
+                    padding: const EdgeInsets.all(10),
+                    child: Visibility(
+                      visible: flag,
+                      replacement: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [Text("No Devices Found",
+                            style:TextStyle(fontSize: 27))],
                       ),
-                    ]),
-                  )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            message2,
+                            style:TextStyle(fontSize: 27)),
+                          SlidingSwitch(
+                            value: connected,
+                            height: 30,
+                            width: 60,
+                            onChanged: (bool value) {
+                              setState(() {
+                                //connected = true;
+                                if (connected) {
+                                  connected = false;
+                                } else {
+                                  connected = true;
+                                }
+                                save(flag, message2, connected);
+                              });
+                            },
+                            onTap: () {},
+                            onDoubleTap: () {},
+                            onSwipe: () {},
+                            background:connected? darkBlue : const Color(0xffe4e5eb),
+                            textOff: '',
+                            textOn: '',
+                          ),
+                        ]
+                      ),
+                    )),
+              )
+
             ],
           ),
           //Implement the functionality for when the user searches for a seatbelt (this functionality is a mockup as no bluetooth functionality is implemented only hardcoded)
           Padding(
             padding:
-                const EdgeInsets.only(left: 5, top: 200, right: 5, bottom: 20),
+                const EdgeInsets.only(left: 5, top: 20, right: 5, bottom: 20),
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -160,14 +166,20 @@ class _SettingsPageState extends State<SettingsPage> {
                   save(flag, message2, connected);
                 });
               },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(200, 50),
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(Size(
+                    MediaQuery.of(context).size.width * 0.8,
+                    MediaQuery.of(context).size.height * 0.07)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                ))
               ),
               child: Text(
-                'Search For Device',
+                'Search',
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height *
-                        MENU_BUTTON_TEXT_SIZE),
+                  fontSize: MediaQuery.of(context).size.height * MENU_BUTTON_TEXT_SIZE,
+                  fontWeight: FontWeight.bold
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
