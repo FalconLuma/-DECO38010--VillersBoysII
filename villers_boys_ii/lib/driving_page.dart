@@ -204,7 +204,6 @@ class _DrivingPageState extends State<DrivingPage> {
     }
     int hours = d.inHours;
     int mins = d.inMinutes - (hours * 60);
-    print(mins);
     int secs = d.inSeconds - (hours * 3600) - (mins * 60);
     String s = '';
 
