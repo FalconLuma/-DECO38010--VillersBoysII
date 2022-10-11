@@ -45,9 +45,11 @@ class _MainPageState extends State<MainPage> {
   List<String> appBarText = ["Smart Seatbelt", 'Driving fatigued can kill', "Profile Settings"];
   String seatbeltInfo = "The Smart Seatbelt® device can connect to the TYRED app.\n"
   "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.";
-  String mainInfo = 'On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes. '
-      '\n\nBeing awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05.'
-      '\n\nThere are rest areas across the Queensland road network open all year round to help you manage your fatigue and not drive tired.';
+  String mainInfo = "Fatigue isn't just about falling asleep while driving.\n\n"
+  "Even brief lapses in concentration can have serious consequences.\n\n"
+  "On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes.\n\n"
+  "However, this figure is likely to be higher, as it can be difficult to tell when fatigue is a contributing factor in crashes.\n\n"
+  "one metre apart, which creates a greater distance between opposing directions of traffic.";
 
 
   void _openPopUp(BuildContext context){
@@ -91,14 +93,34 @@ class _MainPageState extends State<MainPage> {
                         offset: Offset(0, 2),
                       )]
                   ),
-                  child: Text(
-                      _selectedIndex == 1 ? mainInfo : seatbeltInfo,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: darkBlue,
-                          fontSize: 25
-                      ),
-                    ),
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.7,
+                    minHeight: MediaQuery.of(context).size.height * 0.7
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Visibility(
+                          visible: _selectedIndex == 1,
+                          child: Image(
+                            image: AssetImage(qldGov),
+                            width: MediaQuery.of(context).size.width * 0.7,
+                          ),
+                        ),
+                        Text(
+                          _selectedIndex == 1 ? mainInfo : seatbeltInfo,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkBlue,
+                              fontSize: 25
+                          ),
+                        ),
+                      ],
+                    )
+                  )
+
+
                 )
             ),
             Padding(padding: EdgeInsets.only(bottom: 20),
