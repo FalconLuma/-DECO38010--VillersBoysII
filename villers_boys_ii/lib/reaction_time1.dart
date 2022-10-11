@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/reaction_time_intro.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
+import 'package:villers_boys_ii/simple_button.dart';
+import 'package:villers_boys_ii/simple_textbox.dart';
 import 'package:villers_boys_ii/user.dart';
 
-import 'StartCalibrate.dart';
-import 'constants.dart';
-import 'main_page.dart';
+
 
 class ReactionTimePage extends StatefulWidget {
   ReactionTimePage(
@@ -35,49 +36,13 @@ class _ReactionTimeState extends State<ReactionTimePage> {
           '\nGood luck!';
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reaction Time Test'),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            if (ModalRoute.of(context)?.settings.name == 'preDrive') {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => MainPage(
-                            title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
-                            index: 1,
-                          )),
-                  (route) => false);
-            } else if (ModalRoute.of(context)?.settings.name == 'edit') {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => MainPage(
-                            title: 'Fatigue Management App',
-                            user: User("kevin", 32, 32, 32),
-                            index: 2,
-                          )),
-                  (route) => false);
-            } else {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          StartCalibratePage(user: User("kevin", 32, 32, 32))),
-                  (route) => false);
-            }
-          },
-        ),
-      ),
+      appBar: SimpleAppBar(text: 'Reaction Time Test Introduction'),
       body: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [
-            Text(message,
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
-                    letterSpacing: 2.0)),
-            ElevatedButton(
+            SimpleTextBox(text: message),
+            SimpleButton(
+              text: 'Begin',
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ReactionTimeIntro(
@@ -87,11 +52,7 @@ class _ReactionTimeState extends State<ReactionTimePage> {
                         ),
                     settings: RouteSettings(
                         name: ModalRoute.of(context)!.settings.name)));
-              },
-              child: const Icon(
-                Icons.start_sharp,
-                size: 50,
-              ),
+              }
             )
           ])),
     );

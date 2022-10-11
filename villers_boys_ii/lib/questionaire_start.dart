@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/questionaire_test.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
+import 'package:villers_boys_ii/simple_button.dart';
+import 'package:villers_boys_ii/simple_textbox.dart';
 import 'package:villers_boys_ii/user.dart';
-
-import 'main_page.dart';
 
 /// This page is designed to prepare the user for the questionnaire test
 /// The user is given the option to cancel out of the activity and return to the main page
@@ -18,52 +18,32 @@ class QuestionairePage extends StatefulWidget {
 }
 
 class _QuestionaireState extends State<QuestionairePage> {
+  String message = 'You are about to begin your TYRED rating questionnaire.\n'
+      '\nPlease answer the following multiple choice questions accurately and honestly to receive an accurate TYRED fatigue rating.\n'
+      '\nIf you answer a question incorrectly, swipe back to have another go.\n'
+      '\nGood Luck!';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //Create an appbar describing the page purpose and give an option to exit
-      appBar: AppBar(
-        title: const Text('Questionnaire Start'),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 1,
-                        )),
-                (route) => false);
-          },
-        ),
-      ),
+      appBar: SimpleAppBar(text: "Questionaire Introduction", questionaire: true),
       //The main page content, contains the information text about the questionnaire and a button to move to the actual test
       body: Container(
           margin: const EdgeInsets.all(10),
-          child: Column(children: [
-            Text(
-                'You are about to begin your TYRED rating questionnaire.\n'
-                '\nPlease answer the following multiple choice questions accurately and honestly to receive an accurate TYRED fatigue rating.\n'
-                '\nIf you answer a question incorrectly, swipe back to have another go.\n'
-                '\nGood Luck!',
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
-                    letterSpacing: 2.0)),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        QuestionaireTestPage(user: widget.user)));
-              },
-              child: const Icon(
-                Icons.start_sharp,
-                size: 50,
-              ),
-            )
-          ])),
+          child: Column(
+            children: [
+              SimpleTextBox(text:message),
+              SimpleButton(
+                text: 'Begin',
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          QuestionaireTestPage(user: widget.user)));
+                }
+              )
+            ]
+          )
+      ),
     );
   }
 }

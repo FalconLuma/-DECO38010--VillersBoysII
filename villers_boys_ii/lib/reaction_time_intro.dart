@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:villers_boys_ii/StartCalibrate.dart';
 import 'package:villers_boys_ii/reaction_time_test1.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
 import 'package:villers_boys_ii/user.dart';
 
 import 'constants.dart';
 import 'drive_assessment.dart';
-import 'main_page.dart';
 
 class ReactionTimeIntro extends StatefulWidget {
   ReactionTimeIntro(
@@ -26,43 +25,7 @@ class IntroScreen extends State<ReactionTimeIntro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Get Ready!",
-            style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              if (ModalRoute.of(context)?.settings.name == 'preDrive') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
-                              index: 1,
-                            )),
-                    (route) => false);
-              } else if (ModalRoute.of(context)?.settings.name == 'edit') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
-                              index: 2,
-                            )),
-                    (route) => false);
-              } else {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => StartCalibratePage(
-                            user: User("kevin", 32, 32, 32))),
-                    (route) => false);
-              }
-            },
-          ),
-        ),
+        appBar: SimpleAppBar(text: "Get Ready!"),
         body: Center(
           child: GestureDetector(
               behavior: HitTestBehavior.opaque,
