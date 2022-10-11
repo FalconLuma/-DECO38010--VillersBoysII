@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/reaction_time1.dart';
 import 'package:villers_boys_ii/constants.dart';
 import 'package:villers_boys_ii/drive_assessment.dart';
 
-import 'main_page.dart';
-
 ///This page is for the actual questionnaire test
 ///It contains the questions asked
 ///the answers available
-///Determins a fatigue score based on the questionnaire
+///Determines a fatigue score based on the questionnaire
 ///And finally navigates to the next test in the list
 
 class QuestionaireTestPage extends StatefulWidget {
@@ -27,8 +26,9 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
 
   // Answer button dimensions
   final double _ebHeight = 0.1;
-  final double _ebWidth = 0.7;
+  final double _ebWidth = 0.9;
   final double _ebPadding = 0.02;
+  final int numQuestions = 5;
 
   Future<void> wait() async {
     await Future.delayed(const Duration(seconds: 1));
@@ -205,6 +205,8 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
     5,
     1,
   ];
+  late List<List<int>> allAnswerScores = [firstAnswerScore, secondAnswerScore, thirdAnswerScore, fourthAnswerScore, fifthAnswerScore];
+  late List<List<String>> allAnswers = [firstAnswer, secondAnswer, thirdAnswer, fourthAnswer, fifthAnswer];
   //-----------------------------------------------------------------------------------------
 
   @override
@@ -248,24 +250,14 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
           }
         },
         child: Scaffold(
-          appBar: AppBar(
+          appBar: SimpleAppBar(
             // Here we take the value from the HomePage object that was created by
             // the App.build method, and use it to set our appbar title.
             //If the user exits the questionnaire return them to the mainpage
-            title: const Text('Fatigue Management App'),
-            leading: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: widget.user,
-                              index: 1,
-                            )),
-                    (route) => false);
-              },
-            ),
+            text: qNum[_counter],
+            questionaire: true,
+            user: widget.user,
+            showExitButton: true,
           ),
           body: Center(
             // Center is a layout widget. It takes a single child and positions it
@@ -273,175 +265,78 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(
-                      MediaQuery.of(context).size.height * 0.015),
-                  child: Text(
-                    //Display the current question number
-                    qNum[_counter],
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height *
-                            BODY_TEXT_SIZE),
-                    textAlign: TextAlign.center,
+                Expanded(
+                  flex:5,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 10,
+                        bottom: MediaQuery.of(context).size.height * 0.015),
+                    child: Text(
+                      //Display the current question
+                      questions[_counter],
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height *
+                              BODY_TEXT_SIZE),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 10,
-                      bottom: MediaQuery.of(context).size.height * 0.015),
-                  child: Text(
-                    //Display the current question
-                    questions[_counter],
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height *
-                            BODY_TEXT_SIZE),
-                    textAlign: TextAlign.center,
+                for (int i = 0; i < numQuestions; i++)
+                  Expanded(
+                    flex: 4,
+                    child: Padding(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.height * _ebPadding),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_INPUT)),
+                              boxShadow: [BoxShadow(
+                                color: Colors.grey.withOpacity(1),
+                                spreadRadius: 4,
+                                blurRadius: 4,
+                                offset: Offset(0, 4),
+                              )]
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                //Update the current score and counter
+                                prevScore[_counter] = _score;
+                                _score = _score + allAnswerScores[i][_counter];
+                                _counter++;
+                                if (_counter == 10) {
+                                  _counter = 9;
+                                  _flag = 1;
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          QuestionaireTestPage(user: widget.user)));
+                                }
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: neutral,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_INPUT))),
+                              fixedSize: Size(
+                                  MediaQuery.of(context).size.width * _ebWidth,
+                                  MediaQuery.of(context).size.height * _ebHeight),
+                            ),
+                            child: Text(
+                              allAnswers[i][_counter],
+                              style: TextStyle(
+                                  color: darkBlue,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      MENU_BUTTON_TEXT_SIZE),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                      ),
+                    )
                   ),
-                ),
-                Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.height * _ebPadding),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          //Update the current score and counter if they select the first answer
-                          prevScore[_counter] = _score;
-                          _score = _score + firstAnswerScore[_counter];
-                          _counter++;
-                          if (_counter == 10) {
-                            _counter = 0;
-                            _flag = 1;
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    QuestionaireTestPage(user: widget.user)));
-                          }
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(
-                            MediaQuery.of(context).size.width * _ebWidth,
-                            MediaQuery.of(context).size.height * _ebHeight),
-                      ),
-                      child: Text(
-                        firstAnswer[_counter],
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height *
-                                MENU_BUTTON_TEXT_SIZE),
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.height * _ebPadding),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            //Same as previous comment
-                            prevScore[_counter] = _score;
-                            _score = _score + secondAnswerScore[_counter];
-                            _counter++;
-                            if (_counter == 10) {
-                              _counter = 0;
-                              _flag = 1;
-                            }
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(
-                              MediaQuery.of(context).size.width * _ebWidth,
-                              MediaQuery.of(context).size.height * _ebHeight),
-                        ),
-                        child: Text(
-                          secondAnswer[_counter],
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height *
-                                  MENU_BUTTON_TEXT_SIZE),
-                          textAlign: TextAlign.center,
-                        ))),
-                Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.height * _ebPadding),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            //Same as previous comment
-                            prevScore[_counter] = _score;
-                            _score = _score + thirdAnswerScore[_counter];
-                            _counter++;
-                            if (_counter == 10) {
-                              _counter = 0;
-                              _flag = 1;
-                            }
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(
-                              MediaQuery.of(context).size.width * _ebWidth,
-                              MediaQuery.of(context).size.height * _ebHeight),
-                        ),
-                        child: Text(
-                          thirdAnswer[_counter],
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height *
-                                  MENU_BUTTON_TEXT_SIZE),
-                          textAlign: TextAlign.center,
-                        ))),
-                Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.height * _ebPadding),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            //Same as previous comment
-                            prevScore[_counter] = _score;
-                            _score = _score + fourthAnswerScore[_counter];
-                            _counter++;
-                            if (_counter == 10) {
-                              _counter = 0;
-                              _flag = 1;
-                            }
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(
-                              MediaQuery.of(context).size.width * _ebWidth,
-                              MediaQuery.of(context).size.height * _ebHeight),
-                        ),
-                        child: Text(
-                          fourthAnswer[_counter],
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height *
-                                  MENU_BUTTON_TEXT_SIZE),
-                          textAlign: TextAlign.center,
-                        ))),
-                Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.height * _ebPadding),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            //Same as previous comment
-                            prevScore[_counter] = _score;
-                            _score = _score + fifthAnswerScore[_counter];
-                            _counter++;
-                            if (_counter == 10) {
-                              _counter = 0;
-                              _flag = 1;
-                            }
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(
-                              MediaQuery.of(context).size.width * _ebWidth,
-                              MediaQuery.of(context).size.height * _ebHeight),
-                        ),
-                        child: Text(
-                          fifthAnswer[_counter],
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height *
-                                  MENU_BUTTON_TEXT_SIZE),
-                          textAlign: TextAlign.center,
-                        ))),
+                const Padding(
+                  padding:EdgeInsets.all(20)
+                )
               ],
             ),
           ), // This trailing comma makes auto-formatting nicer for build methods.
