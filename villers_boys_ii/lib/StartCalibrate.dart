@@ -7,8 +7,6 @@ import 'package:villers_boys_ii/simple_button.dart';
 import 'package:villers_boys_ii/simple_textbox.dart';
 import 'package:villers_boys_ii/user.dart';
 
-import 'constants.dart';
-
 ///This is the page the user sees if they first open the app
 ///or if they choose to re-calibrate their account
 
@@ -31,7 +29,7 @@ class _StartCalibrateState extends State<StartCalibratePage> {
       appBar: SimpleAppBar(
         text: 'Fatigue Management App',
         showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
-            ModalRoute.of(context)?.settings.name == 'edit', // TODO Hide x when in calibration
+            ModalRoute.of(context)?.settings.name == 'edit',
       ),
       body: Container(
           margin: const EdgeInsets.all(10),
