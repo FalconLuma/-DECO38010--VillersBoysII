@@ -4,11 +4,12 @@ import 'package:villers_boys_ii/drive_assessment.dart';
 import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/newStart.dart';
 import 'package:villers_boys_ii/results_page.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
+import 'package:villers_boys_ii/simple_button.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'dart:math';
 import 'dart:async';
 
-import 'StartCalibrate.dart';
 import 'constants.dart';
 
 class MemoryTest extends StatefulWidget {
@@ -213,50 +214,12 @@ class _MemoryTest extends State<MemoryTest> {
       });
     });
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Memory Test",
-            style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
+        appBar: SimpleAppBar(
+          user: widget.user,
+          text: "Memory Test",
+          showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
+              ModalRoute.of(context)?.settings.name == 'edit',
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              if(ModalRoute.of(context)?.settings.name == 'preDrive'){
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 1,
-                        )
-                    ),
-                        (route) => false
-                );
-              } else if(ModalRoute.of(context)?.settings.name == 'edit'){
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 2,
-                        )
-                    ),
-                        (route) => false
-                );
-              } else {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => StartCalibratePage(
-                            user: User("kevin", 32, 32, 32)
-                        )
-                    ),
-                        (route) => false
-                );
-              }
-            },
-          ),
-        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -274,8 +237,9 @@ class _MemoryTest extends State<MemoryTest> {
                         onTap: () {},
                         child: DecoratedBox(
                             decoration: BoxDecoration(
-                                color:
-                                    pressed[i] ? pressedColor : defaultColor),
+                              borderRadius: BorderRadius.circular(BORDER_RADIUS_BUTTON),
+                              color: pressed[i] ? pressedColor : defaultColor,
+                            ),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
@@ -307,26 +271,28 @@ class _MemoryTest extends State<MemoryTest> {
                       Padding(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * 0.05),
-                        child: ElevatedButton(
+                        child: SimpleButton(
+                            text: "Yes",
                             onPressed: () {
                               setState(() {
                                 answers[questionNum] = true;
                                 _nextQuestion();
                               });
                             },
-                            child: const Text("Yes")),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * 0.05),
-                        child: ElevatedButton(
+                        child: SimpleButton(
+                          text: "No",
                             onPressed: () {
                               setState(() {
                                 answers[questionNum] = false;
                                 _nextQuestion();
                               });
                             },
-                            child: const Text("No")),
+                        ),
                       ),
                     ]),
               ),
