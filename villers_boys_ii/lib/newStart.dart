@@ -33,11 +33,12 @@ class _newStartPageState extends State<newStart> {
             ModalRoute.of(context)?.settings.name == 'edit',
         user: widget.user
       ),
-      body: newStartPrompt(
+      body: SingleChildScrollView (
+        child: newStartPrompt(
           user: widget.user,
           flag: widget.flag
-          // TODO Fix overflowing when keyboard is above widget
-      ),
+        ),
+      )
     );
   }
 }
