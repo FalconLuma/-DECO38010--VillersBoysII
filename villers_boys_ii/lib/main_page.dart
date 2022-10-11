@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
 
   /// The index of the page currently being looked at.
   int _selectedIndex = 1;
-  List<String> appBarText = ["Smart Seatbelt", 'Driving fatigued can kill', "Profile Settings"];
+  List<String> appBarText = ["Smart Seatbelt", 'Driving fatigued can kill', "User Profile"];
   String seatbeltInfo = "The Smart Seatbelt® device can connect to the TYRED app.\n"
   "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.";
   String mainInfo = "Fatigue isn't just about falling asleep while driving.\n\n"

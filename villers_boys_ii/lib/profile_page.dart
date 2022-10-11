@@ -29,38 +29,18 @@ class _ProfilePageState extends State<ProfilePage> {
         },
         child: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * HEADING_TEXT_SIZE),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Text(
-                'User Details',
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height *
-                        SUBHEADING_TEXT_SIZE),
-                textAlign: TextAlign.center,
-              ),
-            ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                       Radius.circular(BORDER_RADIUS_CONTAINER)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.8),
                       spreadRadius: 2,
                       blurRadius: 1,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     )
                   ]),
               child: Column(children: [
@@ -93,52 +73,34 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ]),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, top: 50, right: 16),
-              child: Text(
-                'Calibrated Performance',
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height *
-                        SUBHEADING_TEXT_SIZE),
-                textAlign: TextAlign.center,
-              ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16, top: 50, right: 16),
             ),
             Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                         Radius.circular(BORDER_RADIUS_CONTAINER)),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.8),
                         spreadRadius: 2,
                         blurRadius: 1,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       )
                     ]),
                 child: Column(
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.only(left: 16, top: 15, right: 16),
+                      const EdgeInsets.all(20),
                       child: Text(
-                        'Reaction: ${widget.user.getReactionBaseline().toStringAsFixed(1)}',
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height *
-                                BODY_TEXT_SIZE),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16, top: 15, right: 16, bottom: 15),
-                      child: Text(
-                        'Memory: ${widget.user.getMemoryBaseline().toStringAsFixed(1)}',
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height *
-                                BODY_TEXT_SIZE),
-                        textAlign: TextAlign.center,
+                          'Your baseline TYRED calibration has been completed.',
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height *
+                              BODY_TEXT_SIZE),
+                      textAlign: TextAlign.center,
                       ),
                     ),
                     SimpleButton(
