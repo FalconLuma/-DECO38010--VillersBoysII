@@ -6,9 +6,11 @@ import 'package:villers_boys_ii/user.dart';
 import 'StartCalibrate.dart';
 
 class SimpleAppBar extends StatefulWidget implements PreferredSizeWidget{
-  const SimpleAppBar({Key? key, required this.text, this.questionaire = false})
-      : super(key: key);
 
+
+  const SimpleAppBar({Key? key, required this.text, this.questionaire = false, this.showExitButton = true})
+      : super(key: key);
+  final showExitButton;
   final String text;
   final bool questionaire;
 
@@ -37,40 +39,44 @@ class _newSimpleAppBarState extends State<SimpleAppBar> {
         ),
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-            icon: ImageIcon(
-              AssetImage(crossIcon),
-              size: 70,
-              color: darkBlue,
+          Visibility(
+            visible: widget.showExitButton,
+            child:
+            IconButton(
+              icon: ImageIcon(
+                AssetImage(crossIcon),
+                size: 70,
+                color: darkBlue,
+              ),
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name == 'preDrive' || widget.questionaire) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => MainPage(
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 1,
+                          )),
+                          (route) => false);
+                } else if (ModalRoute.of(context)?.settings.name == 'edit') {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => MainPage(
+                            title: 'Fatigue Management App',
+                            user: User("kevin", 32, 32, 32),
+                            index: 2,
+                          )),
+                          (route) => false);
+                } else {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => StartCalibratePage(
+                              user: User("kevin", 32, 32, 32))),
+                          (route) => false);
+                }
+              },
             ),
-            onPressed: () {
-              if (ModalRoute.of(context)?.settings.name == 'preDrive' || widget.questionaire) {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 1,
-                        )),
-                        (route) => false);
-              } else if (ModalRoute.of(context)?.settings.name == 'edit') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                          title: 'Fatigue Management App',
-                          user: User("kevin", 32, 32, 32),
-                          index: 2,
-                        )),
-                        (route) => false);
-              } else {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => StartCalibratePage(
-                            user: User("kevin", 32, 32, 32))),
-                        (route) => false);
-              }
-            },
-          ),
+          )
         ]);
   }
 }

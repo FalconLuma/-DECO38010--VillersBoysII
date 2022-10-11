@@ -25,7 +25,11 @@ class IntroScreen extends State<ReactionTimeIntro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: SimpleAppBar(text: "Get Ready!"),
+        appBar: SimpleAppBar(
+          text: "Get Ready!",
+          showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
+              ModalRoute.of(context)?.settings.name == 'edit',
+        ),
         body: Center(
           child: GestureDetector(
               behavior: HitTestBehavior.opaque,

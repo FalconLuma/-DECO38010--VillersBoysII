@@ -37,7 +37,11 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
     }
     return Scaffold(
       //backgroundColor: neutral,
-        appBar: SimpleAppBar(text:"Memory Test Introduction"),
+        appBar: SimpleAppBar(
+          text:"Memory Test Introduction",
+          showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
+              ModalRoute.of(context)?.settings.name == 'edit',
+        ),
         body: Center(
           child:
             Column(children: [

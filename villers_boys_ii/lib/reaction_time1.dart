@@ -36,7 +36,11 @@ class _ReactionTimeState extends State<ReactionTimePage> {
           '\nGood luck!';
     }
     return Scaffold(
-      appBar: SimpleAppBar(text: 'Reaction Time Test Introduction'),
+      appBar: SimpleAppBar(
+        text: 'Reaction Time Test Introduction',
+        showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
+            ModalRoute.of(context)?.settings.name == 'edit',
+      ),
       body: Container(
           margin: const EdgeInsets.all(10),
           child: Column(children: [
