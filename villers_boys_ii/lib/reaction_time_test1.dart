@@ -1,13 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:villers_boys_ii/drive_assessment.dart';
+import 'package:villers_boys_ii/simple_appbar.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:collection/collection.dart';
-import 'dart:math';
-
-import 'StartCalibrate.dart';
-import 'main_page.dart';
-import 'memory_test_intro.dart';
+import 'package:villers_boys_ii/constants.dart';
+import 'package:villers_boys_ii/memory_test_intro.dart';
 
 class ReactionTimeTest extends StatefulWidget {
   ReactionTimeTest(
@@ -55,42 +55,11 @@ class _ReactionTestState extends State<ReactionTimeTest> {
         Random().nextDouble() * (height - 2 * margin * height);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Test: ${_tNum + 1}/10 ",
-            style: const TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              if (ModalRoute.of(context)?.settings.name == 'preDrive') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
-                              index: 1,
-                            )),
-                    (route) => false);
-              } else if (ModalRoute.of(context)?.settings.name == 'edit') {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => MainPage(
-                              title: 'Fatigue Management App',
-                              user: User("kevin", 32, 32, 32),
-                              index: 2,
-                            )),
-                    (route) => false);
-              } else {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => StartCalibratePage(
-                            user: User("kevin", 32, 32, 32))),
-                    (route) => false);
-              }
-            },
-          ),
+        appBar: SimpleAppBar(
+          text: "Test: ${_tNum + 1}/10 ",
+          showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
+              ModalRoute.of(context)?.settings.name == 'edit',
+            user: widget.user,
         ),
         body: Stack(children: <Widget>[
           Positioned(
@@ -100,7 +69,12 @@ class _ReactionTestState extends State<ReactionTimeTest> {
                   width: buttonWidth,
                   height: buttonWidth,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                      )
+                      )),
                     onPressed: () {
                       int endTime = DateTime.now().millisecondsSinceEpoch;
                       rTimes[_tNum] = endTime - startTime;
