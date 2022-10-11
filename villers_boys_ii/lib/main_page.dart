@@ -119,8 +119,6 @@ class _MainPageState extends State<MainPage> {
                       ],
                     )
                   )
-
-
                 )
             ),
             Padding(padding: EdgeInsets.only(bottom: 20),

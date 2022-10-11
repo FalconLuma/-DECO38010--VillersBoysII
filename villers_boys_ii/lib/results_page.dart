@@ -18,26 +18,19 @@ class ResultsPage extends StatefulWidget {
 
 class _ResultsPageState extends State<ResultsPage> {
   final fatiguelevels = [
-    [
-      'Low Fatigue',
-      'There is little indication that you suffering any fatigue '
-          'that will impact you ability to drive'
-    ],
-    [
-      'Moderate Fatigue',
-      'You appear to be somewhat fatigued, consider using '
-          'alterantive transport such as rideshare or public transport, if you do '
-          'choose to drive be aware of any sign of tiredness'
-    ],
-    [
-      'Severe Fatigue',
-      'The tests indicate that you are heavily fatigued, avoid '
-          'driving and seek alternative transport such as rideshare or public transport'
-          ' for the safety of yourself and other road-users'
-    ]
+  "You are not showing symptoms of driver fatigue.\n\nYou should still stop driving for at least 15 minutes every 2 hours.\n\nNever drive for more than 10 hours in a single day.",
+
+  "You are begining to show symptoms of driver fatigue.\n\n You should stop driving for at least 15 minutes every 2 hours. Utilise rest areas, tourist spots and driver reviver stops.\n\nIf you really need to keep driving, try some of the following:\n\n •Lower the cars interior temparature (putting the aircon on high)\n"
+  "• Try adjusting and focusing on your seating posture\n"
+  "• Try increasing or turning on some music\n"
+  "• Try a caffinated drink, it can help temporarily boost energy levels\n",
+
+  "You are showing symptoms of severe driver fatigue.\n\n You must stop driving and rest as soon as possible. Utilise rest areas, tourist spots and driver reviver stops.\n\nIf you really need to keep driving, try some of the following:\n\n •Lower the cars interior temparature (putting the aircon on high)\n"
+      "• Try adjusting and focusing on your seating posture\n"
+      "• Try increasing or turning on some music\n"
+      "• Try a caffinated drink, it can help temporarily boost energy levels\n"
   ];
 
-  //TODO Determine appropriate timers for each fatigue level
   final fatigueRestTimers = [
     const Duration(hours: 2),
     const Duration(hours: 1, minutes: 30),
@@ -57,7 +50,7 @@ class _ResultsPageState extends State<ResultsPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Results",
+            "Driver Fatigue Tips",
             style: TextStyle(fontSize: 25),
             textAlign: TextAlign.center,
           ),
@@ -76,54 +69,60 @@ class _ResultsPageState extends State<ResultsPage> {
           ),
         ),
         body: Center(
-            child: Column(
-          children: [
-            Text(
-              fatiguelevels[fatigueLevel][0],
-              style: TextStyle(
-                  fontSize:
-                      MediaQuery.of(context).size.height * HEADING_TEXT_SIZE),
-            ),
-            Text(
-              fatiguelevels[fatigueLevel][1],
-              style: TextStyle(
-                  fontSize:
-                      MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
-              textAlign: TextAlign.center,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => DrivingPage(
-                          restInterval: fatigueRestTimers[fatigueLevel],
-                          level: fatigueLevel,
-                        )));
-              },
-              child: const Icon(
-                Icons.start_sharp,
-                size: 50,
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.all(20),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                      boxShadow: [BoxShadow(
+                        color: Colors.grey.withOpacity(0.8),
+                        spreadRadius: 2,
+                        blurRadius: 1,
+                        offset: Offset(0, 2),
+                      )]
+                  ),
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.75,
+                      minHeight: MediaQuery.of(context).size.height * 0.75
+                  ),
+                  child: SingleChildScrollView(
+                    child: Text(
+                      fatiguelevels[fatigueLevel],
+                      style: TextStyle(
+                          fontSize:
+                          MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            Text("Questionnaire:" +
-                widget.driveAssessment.getQuestionnaireScore().toString()),
-            Text("Baseline Reaction:" +
-                widget.driveAssessment.user.getReactionBaseline().toString()),
-            Text("Average Reaction:" +
-                widget.driveAssessment.reactionTime.toString()),
-            Text("Reaction Score:" +
-                widget.driveAssessment.getReactionScore().toString()),
-            Text("Baseline Memory:" +
-                widget.driveAssessment.user.getMemoryBaseline().toString()),
-            Text(
-                "Memory Test:" + widget.driveAssessment.memoryScore.toString()),
-            Text("Memory Score:" +
-                widget.driveAssessment.getMemoryScore().toString() +
-                "\n"),
-            Text("Fatigue level Best of Three:" +
-                widget.driveAssessment.getFatigue1().toString()),
-            Text("Fatigue level Average:" +
-                widget.driveAssessment.getFatigue2().toString()),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DrivingPage(
+                            restInterval: fatigueRestTimers[fatigueLevel],
+                            level: fatigueLevel,
+                          )));
+                },
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                    ))
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 30, right: 30),
+                  child: Text('Finish',
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),
+                  )
+                )
+              ),
+            ],
         )));
   }
 }
