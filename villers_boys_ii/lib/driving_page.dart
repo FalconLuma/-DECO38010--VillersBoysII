@@ -78,58 +78,6 @@ class _DrivingPageState extends State<DrivingPage> {
     } else {
       _driverTips = _fatigueLevelHigh;
     }
-    """
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          title: Text(
-            "Feeling fatigued?",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height *
-                    SUBHEADING_TEXT_SIZE /
-                    1.2),
-          ),
-          backgroundColor: neutral,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: Text(
-                _driverTips,
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
-                        MediaQuery.of(context).size.height * _ebHeight)),
-                child: Text(
-                  "Close",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          MENU_BUTTON_TEXT_SIZE),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-     """;
     showModalBottomSheet(
       context: context,
       backgroundColor: neutral,
