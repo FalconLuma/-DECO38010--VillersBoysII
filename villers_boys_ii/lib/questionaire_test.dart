@@ -22,7 +22,6 @@ class QuestionaireTestPage extends StatefulWidget {
 class _QuestionaireTestState extends State<QuestionaireTestPage> {
   int _counter = 0;
   int _score = 0;
-  int _flag = 0;
 
   // Answer button dimensions
   final double _ebHeight = 0.1;
@@ -208,31 +207,32 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
   late List<List<int>> allAnswerScores = [firstAnswerScore, secondAnswerScore, thirdAnswerScore, fourthAnswerScore, fifthAnswerScore];
   late List<List<String>> allAnswers = [firstAnswer, secondAnswer, thirdAnswer, fourthAnswer, fifthAnswer];
   //-----------------------------------------------------------------------------------------
+  /*
+  Outline the results generated and move to next page
+   */
+  void _finishQuestioniare() {
+    debugPrint("Quiz Over Score: $_score");
+    DriveAssessment da = DriveAssessment(_score, 0, 0, widget.user);
+    if (_score < 22) {
+      debugPrint("You have healthy levels of fatigue!");
+    } else if (_score >= 22 && _score <= 34) {
+      debugPrint("You have mild to moderate levels of fatigue");
+    } else {
+      debugPrint("You have severe fatigue");
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ReactionTimePage(
+            user: widget.user,
+            calibrate: true,
+            driveAssessment: da,
+          ),
+          settings: const RouteSettings(name: 'preDrive')));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    //Create a check for when the quiz is over, also outline the results generated
-    //Move to next page
-    if (_flag == 1) {
-      debugPrint("Quiz Over Score: $_score");
-      DriveAssessment da = DriveAssessment(_score, 0, 0, widget.user);
-      if (_score < 22) {
-        debugPrint("You have healthy levels of fatigue!");
-      } else if (_score >= 22 && _score <= 34) {
-        debugPrint("You have mild to moderate levels of fatigue");
-      } else {
-        debugPrint("You have severe fatigue");
-      }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ReactionTimePage(
-                  user: widget.user,
-                  calibrate: true,
-                  driveAssessment: da,
-                ),
-            settings: const RouteSettings(name: 'preDrive')));
-      });
-    }
     return GestureDetector(
         onHorizontalDragEnd: (DragEndDetails details) {
           //Functionality to detect user swiping back
@@ -241,7 +241,6 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
             setState(() {
               if (_counter == 0) {
                 _counter = 0;
-                _flag = 0;
               } else {
                 _counter--;
                 _score = prevScore[_counter];
@@ -304,13 +303,10 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                                 //Update the current score and counter
                                 prevScore[_counter] = _score;
                                 _score = _score + allAnswerScores[i][_counter];
-                                _counter++;
-                                if (_counter == 10) {
-                                  _counter = 9;
-                                  _flag = 1;
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          QuestionaireTestPage(user: widget.user)));
+                                if (_counter == 9) {
+                                  _finishQuestioniare();
+                                } else {
+                                  _counter++;
                                 }
                               });
                             },
