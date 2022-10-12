@@ -21,8 +21,7 @@ class StartCalibratePage extends StatefulWidget {
 class _StartCalibrateState extends State<StartCalibratePage> {
   String message = 'Welcome to Tyred, your driver fatigue assistance app.\n'
       '\nYou are about to complete our baseline TYRED calibration tests, consisting of both a reaction and memory test.\n'
-      '\nYou must only perform the baseline calibration tests if you are not currently fatigued.\n'
-      '\nIf you believe you are in a fit state to complete these tests, please click the button below.';
+      '\nThese test results will be used for future comparisons, so only perform these calibration tests if you believe you are not currently fatigued.\n';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +35,7 @@ class _StartCalibrateState extends State<StartCalibratePage> {
           margin: const EdgeInsets.all(10),
           child: Column(children: [
             //Welcome message and information for the user
-            SimpleTextBox(
-                text: message
-            ),
+            SimpleTextBox(text: message),
             SimpleButton(
               text: "Begin",
               onPressed: () {

@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'dart:async';
