@@ -9,6 +9,7 @@ import 'package:villers_boys_ii/home_page.dart';
 import 'package:villers_boys_ii/profile_page.dart';
 
 import 'constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage(
@@ -45,11 +46,16 @@ class _MainPageState extends State<MainPage> {
   List<String> appBarText = ["Smart Seatbelt", 'Driving fatigued can kill', "User Profile"];
   String seatbeltInfo = "The Smart Seatbelt® device can connect to the TYRED app.\n"
   "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.";
+  //https://www.tmr.qld.gov.au/Safety/Driver-guide/Driving-safely/Driving-tired.aspx
   String mainInfo = "Fatigue isn't just about falling asleep while driving.\n\n"
   "Even brief lapses in concentration can have serious consequences.\n\n"
   "On average, between 2015 to 2019, approximately 12% of lives lost on Queensland roads were from fatigue-related crashes.\n\n"
   "However, this figure is likely to be higher, as it can be difficult to tell when fatigue is a contributing factor in crashes.\n\n"
-  "one metre apart, which creates a greater distance between opposing directions of traffic.";
+  "It is important to recognise the warning signs of fatigue and take appropriate action.\n\n"
+  "Being awake for more than 17 hours has a similar effect on performance as having a blood alcohol content of more than 0.05. So don't put yourself at risk.\n\n"
+  "The risks of driving when tired apply even when you do not fall asleep at the wheel. Even short lapses in concentration caused by tiredness or drowsiness can have serious consequences on your driving.\n\n"
+  "When you are experiencing fatigue, your brain can have short periods of sleep called 'microsleeps'. Microsleeps can last from a fraction of a second, up to 10 full seconds. You cannot control them.\n\n"
+  ;
 
 
   void _openPopUp(BuildContext context){
@@ -113,7 +119,7 @@ class _MainPageState extends State<MainPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: darkBlue,
-                              fontSize: 25
+                              fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE
                           ),
                         ),
                       ],
@@ -123,7 +129,11 @@ class _MainPageState extends State<MainPage> {
             ),
             Padding(padding: EdgeInsets.only(bottom: 20),
             child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  if(widget.index == 1){
+                    _launchUrl(Uri.parse("https://www.tmr.qld.gov.au/Safety/Driver-guide/Driving-safely/Driving-tired.aspx"));
+                  }
+                },
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
@@ -162,6 +172,12 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  Future<void> _launchUrl(_url) async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -181,7 +197,7 @@ class _MainPageState extends State<MainPage> {
             softWrap: true,
             maxLines: 2,
             style: TextStyle(
-                fontSize: 30
+                fontSize: MediaQuery.of(context).size.height * SUBHEADING_TEXT_SIZE
             ),
           ),
         ),

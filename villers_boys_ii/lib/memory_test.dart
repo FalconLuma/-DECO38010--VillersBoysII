@@ -81,12 +81,13 @@ class _MemoryTest extends State<MemoryTest> {
       settings: RouteSettings(name: ModalRoute.of(context)!.settings.name)));
     } else if (widget.calibrate == false) {
       save(result);
-      Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
           builder: (context) => MainPage(
                 title: 'Fatigue Managment App',
                 user: User(name, age, reaction, memory),
                 index: 2,
-              )));
+              )),
+        (route) => false);
     } else {
       widget.driveAssessment?.setMemoryScore(result);
       DriveAssessment da;
