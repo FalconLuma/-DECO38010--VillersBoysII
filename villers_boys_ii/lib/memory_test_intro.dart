@@ -7,7 +7,7 @@ import 'package:villers_boys_ii/user.dart';
 
 import 'memory_test.dart';
 
-class MemoryTestIntro extends StatefulWidget{
+class MemoryTestIntro extends StatefulWidget {
   MemoryTestIntro(
       {Key? key,
       required this.user,
@@ -23,8 +23,7 @@ class MemoryTestIntro extends StatefulWidget{
 }
 
 class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
-  String message =
-      'You are about to begin your baseline TYRED memory test calibration.\n'
+  String message = 'You are about to begin your baseline TYRED memory test.\n'
       '\nA sequence of numbered squares will randomly appear on a grid. The aim is to memorise their position and order. Then you will be shown numbered squares again and asked if they are in the correct position.\n'
       '\nGood luck!';
 
@@ -36,32 +35,30 @@ class _MemoryTestIntroScreen extends State<MemoryTestIntro> {
           '\nGood luck!';
     }
     return Scaffold(
-      //backgroundColor: neutral,
+        //backgroundColor: neutral,
         appBar: SimpleAppBar(
-          text:"Memory Test Introduction",
+          text: "Memory Test Introduction",
           showExitButton: ModalRoute.of(context)?.settings.name == 'preDrive' ||
               ModalRoute.of(context)?.settings.name == 'edit',
           user: widget.user,
         ),
         body: Center(
-          child:
-            Column(children: [
-              SimpleTextBox(text: message),
-              SimpleButton(
-                text: 'Begin',
-                onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MemoryTest(
-                        user: widget.user,
-                        calibrate: widget.calibrate,
-                        driveAssessment: widget.driveAssessment,
-                      ),
-                      settings: RouteSettings(
-                          name: ModalRoute.of(context)!.settings.name)));
-                },
-              )
-        ]),
-      )
-    );
+          child: Column(children: [
+            SimpleTextBox(text: message),
+            SimpleButton(
+              text: 'Begin',
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MemoryTest(
+                          user: widget.user,
+                          calibrate: widget.calibrate,
+                          driveAssessment: widget.driveAssessment,
+                        ),
+                    settings: RouteSettings(
+                        name: ModalRoute.of(context)!.settings.name)));
+              },
+            )
+          ]),
+        ));
   }
 }
