@@ -71,9 +71,9 @@ class _DrivingPageState extends State<DrivingPage> {
 
   void _showRecommendations(BuildContext context, int fatigueLevel) {
     debugPrint(fatigueLevel.toString());
-    if (fatigueLevel == 1) {
+    if (fatigueLevel == 0) {
       _driverTips = _fatigueLevelLow;
-    } else if (fatigueLevel == 2) {
+    } else if (fatigueLevel == 1) {
       _driverTips = _fatigueLevelMedium;
     } else {
       _driverTips = _fatigueLevelHigh;

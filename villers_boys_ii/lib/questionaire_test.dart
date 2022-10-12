@@ -311,7 +311,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: neutral,
+                              primary: neutral,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_INPUT))),
                               fixedSize: Size(
                                   MediaQuery.of(context).size.width * _ebWidth,
