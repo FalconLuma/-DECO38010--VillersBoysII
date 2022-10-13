@@ -205,7 +205,7 @@ class _DrivingPageState extends State<DrivingPage> {
       _elapsed = stopwatch.elapsed;
     });
 
-    if (_elapsed >= widget.restInterval && !_timeSim) {
+    if (_elapsed >= widget.restInterval || !_timeSim) {
       setState(() {
         _reccStop = true;
         if (!_vibrated) {
@@ -262,8 +262,21 @@ class _DrivingPageState extends State<DrivingPage> {
       // Before start-----------------------------------------------------------
       Padding(padding: EdgeInsets.all(20),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(_fatigueDescs[widget.level]),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_fatigueDescs[widget.level],
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              )
+
+            ),
             GestureDetector(
               onTap: (){
                 _startTimer();
@@ -277,58 +290,76 @@ class _DrivingPageState extends State<DrivingPage> {
                   )
               ),
             ),
-            Visibility(
-              visible: widget.level != 2,
-              child: Text('Tap to begin your drive')
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Visibility(
+                      visible: widget.level != 2,
+                      child: Text('Tap to begin your drive')
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                        boxShadow: [BoxShadow(
+                          color: Colors.grey.withOpacity(0.8),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                          offset: Offset(0, 2),
+                        )]
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        _timeString(_elapsed + _totalDuration),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.height * SUBHEADING_TEXT_SIZE,
+                            fontStyle: FontStyle.italic
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
-                  boxShadow: [BoxShadow(
-                    color: Colors.grey.withOpacity(0.8),
-                    spreadRadius: 2,
-                    blurRadius: 1,
-                    offset: Offset(0, 2),
-                  )]
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                    _timeString(_elapsed + _totalDuration)
-                ),
-              ),
-            )
           ],
         ),
       ),
       // Timer Running----------------------------------------------------------
       Padding(padding: EdgeInsets.all(20),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: (){
-                      _heartRateText = _heartRateDrop;
-                      _startVibrate();
-                    },
-                    icon: ImageIcon(AssetImage(heart),
-                    color: darkBlue,
-                    size: 50,
-                  )
-                ),
-                IconButton(
-                    onPressed: (){
-                      _timeSim = true;
-                    },
-                    icon: ImageIcon(AssetImage(clock),
-                    color: darkBlue,
-                    size: 50,
-                  )
-                ),
-              ],
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.11,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: (){
+                        _heartRateText = _heartRateDrop;
+                        _startVibrate();
+                      },
+                      icon: ImageIcon(AssetImage(heart),
+                        color: darkBlue,
+                        size: MediaQuery.of(context).size.width * 0.1,
+                      )
+                  ),
+                  IconButton(
+                      onPressed: (){
+                        _timeSim = true;
+                      },
+                      icon: ImageIcon(AssetImage(clock),
+                        color: darkBlue,
+                        size: MediaQuery.of(context).size.width * 0.1,
+                      )
+                  ),
+                ],
+              ),
             ),
             GestureDetector(
               onTap: (){
@@ -343,22 +374,41 @@ class _DrivingPageState extends State<DrivingPage> {
                   )
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
-                  boxShadow: [BoxShadow(
-                    color: Colors.grey.withOpacity(0.8),
-                    spreadRadius: 2,
-                    blurRadius: 1,
-                    offset: Offset(0, 2),
-                  )]
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                    _timeString(_elapsed + _totalDuration)
-                ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("You should take a break now",
+                    style: TextStyle(
+                      color: _reccStop? neutral : darkBlue
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                        boxShadow: [BoxShadow(
+                          color: Colors.grey.withOpacity(0.8),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                          offset: Offset(0, 2),
+                        )]
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        _timeString(_elapsed + _totalDuration),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * SUBHEADING_TEXT_SIZE,
+                          fontStyle: FontStyle.italic
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             )
           ],
@@ -367,11 +417,18 @@ class _DrivingPageState extends State<DrivingPage> {
       //Paused Screen-----------------------------------------------------------
       Padding(padding: EdgeInsets.all(20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-              _timeString(_elapsed + _totalDuration)
+            _timeString(_elapsed + _totalDuration),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * SUBHEADING_TEXT_SIZE,
+                fontStyle: FontStyle.italic
+            ),
           ),
           Container(
+            height: MediaQuery.of(context).size.height * 0.6,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
@@ -385,17 +442,37 @@ class _DrivingPageState extends State<DrivingPage> {
             child: Padding(
                 padding: EdgeInsets.all(20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Your drive is currently paused. \n\n'
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Your drive is currently paused. \n',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE
+                          ),
+                        ),
+                        Text(widget.level != 2?
                         'Please take this opportunity to take a break from driving to reduce your liklihood of a fatigue related crash.'
+                            :
+                        'You must stop driving and rest as soon as possible to reduce your liklihood of a fatigue related crash.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE
+                          ),
+                        ),
+                      ],
                     ),
                     ElevatedButton(
                         onPressed: (){
                           _startTimer();
                         },
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(MediaQuery.of(context).size.width * 0.5,
+                              MediaQuery.of(context).size.height * _ebHeight),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON)
                             )
                             )
                         ),
@@ -403,7 +480,7 @@ class _DrivingPageState extends State<DrivingPage> {
                             padding: EdgeInsets.all(10),
                             child: Text('Resume',
                               style: TextStyle(
-                                  fontSize: 25,
+                                  fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white
                               ),
@@ -426,17 +503,19 @@ class _DrivingPageState extends State<DrivingPage> {
                         )),
                         (route) => false);
               },
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(MediaQuery.of(context).size.width * 0.5,
+                MediaQuery.of(context).size.height * _ebHeight),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON)
                   )
-                  )
+                )
               ),
               child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Text('End Drive',
                     style: TextStyle(
-                        fontSize: 25,
+                        fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
                         fontWeight: FontWeight.bold,
                         color: Colors.white
                     ),
@@ -481,7 +560,7 @@ class _DrivingPageState extends State<DrivingPage> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline
+                decoration: TextDecoration.underline,
               ),
             ),
           ],
@@ -493,42 +572,70 @@ class _DrivingPageState extends State<DrivingPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Visibility(
-              visible: _vibrate,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _vibrate = false;
-                  });
-                },
-                icon: ImageIcon(
-                  AssetImage(bellColour,),
-                  size: 50,
-                  color: darkBlue,
-                )
-              ),
-              replacement: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _vibrate = true;
-                    });
-                  },
-                icon: ImageIcon(
-                  AssetImage(bellOutline),
-                  size: 50,
-                  color: deselectedColor,
-                )
+            Padding(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Visibility(
+                    visible: _vibrate,
+                    replacement: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _vibrate = true;
+                          });
+                        },
+                        icon: ImageIcon(
+                          AssetImage(bellOutline),
+                          size: 50,
+                          color: deselectedColor,
+                        )
+                    ),
+                    child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _vibrate = false;
+                          });
+                        },
+                        icon: ImageIcon(
+                          AssetImage(bellColour,),
+                          size: 50,
+                          color: darkBlue,
+                        )
+                    ),
+                  ),
+                  Text("Smart Seatbelt",
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.015,
+                        fontWeight: FontWeight.normal
+                    ),
+                  )
+                ],
               ),
             ),
-            IconButton(
-              onPressed: () {
-                _showRecommendations(context, widget.level);
-              },
-              icon: ImageIcon(
-                AssetImage(infoIconOutline),
-                size: 50,
-                color: deselectedColor,
-              )
+            Padding(
+                padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.05),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        _showRecommendations(context, widget.level);
+                      },
+                      icon: ImageIcon(
+                        AssetImage(infoIconOutline),
+                        size: 50,
+                        color: deselectedColor,
+                      )
+                  ),
+                  Text("Fatigue Help",
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.015,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         )

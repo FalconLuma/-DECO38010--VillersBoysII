@@ -130,7 +130,7 @@ class _MainPageState extends State<MainPage> {
             Padding(padding: EdgeInsets.only(bottom: 20),
             child: ElevatedButton(
                 onPressed: (){
-                  if(widget.index == 1){
+                  if(_selectedIndex == 1){
                     _launchUrl(Uri.parse("https://www.tmr.qld.gov.au/Safety/Driver-guide/Driving-safely/Driving-tired.aspx"));
                   }
                 },
