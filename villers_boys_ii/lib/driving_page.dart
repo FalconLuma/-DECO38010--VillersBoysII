@@ -40,12 +40,9 @@ class _DrivingPageState extends State<DrivingPage> {
   bool _showHeartRate = false;
   bool _timeSim = false;
   final _ebHeight = 0.07;
-  final _ebSidePad = 0.2;
-  final _ebTopPad = 0.02;
 
   var _heartRateText = ['67', '64', '65', '68', '63'];
   final _heartRateDrop = ['40', '40', '40', '40', '40'];
-  final _buttonTexts = ['Start', 'Pause', 'Resume'];
 
   final _fatigueHeads = ['YOU ARE NOT FATIGUED', 'YOU ARE FATIGUED', 'YOU SHOULD NOT DRIVE'];
   final _fatigueDescs = ['You are not at an increased risk of a fatigue related crash',
@@ -80,10 +77,10 @@ class _DrivingPageState extends State<DrivingPage> {
       context: context,
       backgroundColor: neutral,
       isScrollControlled: true,
-      shape:RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(BORDER_RADIUS_CONTAINER),
-      topRight: Radius.circular(BORDER_RADIUS_CONTAINER))
+      shape:const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(BORDER_RADIUS_CONTAINER),
+          topRight: Radius.circular(BORDER_RADIUS_CONTAINER))
       ),
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
@@ -92,7 +89,7 @@ class _DrivingPageState extends State<DrivingPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Text(
                   'Driver Fatigue Tips',
                   style: TextStyle(
@@ -112,17 +109,17 @@ class _DrivingPageState extends State<DrivingPage> {
               )
             ],
           ),
-          Padding(padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          Padding(padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                borderRadius: const BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                 boxShadow: [BoxShadow(
                   color: Colors.grey.withOpacity(0.8),
                   spreadRadius: 2,
                   blurRadius: 1,
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                 )]
               ),
               constraints: BoxConstraints(
@@ -139,7 +136,7 @@ class _DrivingPageState extends State<DrivingPage> {
                 ),
               ),
           ),
-          Padding(padding: EdgeInsets.only(bottom: 20),
+          Padding(padding: const EdgeInsets.only(bottom: 20),
             child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -147,7 +144,7 @@ class _DrivingPageState extends State<DrivingPage> {
               style: ElevatedButton.styleFrom(
                   fixedSize: Size(MediaQuery.of(context).size.width * 0.8,
                       MediaQuery.of(context).size.height * _ebHeight),
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
                   )
               ),
@@ -183,7 +180,7 @@ class _DrivingPageState extends State<DrivingPage> {
     });
     stopwatch.stop();
     if(_timeSim){
-      _totalDuration += Duration(hours: 2);
+      _totalDuration += const Duration(hours: 2);
     }
     _timeSim = false;
     stopwatch.reset();
@@ -235,7 +232,7 @@ class _DrivingPageState extends State<DrivingPage> {
   String _timeString(Duration d) {
     /// Returns a duration as a string in HH:MM:SS Format
     if(_timeSim){
-      d += Duration(hours: 2, minutes: 0, seconds: 0);
+      d += const Duration(hours: 2, minutes: 0, seconds: 0);
     }
     int hours = d.inHours;
     int mins = d.inMinutes - (hours * 60);
@@ -258,9 +255,10 @@ class _DrivingPageState extends State<DrivingPage> {
   }
 
   Widget _getBody(BuildContext context){
-    var _bodys  = [
+    /// Returns one of three posible bodies for depending on the timer state
+    var bodys  = [
       // Before start-----------------------------------------------------------
-      Padding(padding: EdgeInsets.all(20),
+      Padding(padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -282,7 +280,7 @@ class _DrivingPageState extends State<DrivingPage> {
                 _startTimer();
               },
               child: SimpleShadow(
-                  offset: Offset(0,5),
+                  offset: const Offset(0,5),
                   sigma: 4,
                   child: Image(
                     image: AssetImage(tyredLogo),
@@ -297,22 +295,22 @@ class _DrivingPageState extends State<DrivingPage> {
                 children: [
                   Visibility(
                       visible: widget.level != 2,
-                      child: Text('Tap to begin your drive')
+                      child: const Text('Tap to begin your drive')
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.75,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                        borderRadius: const BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                         boxShadow: [BoxShadow(
                           color: Colors.grey.withOpacity(0.8),
                           spreadRadius: 2,
                           blurRadius: 1,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         )]
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Text(
                         _timeString(_elapsed + _totalDuration),
                         textAlign: TextAlign.center,
@@ -330,7 +328,7 @@ class _DrivingPageState extends State<DrivingPage> {
         ),
       ),
       // Timer Running----------------------------------------------------------
-      Padding(padding: EdgeInsets.all(20),
+      Padding(padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -366,7 +364,7 @@ class _DrivingPageState extends State<DrivingPage> {
                 _pauseTimer();
               },
               child: SimpleShadow(
-                  offset: Offset(0,5),
+                  offset: const Offset(0,5),
                   sigma: 4,
                   child: Image(
                     image: AssetImage(tyredPause),
@@ -388,16 +386,16 @@ class _DrivingPageState extends State<DrivingPage> {
                     width: MediaQuery.of(context).size.width * 0.75,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                        borderRadius: const BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                         boxShadow: [BoxShadow(
                           color: Colors.grey.withOpacity(0.8),
                           spreadRadius: 2,
                           blurRadius: 1,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         )]
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Text(
                         _timeString(_elapsed + _totalDuration),
                         textAlign: TextAlign.center,
@@ -415,7 +413,7 @@ class _DrivingPageState extends State<DrivingPage> {
         ),
       ),
       //Paused Screen-----------------------------------------------------------
-      Padding(padding: EdgeInsets.all(20),
+      Padding(padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -431,16 +429,16 @@ class _DrivingPageState extends State<DrivingPage> {
             height: MediaQuery.of(context).size.height * 0.6,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                borderRadius: const BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                 boxShadow: [BoxShadow(
                   color: Colors.grey.withOpacity(0.8),
                   spreadRadius: 2,
                   blurRadius: 1,
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                 )]
             ),
             child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -471,13 +469,13 @@ class _DrivingPageState extends State<DrivingPage> {
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(MediaQuery.of(context).size.width * 0.5,
                               MediaQuery.of(context).size.height * _ebHeight),
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON)
-                            )
+                              )
                             )
                         ),
                         child: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Text('Resume',
                               style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
@@ -506,13 +504,13 @@ class _DrivingPageState extends State<DrivingPage> {
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.5,
                 MediaQuery.of(context).size.height * _ebHeight),
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON)
                   )
                 )
               ),
               child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text('End Drive',
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,
@@ -527,7 +525,7 @@ class _DrivingPageState extends State<DrivingPage> {
     ),
     ];
 
-    return _bodys[_timerMode];
+    return bodys[_timerMode];
   }
 
   @override

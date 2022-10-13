@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) => QuestionairePage(user: widget.user)));
               },
               child: SimpleShadow(
-                offset: Offset(0,5),
+                offset: const Offset(0,5),
                 sigma: 4,
                 child: Image(
                   image: AssetImage(tyredLogo),

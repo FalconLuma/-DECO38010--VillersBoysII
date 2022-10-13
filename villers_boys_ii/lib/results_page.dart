@@ -7,7 +7,7 @@ import 'package:villers_boys_ii/user.dart';
 import 'main_page.dart';
 
 class ResultsPage extends StatefulWidget {
-  ResultsPage({Key? key, required this.user, required this.driveAssessment})
+  const ResultsPage({Key? key, required this.user, required this.driveAssessment})
       : super(key: key);
   final User user;
   final DriveAssessment driveAssessment;
@@ -71,17 +71,17 @@ class _ResultsPageState extends State<ResultsPage> {
         body: Center(
           child: Column(
             children: [
-              Padding(padding: EdgeInsets.all(20),
+              Padding(padding: const EdgeInsets.all(20),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                      borderRadius: const BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                       boxShadow: [BoxShadow(
                         color: Colors.grey.withOpacity(0.8),
                         spreadRadius: 2,
                         blurRadius: 1,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       )]
                   ),
                   constraints: BoxConstraints(
@@ -107,12 +107,12 @@ class _ResultsPageState extends State<ResultsPage> {
                           )));
                 },
                 style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
                     ))
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 30, right: 30),
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 30, right: 30),
                   child: Text('Finish',
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.height * BODY_TEXT_SIZE,

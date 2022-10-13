@@ -24,65 +24,6 @@ class _SettingsPageState extends State<SettingsPage> {
   String message2 = "";
   bool connected = false;
   bool flag = false;
-  final _ebHeight = 0.07;
-  final _ebSidePad = 0.02;
-  final _ebTopPad = 0.02;
-
-  void _showRecommendations(BuildContext context) {
-    /// Opens a dialog box to choose between pausing or resetting the timer
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          title: Text(
-            "Smart Seatbelt",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height *
-                    SUBHEADING_TEXT_SIZE /
-                    1.2),
-          ),
-          backgroundColor: neutral,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: Text(
-                //Information about the smart seatbelt
-                "The Smart Seatbelt® device can connect to the TYRED app.\n"
-                "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.",
-                style: TextStyle(
-                    fontSize:
-                        MediaQuery.of(context).size.height * BODY_TEXT_SIZE),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * _ebSidePad,
-                  right: MediaQuery.of(context).size.width * _ebSidePad,
-                  top: MediaQuery.of(context).size.height * _ebTopPad),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width * 0.05,
-                        MediaQuery.of(context).size.height * _ebHeight)),
-                child: Text(
-                  "Close",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height *
-                          MENU_BUTTON_TEXT_SIZE),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,16 +36,16 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 alignment: Alignment.topCenter,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
+                    borderRadius: const BorderRadius.all(Radius.circular(BORDER_RADIUS_CONTAINER)),
                     boxShadow: [BoxShadow(
                       color: Colors.grey.withOpacity(0.8),
                       spreadRadius: 2,
                       blurRadius: 1,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     )]
                 ),
                 height: MediaQuery.of(context).size.height * 0.3,
@@ -124,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         children: [
                           Text(
                             message2,
-                            style:TextStyle(fontSize: 27)),
+                            style: const TextStyle(fontSize: 27)),
                           SlidingSwitch(
                             value: connected,
                             height: 30,
@@ -170,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 fixedSize: MaterialStateProperty.all(Size(
                     MediaQuery.of(context).size.width * 0.8,
                     MediaQuery.of(context).size.height * 0.07)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
                 ))
               ),

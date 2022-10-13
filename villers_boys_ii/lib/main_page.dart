@@ -46,6 +46,7 @@ class _MainPageState extends State<MainPage> {
   List<String> appBarText = ["Smart Seatbelt", 'Driving fatigued can kill', "User Profile"];
   String seatbeltInfo = "The Smart Seatbelt® device can connect to the TYRED app.\n"
   "\nVibration notifications are provided to you if dangerous levels of driver fatigue is detected by it's heart rate measuring technology.";
+
   //https://www.tmr.qld.gov.au/Safety/Driver-guide/Driving-safely/Driving-tired.aspx
   String mainInfo = "Fatigue isn't just about falling asleep while driving.\n\n"
   "Even brief lapses in concentration can have serious consequences.\n\n"
@@ -172,9 +173,9 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  Future<void> _launchUrl(_url) async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
+  Future<void> _launchUrl(url) async {
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
     }
   }
 
