@@ -7,8 +7,7 @@ Nicolas Carrasco - https://github.com/DarkWolf45 \
 Isaac Flower - https://github.com/Isaac-F \
 Kudzi Maphosa - https://github.com/kudziru
 
-Icon Attributions: \
-Driving Control - Icon made by Prashanth Rapolu 15 from www.flaticon.com
+The majority of the code we developed throughout the semester lies within villers_boys_ii/lib, the remaining is mostly generated automatically by flutter. With some exceptions for the villers_boys/images (icons from other sources, references within villers_boys_ii/lib/constants.dart). Some of the files within the villers_boys_ii/android folder have also been modified.
 
 # Software
 Flutter - https://flutter.dev/ \
