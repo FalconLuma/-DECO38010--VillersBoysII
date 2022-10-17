@@ -379,7 +379,7 @@ class _DrivingPageState extends State<DrivingPage> {
                 children: [
                   Text("You should take a break now",
                     style: TextStyle(
-                      color: _reccStop? neutral : darkBlue
+                      color: _reccStop? darkBlue : neutral
                     ),
                   ),
                   Container(
