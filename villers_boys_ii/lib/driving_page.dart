@@ -202,7 +202,7 @@ class _DrivingPageState extends State<DrivingPage> {
       _elapsed = stopwatch.elapsed;
     });
 
-    if (_elapsed >= widget.restInterval || !_timeSim) {
+    if (_elapsed >= widget.restInterval || _timeSim) {
       setState(() {
         _reccStop = true;
         if (!_vibrated) {
