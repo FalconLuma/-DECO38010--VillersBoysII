@@ -29,6 +29,7 @@ class _ReactionTestState extends State<ReactionTimeTest> {
   bool shownIntro = false;
   int _tNum = 0; // Test number
   bool calibrate = false;
+  bool visible = false;
 
   // Create a list of reaction times
   List<int> rTimes = List.filled(10, 0, growable: true);
@@ -36,6 +37,14 @@ class _ReactionTestState extends State<ReactionTimeTest> {
   @override
   Widget build(BuildContext context) {
     int startTime = DateTime.now().millisecondsSinceEpoch;
+    if (!visible) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          visible = true;
+          startTime = DateTime.now().millisecondsSinceEpoch;
+        });
+      });
+    }
     double buttonWidth = 50;
 
     // Screen size. Account for status bar, app bar, and button width for height.
@@ -68,55 +77,61 @@ class _ReactionTestState extends State<ReactionTimeTest> {
               child: SizedBox(
                   width: buttonWidth,
                   height: buttonWidth,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
-                      )
-                      )),
-                    onPressed: () {
-                      int endTime = DateTime.now().millisecondsSinceEpoch;
-                      rTimes[_tNum] = endTime - startTime;
-                      if (_tNum < 9) {
-                        // Set the state to new button location for each test.
-                        setState(() {
-                          _tNum++;
-                        });
-                        debugPrint(rTimes.toString());
-                      } else {
-                        //Disregard two smallest reaction time measurements
-                        rTimes.remove(rTimes.min);
-                        rTimes.remove(rTimes.min);
+                  child: Visibility (
+                    visible: visible,
+                    child:
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_BUTTON))
+                        )),
+                        backgroundColor: MaterialStateProperty.all<Color>(secondary),
 
-                        //Disregard two largest reaction time measurements
-                        rTimes.remove(rTimes.max);
-                        rTimes.remove(rTimes.max);
-
-                        //Calculate average
-                        double average = rTimes.average;
-                        debugPrint(rTimes.toString());
-                        debugPrint("Your average reaction time is: $average");
-
-                        //Put this in an if statement to only run if its a setup/calibration version
-                        if (widget.calibrate == false) {
-                          save(average);
+                      ),
+                      onPressed: () {
+                        int endTime = DateTime.now().millisecondsSinceEpoch;
+                        rTimes[_tNum] = endTime - startTime;
+                        if (_tNum < 9) {
+                          // Set the state to new button location for each test.
+                          setState(() {
+                            _tNum++;
+                          });
+                          debugPrint(rTimes.toString());
                         } else {
-                          widget.driveAssessment?.setReactionTime(average);
-                        }
+                          //Disregard two smallest reaction time measurements
+                          rTimes.remove(rTimes.min);
+                          rTimes.remove(rTimes.min);
 
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MemoryTestIntro(
-                                  user: widget.user,
-                                  calibrate: widget.calibrate,
-                                  driveAssessment: widget.driveAssessment,
-                                ),
-                            settings: RouteSettings(
-                                name: ModalRoute.of(context)!.settings.name)));
-                      }
-                    },
-                    child: const Icon(Icons.close_rounded),
-                  )))
+                          //Disregard two largest reaction time measurements
+                          rTimes.remove(rTimes.max);
+                          rTimes.remove(rTimes.max);
+
+                          //Calculate average
+                          double average = rTimes.average;
+                          debugPrint(rTimes.toString());
+                          debugPrint("Your average reaction time is: $average");
+
+                          //Put this in an if statement to only run if its a setup/calibration version
+                          if (widget.calibrate == false) {
+                            save(average);
+                          } else {
+                            widget.driveAssessment?.setReactionTime(average);
+                          }
+
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => MemoryTestIntro(
+                                    user: widget.user,
+                                    calibrate: widget.calibrate,
+                                    driveAssessment: widget.driveAssessment,
+                                  ),
+                              settings: RouteSettings(
+                                  name: ModalRoute.of(context)!.settings.name)));
+                        }
+                      },
+                      child: const Icon(Icons.close_rounded),
+                    )))
+          )
         ]));
   }
 
