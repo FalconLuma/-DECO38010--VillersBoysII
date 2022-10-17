@@ -280,6 +280,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                     ),
                   ),
                 ),
+                // Show the question buttons
                 for (int i = 0; i < numQuestions; i++)
                   Expanded(
                     flex: 4,
@@ -311,7 +312,7 @@ class _QuestionaireTestState extends State<QuestionaireTestPage> {
                               });
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: neutral,
+                              backgroundColor: neutral,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(BORDER_RADIUS_INPUT))),
                               fixedSize: Size(
                                   MediaQuery.of(context).size.width * _ebWidth,

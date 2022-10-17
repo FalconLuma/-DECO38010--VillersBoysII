@@ -54,6 +54,7 @@ class _MemoryTest extends State<MemoryTest> {
   bool showQuestion = false;
   int questionNum = 0;
 
+  /// Set the result for generating a fatigue level or baseline result
   void _setResult() {
     double result = 0;
     for (int i = 0; i < numQuestions; i++) {
@@ -104,9 +105,7 @@ class _MemoryTest extends State<MemoryTest> {
     }
   }
 
-  /*
-  Generate a question
-   */
+  /// Generate a question
   void _generateQuestion(int index) {
     var rng = Random();
     if (rng.nextBool()) {
@@ -121,6 +120,7 @@ class _MemoryTest extends State<MemoryTest> {
     }
   }
 
+  /// Generate a random sequence of tiles
   void _genRandSequence() {
     // Create random sequence
     var rng = Random();
@@ -150,6 +150,7 @@ class _MemoryTest extends State<MemoryTest> {
     debugPrint("Question positions: $questionPosition");
   }
 
+  /// Update the board to show the next tile in the sequence
   void _updateBoard() {
     _genRandSequence();
     questionNum = 0;
@@ -179,6 +180,7 @@ class _MemoryTest extends State<MemoryTest> {
     });
   }
 
+  /// Show the next question
   void _nextQuestion() {
     questionNum++;
     // Hide previous tile

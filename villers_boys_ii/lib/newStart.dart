@@ -5,11 +5,11 @@ import 'package:villers_boys_ii/newStartPrompt.dart';
 import 'package:villers_boys_ii/simple_appbar.dart';
 import 'package:villers_boys_ii/user.dart';
 
-//This page lets the user enter a
-//user name and age which can be used
-//in the calibration/resetting profile process
-//Takes in a user and a flag (flag = true means return to home page,
-// flag = false means return to profile page)
+/// This page lets the user enter a
+/// user name and age which can be used
+/// in the calibration/resetting profile process
+/// Takes in a user and a flag (flag = true means return to home page,
+/// flag = false means return to profile page)
 class newStart extends StatefulWidget {
   const newStart({Key? key, required this.user, required this.flag})
       : super(key: key);

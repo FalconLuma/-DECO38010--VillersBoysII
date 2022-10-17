@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/constants.dart';
 
-
+/// A simple text box that fits the style off the Tyred application
 class SimpleTextBox extends StatefulWidget{
   const SimpleTextBox({Key? key, required this.text})
       : super(key: key);

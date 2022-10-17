@@ -6,6 +6,7 @@ import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Prompt the user for their user details
 class newStartPrompt extends StatefulWidget {
   const newStartPrompt({Key? key, required this.user, required this.flag})
       : super(key: key);

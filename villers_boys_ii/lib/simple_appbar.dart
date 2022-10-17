@@ -5,6 +5,8 @@ import 'package:villers_boys_ii/main_page.dart';
 import 'package:villers_boys_ii/user.dart';
 import 'package:villers_boys_ii/StartCalibrate.dart';
 
+/// A simple appbar that sometimes will display a cross and fits the desired
+/// style for the Tyred application
 class SimpleAppBar extends StatefulWidget implements PreferredSizeWidget{
 
   const SimpleAppBar({Key? key, required this.text, this.questionaire = false, this.showExitButton = true, required this.user})

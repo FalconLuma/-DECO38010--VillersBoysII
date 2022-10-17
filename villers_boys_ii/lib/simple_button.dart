@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:villers_boys_ii/constants.dart';
 
+/// A simple button that is in the style of the Tyred application
 class SimpleButton extends StatefulWidget{
   const SimpleButton({Key? key, required this.onPressed, required this.text})
       : super(key: key);
