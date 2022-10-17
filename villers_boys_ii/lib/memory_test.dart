@@ -271,7 +271,7 @@ class _MemoryTest extends State<MemoryTest> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.05),
+                            MediaQuery.of(context).size.height * 0.04),
                         child: SimpleButton(
                             text: "Yes",
                             onPressed: () {
@@ -284,7 +284,7 @@ class _MemoryTest extends State<MemoryTest> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.05),
+                            MediaQuery.of(context).size.height * 0.04),
                         child: SimpleButton(
                           text: "No",
                             onPressed: () {
